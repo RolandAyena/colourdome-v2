@@ -318,7 +318,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className={`${darkMode ? 'dark' : ''} min-h-screen font-sans transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
+    <div className={`min-h-screen font-sans transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
       
       {/* --- TOP BAR --- */}
       <div className={`border-b text-xs py-2 px-4 md:px-12 transition-colors ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-200 text-slate-600'}`}>
@@ -345,13 +345,13 @@ export default function HomePage() {
               >
                 {lang.toUpperCase()}
               </button>
-{/*               <button 
+              <button 
                 onClick={toggleTheme}
                 className="p-1.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
                 title="Basculer le mode sombre / clair"
               >
                 {darkMode ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} />}
-              </button> */}
+              </button>
             </div>
           </div>
         </div>
@@ -445,7 +445,7 @@ export default function HomePage() {
               alt="Colour Dome Montréal"
               width={220}
               height={70}
-              className="theme-logo object-contain h-16 md:h-20 w-auto"
+              className="object-contain h-16 md:h-20 w-auto"
               priority
             />
           </div>

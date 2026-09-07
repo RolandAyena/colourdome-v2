@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-/* Le thème est piloté par le bouton de l'application, pas par le système. */
-@custom-variant dark (&:where(.dark, .dark *));
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -16,21 +13,17 @@
   --font-mono: var(--font-geist-mono);
 }
 
-.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Les logos fournis sont optimisés pour un fond clair. En sombre, on garde
-   leur silhouette lisible sans modifier le fichier source de l'asset. */
-.dark .theme-logo {
-  filter: brightness(0) invert(1) drop-shadow(0 0 12px rgb(255 255 255 / 0.12));
 }
 
 /* =========================================================

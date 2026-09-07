@@ -111,8 +111,6 @@ const translations = {
     firstName: "Prénom *", lastName: "Nom *", email: "Courriel *", phone: "Téléphone",
     serviceSelect: "Service souhaité *", message: "Message *", submitBtn: "Envoyer ma demande",
     successMsg: "Votre message a bien été envoyé. Nous vous répondrons sous 48h.",
-    errorMsg: "Votre message n’a pas pu être envoyé. Veuillez réessayer.",
-    sendingMsg: "Envoi en cours…",
     // Footer
     footerDesc: "Cabinet spécialisé dans les services comptables, fiscaux et juridiques. Établi à Montréal, Canada depuis plus de 15 ans.",
     footerRights: "© 2026 Colour Dome Montréal · Tous droits réservés"
@@ -217,8 +215,6 @@ const translations = {
     firstName: "First Name *", lastName: "Last Name *", email: "Email *", phone: "Phone",
     serviceSelect: "Desired service *", message: "Message *", submitBtn: "Send my request",
     successMsg: "Your message has been sent successfully. We will respond within 48h.",
-    errorMsg: "Your message could not be sent. Please try again.",
-    sendingMsg: "Sending…",
     // Footer
     footerDesc: "Firm specialized in accounting, tax, and legal services. Established in Montréal, Canada for over 15 years.",
     footerRights: "© 2026 Colour Dome Montréal · All rights reserved"
@@ -242,8 +238,6 @@ export default function HomePage() {
     message: ''
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formError, setFormError] = useState('');
-  const [isSending, setIsSending] = useState(false);
 
   const t = translations[lang];
 
@@ -255,70 +249,25 @@ export default function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    const revealElements = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
-
-    if (!('IntersectionObserver' in window)) {
-      revealElements.forEach((element) => element.classList.add('is-visible'));
-      return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      rootMargin: '0px 0px -12% 0px',
-      threshold: 0.12,
-    });
-
-    revealElements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, []);
-
   const toggleTheme = () => {
     setDarkMode(!darkMode);
   };
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setFormError('');
   };
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isSending) return;
-
-    setIsSending(true);
-    setFormError('');
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      const result = await response.json().catch(() => ({}));
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || t.errorMsg);
-      }
-
-      setFormSubmitted(true);
+    setFormSubmitted(true);
+    setTimeout(() => {
+      setFormSubmitted(false);
       setFormData({ firstName: '', lastName: '', email: '', phone: '', service: '', message: '' });
-      setTimeout(() => setFormSubmitted(false), 5000);
-    } catch (error) {
-      setFormError(error instanceof Error ? error.message : t.errorMsg);
-    } finally {
-      setIsSending(false);
-    }
+    }, 4000);
   };
 
   return (
-    <div className={`${darkMode ? 'dark' : ''} min-h-screen font-sans transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
+    <div className={`min-h-screen font-sans transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
       
       {/* --- TOP BAR --- */}
       <div className={`border-b text-xs py-2 px-4 md:px-12 transition-colors ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-200 text-slate-600'}`}>
@@ -345,13 +294,13 @@ export default function HomePage() {
               >
                 {lang.toUpperCase()}
               </button>
-{/*               <button 
+              <button 
                 onClick={toggleTheme}
                 className="p-1.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
                 title="Basculer le mode sombre / clair"
               >
                 {darkMode ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} />}
-              </button> */}
+              </button>
             </div>
           </div>
         </div>
@@ -437,15 +386,14 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 md:px-12 relative z-10">
           
           {/* Main Hero Card */}
-          <div data-reveal className={`reveal reveal-rise max-w-4xl mx-auto rounded-2xl p-8 md:p-14 text-center border shadow-2xl relative backdrop-blur-xl ${darkMode ? 'bg-slate-900/80 border-slate-800/80' : 'bg-white/80 border-white/90'}`}>
-
+          <div className={`max-w-4xl mx-auto rounded-2xl p-8 md:p-14 text-center border shadow-2xl relative backdrop-blur-xl ${darkMode ? 'bg-slate-900/80 border-slate-800/80' : 'bg-white/80 border-white/90'}`}>
           <div className="flex justify-center mb-6">
             <Image
               src="/image.png"
               alt="Colour Dome Montréal"
               width={220}
               height={70}
-              className="theme-logo object-contain h-16 md:h-20 w-auto"
+              className="object-contain h-16 md:h-20 w-auto"
               priority
             />
           </div>
@@ -469,13 +417,12 @@ export default function HomePage() {
           </div>
 
           {/* 4 Cards Grid - Key Entrance Links */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 items-stretch">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
             
             {/* Card 1 */}
             <div 
               onClick={() => setActiveModal('services')}
-              data-reveal
-              className={`reveal reveal-rise reveal-delay-1 h-full p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-emerald-500/50' : 'bg-white border-slate-200 hover:border-emerald-500/50'}`}
+              className={`p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-emerald-500/50' : 'bg-white border-slate-200 hover:border-emerald-500/50'}`}
             >
               <div className="w-12 h-12 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <Calculator size={24} />
@@ -493,8 +440,7 @@ export default function HomePage() {
             {/* Card 2 */}
             <div 
               onClick={() => setActiveModal('approche')}
-              data-reveal
-              className={`reveal reveal-rise reveal-delay-2 h-full p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-red-500/50' : 'bg-white border-slate-200 hover:border-red-500/50'}`}
+              className={`p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-red-500/50' : 'bg-white border-slate-200 hover:border-red-500/50'}`}
             >
               <div className="w-12 h-12 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <TrendingUp size={24} />
@@ -512,8 +458,7 @@ export default function HomePage() {
             {/* Card 3 */}
             <div 
               onClick={() => setActiveModal('cabinet')}
-              data-reveal
-              className={`reveal reveal-rise reveal-delay-3 h-full p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-blue-500/50' : 'bg-white border-slate-200 hover:border-blue-500/50'}`}
+              className={`p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-blue-500/50' : 'bg-white border-slate-200 hover:border-blue-500/50'}`}
             >
               <div className="w-12 h-12 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <Building2 size={24} />
@@ -531,8 +476,7 @@ export default function HomePage() {
             {/* Card 4 */}
             <div 
               onClick={() => setActiveModal('contact')}
-              data-reveal
-              className={`reveal reveal-rise reveal-delay-4 h-full p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-teal-500/50' : 'bg-white border-slate-200 hover:border-teal-500/50'}`}
+              className={`p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-teal-500/50' : 'bg-white border-slate-200 hover:border-teal-500/50'}`}
             >
               <div className="w-12 h-12 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <Calendar size={24} />
@@ -553,53 +497,53 @@ export default function HomePage() {
 
       {/* --- SERVICES RIBBON STRIP --- */}
       <section className={`border-y py-8 transition-colors ${darkMode ? 'bg-slate-900/90 border-slate-800' : 'bg-slate-900 text-white border-slate-800'}`}>
-        <div className="max-w-7xl mx-auto px-4 md:px-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-stretch">
+        <div className="max-w-7xl mx-auto px-4 md:px-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
           
-          <div data-reveal className="reveal reveal-fade reveal-delay-1 flex flex-col items-center text-center p-2 group">
+          <div className="flex flex-col items-center text-center p-2 group">
             <div className="p-3 rounded-lg bg-emerald-500/20 text-emerald-400 mb-2 group-hover:scale-110 transition-transform">
               <Calculator size={20} />
             </div>
-            <h4 className="font-bold text-xs min-h-[2.25rem] flex items-center justify-center leading-tight px-1">{t.ribbon1Title}</h4>
+            <h4 className="font-bold text-xs">{t.ribbon1Title}</h4>
             <p className="text-[10px] text-slate-400 mt-1">{t.ribbon1Sub}</p>
           </div>
 
-          <div data-reveal className="reveal reveal-fade reveal-delay-2 flex flex-col items-center text-center p-2 group">
+          <div className="flex flex-col items-center text-center p-2 group">
             <div className="p-3 rounded-lg bg-amber-500/20 text-amber-400 mb-2 group-hover:scale-110 transition-transform">
               <Landmark size={20} />
             </div>
-            <h4 className="font-bold text-xs min-h-[2.25rem] flex items-center justify-center leading-tight px-1">{t.ribbon2Title}</h4>
+            <h4 className="font-bold text-xs">{t.ribbon2Title}</h4>
             <p className="text-[10px] text-slate-400 mt-1">{t.ribbon2Sub}</p>
           </div>
 
-          <div data-reveal className="reveal reveal-fade reveal-delay-3 flex flex-col items-center text-center p-2 group">
+          <div className="flex flex-col items-center text-center p-2 group">
             <div className="p-3 rounded-lg bg-red-500/20 text-red-400 mb-2 group-hover:scale-110 transition-transform">
               <Scale size={20} />
             </div>
-            <h4 className="font-bold text-xs min-h-[2.25rem] flex items-center justify-center leading-tight px-1">{t.ribbon3Title}</h4>
+            <h4 className="font-bold text-xs">{t.ribbon3Title}</h4>
             <p className="text-[10px] text-slate-400 mt-1">{t.ribbon3Sub}</p>
           </div>
 
-          <div data-reveal className="reveal reveal-fade reveal-delay-4 flex flex-col items-center text-center p-2 group">
+          <div className="flex flex-col items-center text-center p-2 group">
             <div className="p-3 rounded-lg bg-blue-500/20 text-blue-400 mb-2 group-hover:scale-110 transition-transform">
               <Building size={20} />
             </div>
-            <h4 className="font-bold text-xs min-h-[2.25rem] flex items-center justify-center leading-tight px-1">{t.ribbon4Title}</h4>
+            <h4 className="font-bold text-xs">{t.ribbon4Title}</h4>
             <p className="text-[10px] text-slate-400 mt-1">{t.ribbon4Sub}</p>
           </div>
 
-          <div data-reveal className="reveal reveal-fade reveal-delay-5 flex flex-col items-center text-center p-2 group">
+          <div className="flex flex-col items-center text-center p-2 group">
             <div className="p-3 rounded-lg bg-indigo-500/20 text-indigo-400 mb-2 group-hover:scale-110 transition-transform">
               <Globe size={20} />
             </div>
-            <h4 className="font-bold text-xs min-h-[2.25rem] flex items-center justify-center leading-tight px-1">{t.ribbon5Title}</h4>
+            <h4 className="font-bold text-xs">{t.ribbon5Title}</h4>
             <p className="text-[10px] text-slate-400 mt-1">{t.ribbon5Sub}</p>
           </div>
 
-          <div data-reveal className="reveal reveal-fade reveal-delay-6 flex flex-col items-center text-center p-2 group">
+          <div className="flex flex-col items-center text-center p-2 group">
             <div className="p-3 rounded-lg bg-teal-500/20 text-teal-400 mb-2 group-hover:scale-110 transition-transform">
               <Briefcase size={20} />
             </div>
-            <h4 className="font-bold text-xs min-h-[2.25rem] flex items-center justify-center leading-tight px-1">{t.ribbon6Title}</h4>
+            <h4 className="font-bold text-xs">{t.ribbon6Title}</h4>
             <p className="text-[10px] text-slate-400 mt-1">{t.ribbon6Sub}</p>
           </div>
 
@@ -611,7 +555,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 md:px-12">
           
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
-            <div data-reveal className="reveal reveal-slide-left">
+            <div>
               <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-400 mb-2 block">
                 {t.s1Badge}
               </span>
@@ -619,16 +563,16 @@ export default function HomePage() {
                 {t.s1Title1} <span className="text-red-600 dark:text-red-500">{t.s1Title2}</span>
               </h2>
             </div>
-            <p data-reveal className="reveal reveal-slide-right reveal-delay-1 text-slate-600 dark:text-slate-400 max-w-xl text-sm md:text-base">
+            <p className="text-slate-600 dark:text-slate-400 max-w-xl text-sm md:text-base">
               {t.s1Intro}
             </p>
           </div>
 
           {/* 6 Services Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
             {/* S1 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-1 h-full p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">01</span>
@@ -646,7 +590,7 @@ export default function HomePage() {
             </div>
 
             {/* S2 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-2 h-full p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">02</span>
@@ -664,7 +608,7 @@ export default function HomePage() {
             </div>
 
             {/* S3 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-3 h-full p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">03</span>
@@ -682,7 +626,7 @@ export default function HomePage() {
             </div>
 
             {/* S4 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-4 h-full p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">04</span>
@@ -700,7 +644,7 @@ export default function HomePage() {
             </div>
 
             {/* S5 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-5 h-full p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">05</span>
@@ -718,7 +662,7 @@ export default function HomePage() {
             </div>
 
             {/* S6 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-6 h-full p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">06</span>
@@ -738,7 +682,7 @@ export default function HomePage() {
           </div>
 
           {/* Banner Quote */}
-          <div data-reveal className={`reveal reveal-scale mt-16 p-8 md:p-10 rounded-2xl border flex flex-col md:flex-row justify-between items-center gap-6 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-gradient-to-r from-slate-100 to-white border-slate-200'}`}>
+          <div className={`mt-16 p-8 md:p-10 rounded-2xl border flex flex-col md:flex-row justify-between items-center gap-6 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-gradient-to-r from-slate-100 to-white border-slate-200'}`}>
             <p className="font-serif italic text-lg md:text-xl text-slate-700 dark:text-slate-300 max-w-2xl text-center md:text-left">
               {t.quote}
             </p>
@@ -754,7 +698,7 @@ export default function HomePage() {
       <section className={`py-20 border-y ${darkMode ? 'bg-slate-900/40 border-slate-800' : 'bg-slate-100/70 border-slate-200'}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-12">
           
-          <div data-reveal className="reveal reveal-blur text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block font-serif">{t.s2Eye}</span>
             <h2 className="text-3xl md:text-4xl font-extrabold font-serif">{t.s2Title}</h2>
           </div>
@@ -762,7 +706,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             
             {/* Forces */}
-            <div data-reveal className={`reveal reveal-slide-left p-8 rounded-2xl border shadow-sm ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-8 rounded-2xl border shadow-sm ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
                   <CheckCircle2 size={24} />
@@ -806,7 +750,7 @@ export default function HomePage() {
             </div>
 
             {/* Défis */}
-            <div data-reveal className={`reveal reveal-slide-right reveal-delay-1 p-8 rounded-2xl border shadow-sm ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-8 rounded-2xl border shadow-sm ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div className="p-2 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400">
                   <ShieldCheck size={24} />
@@ -851,7 +795,7 @@ export default function HomePage() {
 
           </div>
 
-          <div data-reveal className={`reveal reveal-rise mt-8 p-4 rounded-xl border flex items-center gap-3 text-sm italic ${darkMode ? 'bg-slate-900/60 border-slate-800 text-slate-300' : 'bg-white border-slate-200 text-slate-700'}`}>
+          <div className={`mt-8 p-4 rounded-xl border flex items-center gap-3 text-sm italic ${darkMode ? 'bg-slate-900/60 border-slate-800 text-slate-300' : 'bg-white border-slate-200 text-slate-700'}`}>
             <HeartHandshake className="text-blue-500 shrink-0" size={20} />
             <span>{t.s2Note}</span>
           </div>
@@ -863,7 +807,7 @@ export default function HomePage() {
       <section id="approche" className="py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 md:px-12">
           
-          <div data-reveal className="reveal reveal-clip flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block font-serif">{t.s3Eye}</span>
               <h2 className="text-3xl md:text-5xl font-extrabold font-serif">{t.s3Title}</h2>
@@ -873,10 +817,10 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
             {/* Step 1 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-1 h-full p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div className="h-1 w-full bg-emerald-500 absolute top-0 left-0"></div>
               <div>
                 <div className="flex justify-between items-center mb-4">
@@ -894,7 +838,7 @@ export default function HomePage() {
             </div>
 
             {/* Step 2 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-2 h-full p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div className="h-1 w-full bg-blue-600 absolute top-0 left-0"></div>
               <div>
                 <div className="flex justify-between items-center mb-4">
@@ -911,7 +855,7 @@ export default function HomePage() {
             </div>
 
             {/* Step 3 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-3 h-full p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div className="h-1 w-full bg-amber-500 absolute top-0 left-0"></div>
               <div>
                 <div className="flex justify-between items-center mb-4">
@@ -928,7 +872,7 @@ export default function HomePage() {
             </div>
 
             {/* Step 4 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-4 h-full p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div className="h-1 w-full bg-red-600 absolute top-0 left-0"></div>
               <div>
                 <div className="flex justify-between items-center mb-4">
@@ -953,25 +897,25 @@ export default function HomePage() {
       <section className={`py-16 border-y ${darkMode ? 'bg-slate-900/80 border-slate-800' : 'bg-slate-900 text-white border-slate-800'}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-12 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           
-          <div data-reveal className="reveal reveal-fade reveal-delay-1">
+          <div>
             <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">06+</div>
             <div className="text-sm font-semibold">{t.expYears}</div>
             <p className="text-xs text-slate-400 mt-1">{t.expSub}</p>
           </div>
 
-          <div data-reveal className="reveal reveal-rise reveal-delay-2">
+          <div>
             <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">116+</div>
             <div className="text-sm font-semibold">{t.clientsServed}</div>
             <p className="text-xs text-slate-400 mt-1">{t.clientsSub}</p>
           </div>
 
-          <div data-reveal className="reveal reveal-fade reveal-delay-3">
+          <div>
             <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">98%</div>
             <div className="text-sm font-semibold">{t.satisfactionRate}</div>
             <p className="text-xs text-slate-400 mt-1">{t.satisfactionSub}</p>
           </div>
 
-          <div data-reveal className="reveal reveal-rise reveal-delay-4">
+          <div>
             <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">48h</div>
             <div className="text-sm font-semibold">{t.responseTime}</div>
             <p className="text-xs text-slate-400 mt-1">{t.responseSub}</p>
@@ -984,110 +928,110 @@ export default function HomePage() {
       <section className="py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 md:px-12">
           
-          <div data-reveal className="reveal reveal-slide-left text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block font-serif">{t.s5Eye}</span>
             <h2 className="text-3xl md:text-4xl font-extrabold font-serif">{t.s5Title}</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* P1 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-1 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-xl border relative ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 01</span>
               <h3 className="font-bold text-lg font-serif mb-4">{t.p1Title}</h3>
               <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p1_1}</li>
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p1_2}</li>
               </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 uppercase mt-auto w-fit">Comptabilité</span>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 uppercase">Comptabilité</span>
             </div>
 
             {/* P2 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-2 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-xl border relative ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 02</span>
               <h3 className="font-bold text-lg font-serif mb-4">{t.p2Title}</h3>
               <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p2_1}</li>
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p2_2}</li>
               </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 uppercase mt-auto w-fit">Comptabilité</span>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 uppercase">Comptabilité</span>
             </div>
 
             {/* P3 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-3 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-xl border relative ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 03</span>
               <h3 className="font-bold text-lg font-serif mb-4">{t.p3Title}</h3>
               <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p3_1}</li>
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p3_2}</li>
               </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 uppercase mt-auto w-fit">Fiscalité</span>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 uppercase">Fiscalité</span>
             </div>
 
             {/* P4 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-4 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-xl border relative ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 04</span>
               <h3 className="font-bold text-lg font-serif mb-4">{t.p4Title}</h3>
               <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p4_1}</li>
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p4_2}</li>
               </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 uppercase mt-auto w-fit">Fiscalité</span>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 uppercase">Fiscalité</span>
             </div>
 
             {/* P5 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-1 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-xl border relative ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 05</span>
               <h3 className="font-bold text-lg font-serif mb-4">{t.p5Title}</h3>
               <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p5_1}</li>
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p5_2}</li>
               </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-red-500/10 text-red-600 dark:text-red-400 uppercase mt-auto w-fit">Juridique</span>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-red-500/10 text-red-600 dark:text-red-400 uppercase">Juridique</span>
             </div>
 
             {/* P6 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-2 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-xl border relative ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 06</span>
               <h3 className="font-bold text-lg font-serif mb-4">{t.p6Title}</h3>
               <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p6_1}</li>
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p6_2}</li>
               </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-red-500/10 text-red-600 dark:text-red-400 uppercase mt-auto w-fit">Juridique</span>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-red-500/10 text-red-600 dark:text-red-400 uppercase">Juridique</span>
             </div>
 
             {/* P7 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-3 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-xl border relative ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 07</span>
               <h3 className="font-bold text-lg font-serif mb-4">{t.p7Title}</h3>
               <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p7_1}</li>
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p7_2}</li>
               </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 uppercase mt-auto w-fit">International</span>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 uppercase">International</span>
             </div>
 
             {/* P8 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-4 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-xl border relative ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 08</span>
               <h3 className="font-bold text-lg font-serif mb-4">{t.p8Title}</h3>
               <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p8_1}</li>
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p8_2}</li>
               </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 uppercase mt-auto w-fit">Contentieux</span>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 uppercase">Contentieux</span>
             </div>
 
             {/* P9 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-1 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-xl border relative ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 09</span>
               <h3 className="font-bold text-lg font-serif mb-4">{t.p9Title}</h3>
               <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p9_1}</li>
                 <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p9_2}</li>
               </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-teal-500/10 text-teal-600 dark:text-teal-400 uppercase mt-auto w-fit">Stratégie</span>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-teal-500/10 text-teal-600 dark:text-teal-400 uppercase">Stratégie</span>
             </div>
 
           </div>
@@ -1102,7 +1046,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             
             {/* Left: About Text & Actors */}
-            <div data-reveal className="reveal reveal-slide-left">
+            <div>
               <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block font-serif">{t.aboutEye}</span>
               <h2 className="text-3xl md:text-4xl font-extrabold font-serif mb-6">{t.aboutTitle}</h2>
               
@@ -1114,9 +1058,9 @@ export default function HomePage() {
                 {t.aboutBody}
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
-                <div data-reveal className={`reveal reveal-fade reveal-delay-1 h-full p-4 rounded-xl border flex items-start gap-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+                <div className={`p-4 rounded-xl border flex items-start gap-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
                   <Building2 className="text-emerald-500 shrink-0 mt-0.5" size={20} />
                   <div>
                     <h4 className="font-bold text-xs mb-1">{t.actor1Title}</h4>
@@ -1124,7 +1068,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div data-reveal className={`reveal reveal-fade reveal-delay-2 h-full p-4 rounded-xl border flex items-start gap-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+                <div className={`p-4 rounded-xl border flex items-start gap-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
                   <Users className="text-amber-500 shrink-0 mt-0.5" size={20} />
                   <div>
                     <h4 className="font-bold text-xs mb-1">{t.actor2Title}</h4>
@@ -1132,7 +1076,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div data-reveal className={`reveal reveal-fade reveal-delay-3 h-full p-4 rounded-xl border flex items-start gap-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+                <div className={`p-4 rounded-xl border flex items-start gap-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
                   <Globe className="text-red-500 shrink-0 mt-0.5" size={20} />
                   <div>
                     <h4 className="font-bold text-xs mb-1">{t.actor3Title}</h4>
@@ -1140,7 +1084,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div data-reveal className={`reveal reveal-fade reveal-delay-4 h-full p-4 rounded-xl border flex items-start gap-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+                <div className={`p-4 rounded-xl border flex items-start gap-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
                   <Briefcase className="text-blue-500 shrink-0 mt-0.5" size={20} />
                   <div>
                     <h4 className="font-bold text-xs mb-1">{t.actor4Title}</h4>
@@ -1152,14 +1096,14 @@ export default function HomePage() {
             </div>
 
             {/* Right: Roadmap Timeline */}
-            <div data-reveal className="reveal reveal-slide-right">
+            <div>
               <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block font-serif">{t.roadmapEye}</span>
               <h3 className="text-2xl font-bold font-serif mb-8">{t.roadmapTitle}</h3>
 
               <div className="relative pl-6 space-y-8 border-l-2 border-slate-200 dark:border-slate-800">
                 
                 {/* Phase 1 */}
-                <div data-reveal className="reveal reveal-rise reveal-delay-1 relative">
+                <div className="relative">
                   <span className="absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-emerald-500 text-white font-bold text-xs flex items-center justify-center">1</span>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">{t.phase1Num}</span>
                   <h4 className="font-bold text-base font-serif mb-2">{t.phase1Title}</h4>
@@ -1171,7 +1115,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Phase 2 */}
-                <div data-reveal className="reveal reveal-rise reveal-delay-2 relative">
+                <div className="relative">
                   <span className="absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-amber-500 text-white font-bold text-xs flex items-center justify-center">2</span>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">{t.phase2Num}</span>
                   <h4 className="font-bold text-base font-serif mb-2">{t.phase2Title}</h4>
@@ -1183,7 +1127,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Phase 3 */}
-                <div data-reveal className="reveal reveal-rise reveal-delay-3 relative">
+                <div className="relative">
                   <span className="absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-red-600 text-white font-bold text-xs flex items-center justify-center">3</span>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">{t.phase3Num}</span>
                   <h4 className="font-bold text-base font-serif mb-2">{t.phase3Title}</h4>
@@ -1195,7 +1139,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Phase 4 */}
-                <div data-reveal className="reveal reveal-rise reveal-delay-4 relative">
+                <div className="relative">
                   <span className="absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center">4</span>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">{t.phase4Num}</span>
                   <h4 className="font-bold text-base font-serif mb-2">{t.phase4Title}</h4>
@@ -1221,7 +1165,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
             {/* Info */}
-            <div data-reveal className="reveal reveal-slide-left">
+            <div>
               <span className="text-xs font-bold uppercase tracking-widest text-red-500 mb-2 block font-serif">{t.contactEye}</span>
               <h2 className="text-3xl md:text-5xl font-extrabold font-serif mb-6 leading-tight">
                 {t.contactTitle}
@@ -1264,7 +1208,7 @@ export default function HomePage() {
             </div>
 
             {/* Form */}
-            <div data-reveal className={`reveal reveal-slide-right reveal-delay-1 p-8 rounded-2xl border ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-800/80 border-slate-700'}`}>
+            <div className={`p-8 rounded-2xl border ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-800/80 border-slate-700'}`}>
               <h3 className="font-bold text-2xl font-serif mb-6 text-white">{t.formTitle}</h3>
               
               {formSubmitted ? (
@@ -1275,7 +1219,7 @@ export default function HomePage() {
               ) : (
                 <form onSubmit={handleFormSubmit} className="space-y-4">
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="text-xs font-semibold text-slate-300 mb-1 block">{t.firstName}</label>
                       <input 
@@ -1362,17 +1306,10 @@ export default function HomePage() {
 
                   <button 
                     type="submit" 
-                    disabled={isSending}
-                    className="w-full bg-red-600 hover:bg-red-700 disabled:opacity-60 disabled:cursor-wait text-white font-semibold py-3.5 rounded-lg shadow-lg transition-all flex items-center justify-center gap-2"
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3.5 rounded-lg shadow-lg transition-all flex items-center justify-center gap-2"
                   >
-                    {isSending ? t.sendingMsg : t.submitBtn} →
+                    {t.submitBtn} →
                   </button>
-
-                  {formError && (
-                    <p role="alert" className="text-sm text-red-300 text-center" aria-live="polite">
-                      {formError}
-                    </p>
-                  )}
 
                 </form>
               )}
@@ -1384,8 +1321,8 @@ export default function HomePage() {
       </section>
 
       {/* --- FOOTER --- */}
-      <footer className={`border-t pt-12 pb-8 text-xs transition-colors ${darkMode ? 'bg-slate-950 border-slate-900 text-slate-500' : 'bg-slate-950 text-slate-400 border-slate-900'}`}>
-        <div className="max-w-7xl mx-auto px-4 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      <footer className={`border-t py-12 text-xs transition-colors ${darkMode ? 'bg-slate-950 border-slate-900 text-slate-500' : 'bg-slate-950 text-slate-400 border-slate-900'}`}>
+        <div className="max-w-7xl mx-auto px-4 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           
           <div>
             <div className="mb-3 bg-white rounded-lg inline-block px-2 py-1.5">
@@ -1436,8 +1373,8 @@ export default function HomePage() {
 
       {/* --- MODAL DIALOGS FOR HERO CARDS --- */}
       {activeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fade-in modal-backdrop">
-          <div className={`modal-panel max-w-lg w-full rounded-2xl p-8 relative shadow-2xl border ${darkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fade-in">
+          <div className={`max-w-lg w-full rounded-2xl p-8 relative shadow-2xl border ${darkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
             
             <button 
               onClick={() => setActiveModal(null)}
