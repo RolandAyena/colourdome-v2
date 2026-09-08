@@ -6,15 +6,14 @@ import {
   Building2, Scale, Calculator, Building, Globe, TrendingUp, 
   Phone, Mail, MapPin, Calendar, CheckCircle2, ArrowRight, 
   Sun, Moon, X, Menu, ShieldCheck, Clock, Users, Award, FileText,
-  Briefcase, HeartHandshake, FileCheck, Landmark, Search, Check, Layers, ChevronRight, ArrowUp
+  Briefcase, HeartHandshake, FileCheck, Landmark, Search, Check, Layers, ChevronRight, ArrowUp,
+  Smartphone
 } from 'lucide-react';
 
 import ServicesCoverflow from './components/ServicesCoverflow';
 import WhyChooseUsTimeline from './components/WhyChooseUsTimeline';
-import ExpandingCTA from './components/ExpandingCTA';
-import Footer from './components/Footer';
 
-// --- DICTIONNAIRE DE TRADUCTIONS COMPLET ---
+// --- DICTIONNAIRE DE TRADUCTIONS COMPLET & CORRIGÉ ---
 const translations = {
   fr: {
     pageTitle: "Colour Dome Montréal — Comptabilité & Conseil Juridique",
@@ -90,18 +89,27 @@ const translations = {
     formTitle: "Prendre rendez-vous",
     firstName: "Prénom *", lastName: "Nom *", email: "Courriel *", phone: "Téléphone",
     serviceSelect: "Service souhaité *", message: "Message *", submitBtn: "Envoyer ma demande",
+    selectOptionDefault: "-- Choisissez un service --",
+    optAccounting: "Comptabilité & Tenue de livres",
+    optTax: "Fiscalité des Sociétés & Particuliers",
+    optLegal: "Droit des Affaires & Intégration",
+    optRealEstate: "Fiscalité Immobilière & Transfrontalière",
+    optOther: "Autre demande",
     successMsg: "Votre message a bien été envoyé. Nous vous répondrons sous 48h.",
     errorMsg: "Votre message n’a pas pu être envoyé. Veuillez réessayer.",
+    serviceUnavailableMsg: "Le service de messagerie est momentanément indisponible.",
     sendingMsg: "Envoi en cours…",
+
+    city: "Montréal",
     
     // Footer
     footerDesc: "Cabinet spécialisé dans les services comptables, fiscaux et juridiques. Établi à Montréal, Canada depuis plus de 17 ans.",
-    footerRights: "© 2026 Colour Dome Montréal · Tous droits réservés"
+    footerRights: "© 2026 Colour Dome Montréal · Tous droits réservés. Agence web 1020web"
   },
   en: {
-    pageTitle: "Colour Dome Montréal — Accounting & Legal Consulting",
+    pageTitle: "Colour Dome Montreal — Accounting & Legal Consulting",
     topTag: "Consulting Firm · Accounting & Law",
-    address: "2015 Drummond, Suite 1005 · Montréal, Québec H3G 1W9",
+    address: "2015 Drummond, Suite 1005 · Montreal, Quebec H3G 1W9",
     bookCta: "Book an Appointment",
     heroTitle: "Accounting Firm",
     heroTitle2: "& Legal Advisory",
@@ -112,7 +120,7 @@ const translations = {
     heroCard2Sub: "Our value proposition, key strengths and commitments",
     heroCard3Title: "The Firm",
     heroCard3Sub: "Who we are, our team and our values",
-    heroCard4Title: "Contact & Appt.",
+    heroCard4Title: "Contact & Appointments",
     heroCard4Sub: "Book an appointment, write or call us",
     whyUs: "Why Choose Us",
     
@@ -132,7 +140,7 @@ const translations = {
     defisTitle: "Challenges We Solve",
     f1Title: "Multidisciplinary expertise", f1Desc: "Accounting, taxation and law all under one roof.",
     f2Title: "Diaspora Specialization", f2Desc: "Deep expertise in cross-border tax issues and Canadian business setup.",
-    f3Title: "17+ years of experience", f3Desc: "A seasoned team well-versed in the realities of Montréal SMEs and individuals.",
+    f3Title: "17+ years of experience", f3Desc: "A seasoned team well-versed in the realities of Montreal SMEs and individuals.",
     f4Title: "Guaranteed 48h response", f4Desc: "Every file handled with responsiveness and full transparency.",
     d1Title: "Growing tax complexity", d1Desc: "Navigating GST/QST, corporate tax, and bilateral treaty rules.",
     d2Title: "Unexpected tax audits", d2Desc: "Preparation, defense and representation before tax authorities.",
@@ -150,7 +158,7 @@ const translations = {
     step4Num: "Step 04", step4Label: "Optimization", step4Title: "Continuous Improvement", step4Desc: "Ongoing regulatory monitoring. Annual reviews and proactive adjustments to maximize long-term performance.",
     
     // Key stats
-    expYears: "Years of experience", expSub: "Founded in Montréal",
+    expYears: "Years of experience", expSub: "Founded in Montreal",
     clientsServed: "Clients served", clientsSub: "Individuals & Businesses",
     satisfactionRate: "Satisfaction rate", satisfactionSub: "Measured annually",
     responseTime: "Response time", responseSub: "Guaranteed on every file",
@@ -159,9 +167,9 @@ const translations = {
     aboutEye: "Structure & Coordination",
     aboutTitle: "Who We Are",
     aboutTagline: "« A firm dedicated to your success, rooted in rigor and proximity. »",
-    aboutBody: "Colour Dome Montréal is a multidisciplinary firm specializing in accounting, tax, and legal services. For over 17 years, we have supported entrepreneurs, individuals, and members of the diaspora with their financial and legal challenges in Canada.",
+    aboutBody: "Colour Dome Montreal is a multidisciplinary firm specializing in accounting, tax, and legal services. For over 17 years, we have supported entrepreneurs, individuals, and members of the diaspora with their financial and legal challenges in Canada.",
     actor1Title: "Businesses & SMEs", actor1Desc: "Structuring, accounting & corporate taxation",
-    actor2Title: "Individuals & Families", actor2Desc: "Tax returns, estate planning & fiscal optimization",
+    actor2Title: "Individuals & Families", actor2Desc: "Tax returns, estate & tax planning",
     actor3Title: "Diaspora & International", actor3Desc: "Cross-border taxation & Canadian business setup",
     actor4Title: "Investors", actor4Desc: "Real estate, capital gains & wealth optimization",
     
@@ -171,14 +179,23 @@ const translations = {
     contactText: "An initial consultation is always free and non-binding. Our team responds within 48 hours.",
     formTitle: "Book an Appointment",
     firstName: "First Name *", lastName: "Last Name *", email: "Email *", phone: "Phone",
-    serviceSelect: "Desired service *", message: "Message *", submitBtn: "Send my request",
+    serviceSelect: "Select a service *", message: "Message *", submitBtn: "Send my request",
+    selectOptionDefault: "-- Select a service --",
+    optAccounting: "Accounting & Bookkeeping",
+    optTax: "Corporate & Personal Taxation",
+    optLegal: "Business Law & Advisory",
+    optRealEstate: "Real Estate & Cross-Border Tax",
+    optOther: "Other Inquiry",
     successMsg: "Your message has been sent successfully. We will respond within 48h.",
     errorMsg: "Your message could not be sent. Please try again.",
+    serviceUnavailableMsg: "The messaging service is temporarily unavailable.",
     sendingMsg: "Sending…",
+
+    city: "Montreal",
     
     // Footer
-    footerDesc: "Firm specialized in accounting, tax, and legal services. Established in Montréal, Canada for over 17 years.",
-    footerRights: "© 2026 Colour Dome Montréal · All rights reserved"
+    footerDesc: "Firm specialized in accounting, tax, and legal services. Established in Montreal, Canada for over 17 years.",
+    footerRights: "© 2026 Colour Dome Montreal · All rights reserved. Web agency 1020web"
   }
 };
 
@@ -265,6 +282,9 @@ export default function HomePage() {
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok || !result.success) {
+        if (response.status === 503) {
+          throw new Error(t.serviceUnavailableMsg);
+        }
         throw new Error(result.error || t.errorMsg);
       }
 
@@ -278,7 +298,7 @@ export default function HomePage() {
     }
   };
 
-  // Structured Services Data
+  // Dynamic Structured Services Data
   const servicesData = [
     {
       id: '01',
@@ -288,23 +308,23 @@ export default function HomePage() {
       badgeColor: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
       desc: lang === 'fr'
         ? "Bilan annuel, états de résultat, cycle comptable complet et suivi de trésorerie."
-        : "Complete handling of your accounting cycle, with financial statements, balance sheets and dashboards tailored to SMEs.",
+        : "Full handling of your accounting cycle, including financial statements, balance sheets, and cash flow tracking.",
       features: lang === 'fr'
         ? ["Bilan & Comptes de résultats", "Tenue mensuelle/trimestrielle", "Déclarations TPS/TVQ"]
-        : ["Monthly & quarterly bookkeeping", "Certified financial statements & balance sheets", "Bank reconciliations", "Accounts payable & receivable management"]
+        : ["Monthly & quarterly bookkeeping", "Certified financial statements & balance sheets", "GST/QST sales tax returns"]
     },
     {
       id: '02',
       icon: Landmark,
       title: lang === 'fr' ? "Fiscalité des Particuliers & Sociétés" : "Personal & Corporate Taxation",
-      tag: lang === 'fr' ? "Fiscalité" : "Tax",
+      tag: lang === 'fr' ? "Fiscalité" : "Taxation",
       badgeColor: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
       desc: lang === 'fr'
         ? "Déclarations de revenus, optimisation fiscale, crédits d'impôt et restructuration."
-        : "Rigorous tax preparation and optimization for businesses, individuals and families.",
+        : "Rigorous tax preparation and optimization for businesses, individuals, and families.",
       features: lang === 'fr'
         ? ["Déclarations T1/TP1 & T2/CO-17", "Optimisation de la rémunération", "Gestion des acomptes provisionnels"]
-        : ["GST/QST, T2, CO-17, T1 & TP1 returns", "Tax planning and deduction maximization", "Tax credits and tax strategies", "Installments and tax risk management"]
+        : ["GST/QST, T2, CO-17, T1 & TP1 returns", "Tax planning and deduction optimization", "Installments and tax risk management"]
     },
     {
       id: '03',
@@ -314,10 +334,10 @@ export default function HomePage() {
       badgeColor: "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
       desc: lang === 'fr'
         ? "Incorporation d'entreprises, rédaction de contrats, conventions d'actionnaires et litiges."
-        : "Business incorporation, commercial contract drafting and review, dispute resolution and corporate secretarial services.",
+        : "Business incorporation, commercial contract drafting and review, shareholder agreements, and corporate governance.",
       features: lang === 'fr'
         ? ["Incorporation provinciale & fédérale", "Livre de société & mises à jour", "Contrats commerciaux & baux"]
-        : ["Company incorporation and articles", "Shareholder agreements and resolutions", "Founder legal protection", "Commercial contracts and negotiation"]
+        : ["Federal & provincial incorporation", "Minute book maintenance & updates", "Commercial contracts & leases"]
     },
     {
       id: '04',
@@ -327,10 +347,10 @@ export default function HomePage() {
       badgeColor: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
       desc: lang === 'fr'
         ? "Gestion des gains en capital, transmission du patrimoine et structures d'investissement."
-        : "Tax management for real estate investments, capital gains, ownership structuring and estate transfers.",
+        : "Tax management for real estate investments, capital gains, corporate structuring, and estate planning.",
       features: lang === 'fr'
         ? ["Planification successorale", "Optimisation des gains en capital", "Structures de détention immobilière"]
-        : ["Return and tax analysis", "Real estate capital gains management", "Family wealth structuring", "Estate transfers and family trusts"]
+        : ["Estate planning & family wealth", "Capital gains optimization", "Real estate holding structures"]
     },
     {
       id: '05',
@@ -340,10 +360,10 @@ export default function HomePage() {
       badgeColor: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20",
       desc: lang === 'fr'
         ? "Fiscalité transfrontalière, règles de résidence et accompagnement à l'implantation au Canada."
-        : "Dedicated support for non-residents, expatriates and diaspora members: tax treaties, fund transfers and business setup in Canada.",
+        : "Dedicated support for non-residents, expatriates, and diaspora members: tax treaties, asset transfers, and Canadian setup.",
       features: lang === 'fr'
         ? ["Analyse des conventions fiscales", "Transfert d'actifs internationaux", "Statut de résidence fiscale"]
-        : ["International tax treaty applications", "Foreign property reporting (T1135)", "Foreign business setup in Canada", "Fund transfers and wealth management"]
+        : ["Tax treaty applications", "Foreign property reporting (T1135)", "Canadian business setup & tax status"]
     },
     {
       id: '06',
@@ -353,10 +373,10 @@ export default function HomePage() {
       badgeColor: "bg-teal-500/10 text-teal-600 dark:text-teal-400 border-teal-500/20",
       desc: lang === 'fr'
         ? "Diagnostic financier, restructuration d'entreprise, audits et levées de fonds."
-        : "Profitability audits, restructuring, preparation for tax audits and capital raising.",
+        : "Financial health diagnostics, business restructuring, preparation for tax audits, and management dashboards.",
       features: lang === 'fr'
         ? ["Diagnostic financier 360°", "Défense en cas de contrôle fiscal", "Tableaux de bord de gestion"]
-        : ["Financial diagnostics and profitability", "Preparation for CRA/Revenu Québec audits", "Financial restructuring", "Growth recommendations"]
+        : ["360° Financial diagnostics", "Tax audit representation (CRA/Revenu Québec)", "Management dashboards & forecasting"]
     }
   ];
 
@@ -373,8 +393,8 @@ export default function HomePage() {
           </div>
 
           <div className="flex items-center gap-4">
-            <a href="tel:5147310285" className="flex items-center gap-1 hover:text-red-600 transition-colors">
-              <Phone size={13} /> 514-731-0285
+            <a href="tel:5147318811" className="flex items-center gap-1 hover:text-red-600 transition-colors">
+              <Smartphone size={13} /> 514-731-8811
             </a>
             <a href="mailto:info@colourdome.ca" className="flex items-center gap-1 hover:text-red-600 transition-colors">
               <Mail size={13} /> info@colourdome.ca
@@ -412,7 +432,7 @@ export default function HomePage() {
                 <span>Colour</span>
                 <span className="text-red-600">Dome</span>
               </div>
-              <p className="text-xs italic font-serif text-slate-500 dark:text-slate-400 mt-1">Montréal</p>
+              <p className="text-xs italic font-serif text-slate-500 dark:text-slate-400 mt-1">{t.city}</p>
             </div>
           </a>
 
@@ -457,19 +477,18 @@ export default function HomePage() {
         )}
       </nav>
 
-{/* --- HERO SECTION --- */}
+      {/* --- HERO SECTION --- */}
       <section className="relative overflow-hidden py-20 md:py-28 bg-gradient-to-b from-slate-100 via-slate-50 to-white">
         
-        {/* Image d'arrière-plan avec légère opacité */}
+        {/* Background Image */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
             src="/colour-dome.png"
-            alt="Équipe Colour Dome Montréal"
+            alt="Colour Dome Montréal"
             fill
             className="object-cover object-center opacity-25"
             priority
           />
-          {/* Léger voile blanc pour garantir la lisibilité sans assombrir */}
           <div className="absolute inset-0 bg-white/40"></div>
         </div>
 
@@ -602,7 +621,7 @@ export default function HomePage() {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
-            {/* Colonne 1 : Textes & Domaines de compétences */}
+            {/* Column 1 */}
             <div data-reveal className="reveal reveal-slide-left">
               <span className="text-sm font-bold uppercase tracking-widest text-red-600 dark:text-red-400 mb-2 block font-serif">
                 {t.aboutEye}
@@ -619,7 +638,7 @@ export default function HomePage() {
                 {t.aboutBody}
               </p>
 
-              {/* Grille des 4 acteurs / cibles */}
+              {/* 4 Cards Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
                 
                 <div data-reveal className={`reveal reveal-fade reveal-delay-1 h-full p-5 rounded-xl border flex items-start gap-4 transition-all hover:shadow-md ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
@@ -657,12 +676,12 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Colonne 2 : Image d'illustration */}
+            {/* Column 2 */}
             <div data-reveal className="reveal reveal-slide-right relative">
               <div className="relative h-[480px] lg:h-[560px] w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 group">
                 <Image
                   src="/qui-sommes-nous.jpg"
-                  alt="Cabinet Colour Dome Montréal"
+                  alt="Colour Dome Montréal"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                   priority
@@ -672,9 +691,11 @@ export default function HomePage() {
                 <div className="absolute bottom-6 left-6 right-6 p-6 rounded-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200/50 dark:border-slate-800/50 shadow-lg flex items-center justify-between">
                   <div>
                     <p className="font-serif font-bold text-xl text-slate-900 dark:text-white">Colour Dome Montréal</p>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">Services comptables, fiscaux & juridiques</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                      {lang === 'fr' ? "Services comptables, fiscaux & juridiques" : "Accounting, Tax & Legal Services"}
+                    </p>
                   </div>
-                  <span className="text-2xl font-black text-red-600 dark:text-red-500 font-serif">17+ ans</span>
+                  <span className="text-2xl font-black text-red-600 dark:text-red-500 font-serif">17+ {lang === 'fr' ? 'ans' : 'yrs'}</span>
                 </div>
               </div>
             </div>
@@ -693,7 +714,7 @@ export default function HomePage() {
         darkMode={darkMode}
       />
 
-      {/* --- SECTION POURQUOI CHOISIR COLOUR DOME --- */}
+      {/* --- SECTION WHY CHOOSE US --- */}
       <section id="why-us">
         <WhyChooseUsTimeline
           lang={lang}
@@ -702,7 +723,7 @@ export default function HomePage() {
         />
       </section>
 
-      {/* --- SECTION CONTACT & FORMULAIRE --- */}
+      {/* --- SECTION CONTACT & FORM --- */}
       <section id="contact" className={`py-20 md:py-28 ${darkMode ? 'bg-slate-950' : 'bg-slate-50'}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-12">
           
@@ -728,8 +749,20 @@ export default function HomePage() {
                     <MapPin size={22} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-base mb-1">Adresse du cabinet</h4>
+                    <h4 className="font-bold text-base mb-1">{lang === 'fr' ? "Adresse du cabinet" : "Office Address"}</h4>
                     <p className="text-sm text-slate-600 dark:text-slate-400">2015 Drummond, Suite 1005<br />Montréal, Québec H3G 1W9</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-xl bg-red-600/10 text-red-600 dark:text-red-400 shrink-0">
+                    <Smartphone size={22} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-base mb-1">{lang === 'fr' ? "Téléphone direct" : "Direct Phone"}</h4>
+                    <a href="tel:5147318811" className="text-sm text-slate-600 dark:text-slate-400 hover:text-red-600 transition-colors">
+                      514-731-8811
+                    </a>
                   </div>
                 </div>
 
@@ -738,7 +771,7 @@ export default function HomePage() {
                     <Phone size={22} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-base mb-1">Téléphone direct</h4>
+                    <h4 className="font-bold text-base mb-1">Fax</h4>
                     <a href="tel:5147310285" className="text-sm text-slate-600 dark:text-slate-400 hover:text-red-600 transition-colors">
                       514-731-0285
                     </a>
@@ -750,7 +783,7 @@ export default function HomePage() {
                     <Mail size={22} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-base mb-1">Courriel</h4>
+                    <h4 className="font-bold text-base mb-1">{lang === 'fr' ? "Courriel" : "Email"}</h4>
                     <a href="mailto:info@colourdome.ca" className="text-sm text-slate-600 dark:text-slate-400 hover:text-red-600 transition-colors">
                       info@colourdome.ca
                     </a>
@@ -759,7 +792,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Formulaire */}
+            {/* Form */}
             <div data-reveal className={`reveal reveal-slide-right p-8 md:p-10 rounded-2xl border shadow-xl ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <h3 className="text-2xl font-bold font-serif mb-6">{t.formTitle}</h3>
 
@@ -833,12 +866,12 @@ export default function HomePage() {
                       onChange={handleFormChange}
                       className={`w-full px-4 py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-red-600 ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}`}
                     >
-                      <option value="">-- {t.serviceSelect} --</option>
-                      <option value="Comptabilité">Comptabilité & Tenue de livres</option>
-                      <option value="Fiscalité">Fiscalité des Sociétés & Particuliers</option>
-                      <option value="Juridique">Droit des Affaires & Intégration</option>
-                      <option value="International">Fiscalité Immobilière & Transfrontalière</option>
-                      <option value="Autre">Autre demande</option>
+                      <option value="">{t.selectOptionDefault}</option>
+                      <option value="Comptabilité">{t.optAccounting}</option>
+                      <option value="Fiscalité">{t.optTax}</option>
+                      <option value="Juridique">{t.optLegal}</option>
+                      <option value="International">{t.optRealEstate}</option>
+                      <option value="Autre">{t.optOther}</option>
                     </select>
                   </div>
 
@@ -872,27 +905,44 @@ export default function HomePage() {
 
       {/* --- FOOTER --- */}
       <footer className={`py-12 border-t text-sm ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-400' : 'bg-slate-900 text-slate-400 border-slate-800'}`}>
-        <div className="max-w-7xl mx-auto px-4 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div>
-            <div className="font-bold text-lg text-white mb-1 flex items-center gap-1">
-              <span>Colour</span>
-              <span className="text-red-600">Dome</span>
-              <span className="text-xs text-slate-400 font-normal ml-2">Montréal</span>
+        <div className="max-w-7xl mx-auto px-4 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8">
+          
+          {/* Bloc Logo + Marque + Description */}
+          <div className="flex items-center gap-6">
+            <Image
+              src="/logo.png"
+              alt="Logo Colour Dome Montréal"
+              width={150}
+              height={50}
+              
+              priority
+            />
+
+            <div className="flex flex-col space-y-1">
+              <div className="font-bold text-xl text-white tracking-wide flex items-center gap-1.5">
+                <span>Colour</span>
+                <span className="text-red-600">Dome</span>
+                <span className="text-sm font-normal text-slate-400 ml-1">{t.city}</span>
+              </div>
+              <p className="text-xs md:text-sm text-slate-400 max-w-md leading-relaxed">
+                {t.footerDesc}
+              </p>
             </div>
-            <p className="text-xs text-slate-400 max-w-sm">{t.footerDesc}</p>
           </div>
 
-          <div className="text-xs text-center md:text-right">
+          {/* Copyright */}
+          <div className="text-xs text-center md:text-right shrink-0">
             <p>{t.footerRights}</p>
           </div>
+
         </div>
       </footer>
 
-      {/* --- BOUTON RETOUR EN HAUT --- */}
+      {/* --- SCROLL TO TOP BUTTON --- */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          aria-label="Remonter en haut de la page"
+          aria-label={lang === 'fr' ? "Remonter en haut de la page" : "Scroll to top"}
           className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-red-600 text-white shadow-xl hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all transform hover:scale-110"
         >
           <ArrowUp size={20} />
