@@ -1,107 +1,77 @@
 import { NextResponse } from 'next/server';
 
-// Le type est déclaré localement pour que l’endpoint reste correctement reconnu
-// même si les types Node ne sont pas encore chargés par l’éditeur.
-declare const process: {
-  env: {
-    RESEND_API_KEY?: string;
-    MAIL_TO?: string;
-    MAIL_FROM?: string;
-  };
-};
-
-const MAX_LENGTHS = {
-  firstName: 80,
-  lastName: 80,
-  email: 254,
-  phone: 40,
-  service: 120,
-  message: 5000,
-} as const;
-
-function clean(value: unknown, maxLength: number) {
-  return typeof value === 'string' ? value.trim().slice(0, maxLength) : '';
-}
-
-function isValidEmail(email: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+function generateEmailTemplate(data: any, lang: string) {
+  const isEn = lang === 'en';
+  return `
+    <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+      <h2>${isEn ? 'New Contact Request' : 'Nouvelle demande de contact'}</h2>
+      <p><strong>${isEn ? 'Name' : 'Nom'} :</strong> ${data.name}</p>
+      <p><strong>${isEn ? 'Email' : 'Courriel'} :</strong> ${data.email}</p>
+      <p><strong>${isEn ? 'Phone' : 'Téléphone'} :</strong> ${data.phone || 'N/A'}</p>
+      <p><strong>${isEn ? 'Service' : 'Service demandé'} :</strong> ${data.service}</p>
+      <p><strong>${isEn ? 'Message' : 'Message'} :</strong></p>
+      <p style="background: #f4f4f4; padding: 15px; border-radius: 5px;">${data.message}</p>
+    </div>
+  `;
 }
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const firstName = clean(body.firstName, MAX_LENGTHS.firstName);
-    const lastName = clean(body.lastName, MAX_LENGTHS.lastName);
-    const email = clean(body.email, MAX_LENGTHS.email);
-    const phone = clean(body.phone, MAX_LENGTHS.phone);
-    const service = clean(body.service, MAX_LENGTHS.service);
-    const message = clean(body.message, MAX_LENGTHS.message);
+    const { firstName, lastName, email, message, service, lang = 'fr' } = body;
 
-    if (!firstName || !lastName || !email || !service || !message || !isValidEmail(email)) {
+    // Fusion du prénom et du nom
+    const name = `${firstName || ''} ${lastName || ''}`.trim();
+
+    // Validation des champs requis
+    if (!firstName || !lastName || !email || !message) {
       return NextResponse.json(
-        { success: false, error: 'Veuillez remplir correctement tous les champs obligatoires.' },
-        { status: 400 },
+        { 
+          error: lang === 'en' 
+            ? 'Required fields are missing' 
+            : 'Champs obligatoires manquants' 
+        },
+        { status: 400 }
       );
     }
 
-    const apiKey = process.env.RESEND_API_KEY;
-    const recipients = (process.env.MAIL_TO || 'info@colourdome.ca')
-      .split(',')
-      .map((address) => address.trim())
-      .filter(Boolean);
-    const sender = process.env.MAIL_FROM || 'Colour Dome Montréal <onboarding@resend.dev>';
+    const payload = { ...body, name };
 
-    if (!apiKey || recipients.length === 0) {
-      console.error('Email configuration is incomplete: RESEND_API_KEY and MAIL_TO are required.');
-      return NextResponse.json(
-        { success: false, error: 'Le service de messagerie est momentanément indisponible.' },
-        { status: 503 },
-      );
-    }
-
-    const subject = `Nouvelle demande de rendez-vous — ${firstName} ${lastName}`;
-    const text = [
-      'Nouvelle demande reçue depuis le site Colour Dome Montréal',
-      '',
-      `Nom : ${firstName} ${lastName}`,
-      `Courriel : ${email}`,
-      `Téléphone : ${phone || 'Non renseigné'}`,
-      `Service demandé : ${service}`,
-      '',
-      'Message :',
-      message,
-    ].join('\n');
+    // Vérification de la présence de la clé API dans la console du serveur
+    console.log("Clé RESEND détectée :", process.env.RESEND_API_KEY ? "Oui" : "Non (vide)");
 
     const resendResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: sender,
-        to: recipients,
-        reply_to: email,
-        subject,
-        text,
+        from: process.env.MAIL_FROM || 'onboarding@resend.dev',
+        // Remplacez 'votre-email@gmail.com' par l'adresse liée à votre compte Resend
+        to: process.env.MAIL_TO 
+          ? process.env.MAIL_TO.split(',') 
+          : ['rolanddevjunior@gmail.com'], 
+        subject: lang === 'en'
+          ? `New Appointment Request — ${name}`
+          : `Nouvelle demande de rendez-vous — ${name}`,
+        html: generateEmailTemplate(payload, lang),
       }),
     });
 
+    const data = await resendResponse.json();
+
     if (!resendResponse.ok) {
-      const details = await resendResponse.text();
-      console.error('Email provider rejected the message:', details);
-      return NextResponse.json(
-        { success: false, error: 'Le message n’a pas pu être envoyé. Veuillez réessayer.' },
-        { status: 502 },
-      );
+      console.error('Erreur retournée par Resend:', data);
+      return NextResponse.json({ error: data }, { status: 500 });
     }
 
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Contact form error:', error);
+    return NextResponse.json({ success: true, data });
+  } catch (err: any) {
+    console.error('Erreur serveur API Contact:', err);
     return NextResponse.json(
-      { success: false, error: 'Une erreur est survenue. Veuillez réessayer.' },
-      { status: 500 },
+      { error: err.message || 'Erreur interne du serveur' },
+      { status: 500 }
     );
   }
 }

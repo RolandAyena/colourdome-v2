@@ -101,7 +101,8 @@ const translations = {
     sendingMsg: "Envoi en cours…",
 
     city: "Montréal",
-    
+    addressCity: "2015 Drummond, Suite 1005 Montréal, Québec H3G 1W9",
+
     // Footer
     footerDesc: "Cabinet spécialisé dans les services comptables, fiscaux et juridiques. Établi à Montréal, Canada depuis plus de 17 ans.",
     footerRights: "© 2026 Colour Dome Montréal · Tous droits réservés. Agence web 1020web"
@@ -192,6 +193,7 @@ const translations = {
     sendingMsg: "Sending…",
 
     city: "Montreal",
+    addressCity: "2015 Drummond, Suite 1005 Montreal, Québec H3G 1W9",
     
     // Footer
     footerDesc: "Firm specialized in accounting, tax, and legal services. Established in Montreal, Canada for over 17 years.",
@@ -277,15 +279,23 @@ export default function HomePage() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, lang }), // <--- Inclusion de la langue actuelle
       });
-      const result = await response.json().catch(() => ({}));
+
+      const result = await response.json();
 
       if (!response.ok || !result.success) {
         if (response.status === 503) {
           throw new Error(t.serviceUnavailableMsg);
         }
-        throw new Error(result.error || t.errorMsg);
+
+        // Traitement du message d'erreur si result.error est un objet
+        let extractedError = result.error;
+        if (typeof result.error === 'object' && result.error !== null) {
+          extractedError = result.error.message || JSON.stringify(result.error);
+        }
+
+        throw new Error(extractedError || t.errorMsg);
       }
 
       setFormSubmitted(true);
@@ -750,7 +760,7 @@ export default function HomePage() {
                   </div>
                   <div>
                     <h4 className="font-bold text-base mb-1">{lang === 'fr' ? "Adresse du cabinet" : "Office Address"}</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">2015 Drummond, Suite 1005<br />Montréal, Québec H3G 1W9</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">{t.addressCity}</p>
                   </div>
                 </div>
 
