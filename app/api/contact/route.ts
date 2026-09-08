@@ -38,7 +38,19 @@ export async function POST(request: Request) {
     const payload = { ...body, name };
 
     // Vérification de la présence de la clé API dans la console du serveur
-    console.log("Clé RESEND détectée :", process.env.RESEND_API_KEY ? "Oui" : "Non (vide)");
+    console.log("RESEND_API_KEY présente :", !!process.env.RESEND_API_KEY);
+    console.log(
+      "RESEND_API_KEY début :",
+      process.env.RESEND_API_KEY?.substring(0, 5)
+    );
+    console.log(
+      "MAIL_FROM :",
+      process.env.MAIL_FROM
+    );
+    console.log(
+      "MAIL_TO :",
+      process.env.MAIL_TO
+    );
 
     const resendResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
