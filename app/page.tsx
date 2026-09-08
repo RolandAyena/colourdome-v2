@@ -104,7 +104,7 @@ const translations = {
     addressCity: "2015 Drummond, Suite 1005 Montréal, Québec H3G 1W9",
 
     // Footer
-    footerDesc: "Cabinet spécialisé dans les services comptables, fiscaux et juridiques. Établi à Montréal, Canada depuis plus de 17 ans.",
+    footerDesc: "Cabinet spécialisé dans les services comptables, fiscaux et juridiques. Établi à Montréal, Canada depuis 2009.",
     footerRights: "© 2026 Colour Dome Montréal · Tous droits réservés. Agence web 1020web"
   },
   en: {
