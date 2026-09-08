@@ -457,9 +457,23 @@ export default function HomePage() {
         )}
       </nav>
 
-      {/* --- HERO SECTION --- */}
-      <section className={`relative overflow-hidden py-20 md:py-28 ${darkMode ? 'bg-slate-950' : 'bg-gradient-to-b from-slate-100 via-slate-50 to-white'}`}>
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[260px] font-bold opacity-[0.02] pointer-events-none select-none font-serif">
+{/* --- HERO SECTION --- */}
+      <section className="relative overflow-hidden py-20 md:py-28 bg-gradient-to-b from-slate-100 via-slate-50 to-white">
+        
+        {/* Image d'arrière-plan avec légère opacité */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <Image
+            src="/colour-dome.png"
+            alt="Équipe Colour Dome Montréal"
+            fill
+            className="object-cover object-center opacity-25"
+            priority
+          />
+          {/* Léger voile blanc pour garantir la lisibilité sans assombrir */}
+          <div className="absolute inset-0 bg-white/40"></div>
+        </div>
+
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[260px] font-bold opacity-[0.03] pointer-events-none select-none font-serif text-slate-900">
           CDM
         </div>
         <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-red-600/10 blur-3xl pointer-events-none"></div>
@@ -468,7 +482,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 md:px-12 relative z-10">
           
           {/* Main Hero Card */}
-          <div data-reveal className={`reveal reveal-rise max-w-4xl mx-auto rounded-2xl p-8 md:p-14 text-center border shadow-2xl relative backdrop-blur-xl ${darkMode ? 'bg-slate-900/80 border-slate-800/80' : 'bg-white/80 border-white/90'}`}>
+          <div data-reveal className="reveal reveal-rise max-w-4xl mx-auto rounded-2xl p-8 md:p-14 text-center border shadow-2xl relative backdrop-blur-md bg-white/85 border-white/90">
 
             <div className="flex justify-center mb-6">
               <Image
@@ -480,11 +494,11 @@ export default function HomePage() {
                 priority
               />
             </div>
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight font-serif mb-6 leading-tight">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight font-serif mb-6 leading-tight text-slate-900">
               {t.heroTitle} <br className="hidden md:inline" />
-              <span className="text-red-600 dark:text-red-500">{t.heroTitle2}</span>
+              <span className="text-red-600">{t.heroTitle2}</span>
             </h1>
-            <p className="text-lg md:text-xl italic font-serif text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl italic font-serif text-slate-600 mb-8 max-w-2xl mx-auto">
               {t.heroSub}
             </p>
 
@@ -493,7 +507,7 @@ export default function HomePage() {
                 {t.bookCta}
                 <ArrowRight size={18} />
               </a>
-              <a href="#services" className={`font-medium px-8 py-3.5 rounded-xl border transition-all ${darkMode ? 'border-slate-700 hover:bg-slate-800 text-slate-200' : 'border-slate-300 hover:bg-slate-100 text-slate-800'}`}>
+              <a href="#services" className="font-medium px-8 py-3.5 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-800 transition-all">
                 {t.heroCard1Title}
               </a>
             </div>
@@ -506,16 +520,16 @@ export default function HomePage() {
             <a 
               href="#services"
               data-reveal
-              className={`reveal reveal-rise reveal-delay-1 h-full p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-emerald-500/50' : 'bg-white border-slate-200 hover:border-emerald-500/50'}`}
+              className="reveal reveal-rise reveal-delay-1 h-full p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-emerald-500/50"
             >
-              <div className="w-12 h-12 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-lg bg-emerald-500/10 text-emerald-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <Calculator size={24} />
               </div>
-              <h3 className="font-bold text-lg font-serif mb-2 flex items-center justify-between">
+              <h3 className="font-bold text-lg font-serif mb-2 flex items-center justify-between text-slate-900">
                 {t.heroCard1Title}
                 <ArrowRight size={16} className="text-slate-400 group-hover:text-emerald-500 transition-colors transform group-hover:translate-x-1" />
               </h3>
-              <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-base text-slate-600 leading-relaxed">
                 {t.heroCard1Sub}
               </p>
               <div className="h-1 w-full bg-emerald-500 absolute bottom-0 left-0"></div>
@@ -525,16 +539,16 @@ export default function HomePage() {
             <a 
               href="#why-us"
               data-reveal
-              className={`reveal reveal-rise reveal-delay-2 h-full p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-red-500/50' : 'bg-white border-slate-200 hover:border-red-500/50'}`}
+              className="reveal reveal-rise reveal-delay-2 h-full p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-red-500/50"
             >
-              <div className="w-12 h-12 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-lg bg-red-500/10 text-red-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <TrendingUp size={24} />
               </div>
-              <h3 className="font-bold text-lg font-serif mb-2 flex items-center justify-between">
+              <h3 className="font-bold text-lg font-serif mb-2 flex items-center justify-between text-slate-900">
                 {t.heroCard2Title}
                 <ArrowRight size={16} className="text-slate-400 group-hover:text-red-500 transition-colors transform group-hover:translate-x-1" />
               </h3>
-              <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-base text-slate-600 leading-relaxed">
                 {t.heroCard2Sub}
               </p>
               <div className="h-1 w-full bg-red-600 absolute bottom-0 left-0"></div>
@@ -544,16 +558,16 @@ export default function HomePage() {
             <a 
               href="#about"
               data-reveal
-              className={`reveal reveal-rise reveal-delay-3 h-full p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-blue-500/50' : 'bg-white border-slate-200 hover:border-blue-500/50'}`}
+              className="reveal reveal-rise reveal-delay-3 h-full p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-blue-500/50"
             >
-              <div className="w-12 h-12 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-lg bg-blue-500/10 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <Building2 size={24} />
               </div>
-              <h3 className="font-bold text-lg font-serif mb-2 flex items-center justify-between">
+              <h3 className="font-bold text-lg font-serif mb-2 flex items-center justify-between text-slate-900">
                 {t.heroCard3Title}
                 <ArrowRight size={16} className="text-slate-400 group-hover:text-blue-500 transition-colors transform group-hover:translate-x-1" />
               </h3>
-              <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-base text-slate-600 leading-relaxed">
                 {t.heroCard3Sub}
               </p>
               <div className="h-1 w-full bg-blue-600 absolute bottom-0 left-0"></div>
@@ -563,16 +577,16 @@ export default function HomePage() {
             <a 
               href="#contact"
               data-reveal
-              className={`reveal reveal-rise reveal-delay-4 h-full p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-teal-500/50' : 'bg-white border-slate-200 hover:border-teal-500/50'}`}
+              className="reveal reveal-rise reveal-delay-4 h-full p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-teal-500/50"
             >
-              <div className="w-12 h-12 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-lg bg-teal-500/10 text-teal-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <Calendar size={24} />
               </div>
-              <h3 className="font-bold text-lg font-serif mb-2 flex items-center justify-between">
+              <h3 className="font-bold text-lg font-serif mb-2 flex items-center justify-between text-slate-900">
                 {t.heroCard4Title}
                 <ArrowRight size={16} className="text-slate-400 group-hover:text-teal-500 transition-colors transform group-hover:translate-x-1" />
               </h3>
-              <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p className="text-base text-slate-600 leading-relaxed">
                 {t.heroCard4Sub}
               </p>
               <div className="h-1 w-full bg-teal-600 absolute bottom-0 left-0"></div>

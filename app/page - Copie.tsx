@@ -6,9 +6,13 @@ import {
   Building2, Scale, Calculator, Building, Globe, TrendingUp, 
   Phone, Mail, MapPin, Calendar, CheckCircle2, ArrowRight, 
   Sun, Moon, X, Menu, ShieldCheck, Clock, Users, Award, FileText,
-  Briefcase, HeartHandshake, FileCheck, Landmark, Search, Check, Layers, ChevronRight
+  Briefcase, HeartHandshake, FileCheck, Landmark, Search, Check, Layers, ChevronRight, ArrowUp
 } from 'lucide-react';
+
 import ServicesCoverflow from './components/ServicesCoverflow';
+import WhyChooseUsTimeline from './components/WhyChooseUsTimeline';
+import ExpandingCTA from './components/ExpandingCTA';
+import Footer from './components/Footer';
 
 // --- DICTIONNAIRE DE TRADUCTIONS COMPLET ---
 const translations = {
@@ -22,12 +26,13 @@ const translations = {
     heroSub: "« Un accompagnement sur mesure, une tranquillité d'esprit garantie »",
     heroCard1Title: "Nos Services",
     heroCard1Sub: "Comptabilité, fiscalité, droit des affaires & conseil stratégique",
-    heroCard2Title: "Notre Approche",
-    heroCard2Sub: "Méthodologie en 4 étapes pour un accompagnement sur mesure",
+    heroCard2Title: "Pourquoi nous choisir",
+    heroCard2Sub: "Notre valeur ajoutée, nos points forts et nos engagements",
     heroCard3Title: "Le Cabinet",
     heroCard3Sub: "Qui nous sommes, notre équipe et nos valeurs",
     heroCard4Title: "Contact & RDV",
     heroCard4Sub: "Prendre rendez-vous, nous écrire ou nous appeler",
+    whyUs: "Pourquoi nous choisir",
     
     // Services Tabs & Content
     s1Badge: "Structure de nos Services",
@@ -103,12 +108,13 @@ const translations = {
     heroSub: "« Tailored support, guaranteed peace of mind »",
     heroCard1Title: "Our Services",
     heroCard1Sub: "Accounting, taxation, business law & strategic advisory",
-    heroCard2Title: "Our Approach",
-    heroCard2Sub: "4-step methodology for tailored support",
+    heroCard2Title: "Why Choose Us",
+    heroCard2Sub: "Our value proposition, key strengths and commitments",
     heroCard3Title: "The Firm",
     heroCard3Sub: "Who we are, our team and our values",
     heroCard4Title: "Contact & Appt.",
     heroCard4Sub: "Book an appointment, write or call us",
+    whyUs: "Why Choose Us",
     
     // Services Tabs & Content
     s1Badge: "Our Service Structure",
@@ -181,6 +187,7 @@ export default function HomePage() {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   
   // Form State
   const [formData, setFormData] = useState({
@@ -200,10 +207,18 @@ export default function HomePage() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
+      setShowScrollTop(window.scrollY > 200);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   useEffect(() => {
     const revealElements = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
@@ -264,7 +279,6 @@ export default function HomePage() {
   };
 
   // Structured Services Data
-  // --- 6 SERVICES : un seul carrousel, sans onglets ---
   const servicesData = [
     {
       id: '01',
@@ -273,10 +287,10 @@ export default function HomePage() {
       tag: lang === 'fr' ? "Comptabilité" : "Accounting",
       badgeColor: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
       desc: lang === 'fr'
-        ? "Prise en charge intégrale de votre cycle comptable. États financiers, bilans et tableaux de bord adaptés aux PME."
+        ? "Bilan annuel, états de résultat, cycle comptable complet et suivi de trésorerie."
         : "Complete handling of your accounting cycle, with financial statements, balance sheets and dashboards tailored to SMEs.",
       features: lang === 'fr'
-        ? ["Tenue de livres mensuelle & trimestrielle", "États financiers & bilans certifiés", "Rapprochements bancaires & conciliation", "Gestion des comptes clients et fournisseurs"]
+        ? ["Bilan & Comptes de résultats", "Tenue mensuelle/trimestrielle", "Déclarations TPS/TVQ"]
         : ["Monthly & quarterly bookkeeping", "Certified financial statements & balance sheets", "Bank reconciliations", "Accounts payable & receivable management"]
     },
     {
@@ -286,23 +300,23 @@ export default function HomePage() {
       tag: lang === 'fr' ? "Fiscalité" : "Tax",
       badgeColor: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
       desc: lang === 'fr'
-        ? "Optimisation et préparation rigoureuse des déclarations fiscales, pour les entreprises comme pour les particuliers et les familles."
+        ? "Déclarations de revenus, optimisation fiscale, crédits d'impôt et restructuration."
         : "Rigorous tax preparation and optimization for businesses, individuals and families.",
       features: lang === 'fr'
-        ? ["Déclarations TPS/TVQ, T2, CO-17, T1 & TP1", "Planification fiscale et maximisation des déductions", "Crédits d'impôt et stratégies fiscales", "Gestion des acomptes et risques fiscaux"]
+        ? ["Déclarations T1/TP1 & T2/CO-17", "Optimisation de la rémunération", "Gestion des acomptes provisionnels"]
         : ["GST/QST, T2, CO-17, T1 & TP1 returns", "Tax planning and deduction maximization", "Tax credits and tax strategies", "Installments and tax risk management"]
     },
     {
       id: '03',
       icon: Scale,
-      title: lang === 'fr' ? "Droit des Affaires & Juridique" : "Business Law & Legal",
-      tag: lang === 'fr' ? "Droit" : "Legal",
+      title: lang === 'fr' ? "Droit des Affaires & Conseil Juridique" : "Business Law & Legal Advisory",
+      tag: lang === 'fr' ? "Droit & Juridique" : "Legal",
       badgeColor: "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
       desc: lang === 'fr'
-        ? "Incorporation d'entreprises, rédaction et révision de contrats commerciaux, résolution de litiges et secrétariat corporatif."
+        ? "Incorporation d'entreprises, rédaction de contrats, conventions d'actionnaires et litiges."
         : "Business incorporation, commercial contract drafting and review, dispute resolution and corporate secretarial services.",
       features: lang === 'fr'
-        ? ["Constitution et statuts de société", "Convention entre actionnaires & résolutions", "Protection juridique des fondateurs", "Contrats commerciaux & négociation"]
+        ? ["Incorporation provinciale & fédérale", "Livre de société & mises à jour", "Contrats commerciaux & baux"]
         : ["Company incorporation and articles", "Shareholder agreements and resolutions", "Founder legal protection", "Commercial contracts and negotiation"]
     },
     {
@@ -312,36 +326,36 @@ export default function HomePage() {
       tag: lang === 'fr' ? "Immobilier" : "Real Estate",
       badgeColor: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
       desc: lang === 'fr'
-        ? "Gestion des enjeux fiscaux liés aux investissements immobiliers, calcul de plus-values, structuration de détention et transmission successorale."
+        ? "Gestion des gains en capital, transmission du patrimoine et structures d'investissement."
         : "Tax management for real estate investments, capital gains, ownership structuring and estate transfers.",
       features: lang === 'fr'
-        ? ["Analyse du rendement et des taxes", "Gestion des plus-values immobilières", "Structuration du patrimoine familial", "Transmission successorale & fiducies"]
+        ? ["Planification successorale", "Optimisation des gains en capital", "Structures de détention immobilière"]
         : ["Return and tax analysis", "Real estate capital gains management", "Family wealth structuring", "Estate transfers and family trusts"]
     },
     {
       id: '05',
       icon: Globe,
       title: lang === 'fr' ? "International & Diaspora" : "International & Diaspora",
-      tag: lang === 'fr' ? "International" : "International",
+      tag: lang === 'fr' ? "Stratégie & Conseil" : "Strategy & Advisory",
       badgeColor: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20",
       desc: lang === 'fr'
-        ? "Accompagnement dédié aux non-résidents, expatriés et membres de la diaspora : conventions bilatérales, transferts de fonds et implantation au Canada."
+        ? "Fiscalité transfrontalière, règles de résidence et accompagnement à l'implantation au Canada."
         : "Dedicated support for non-residents, expatriates and diaspora members: tax treaties, fund transfers and business setup in Canada.",
       features: lang === 'fr'
-        ? ["Application des conventions fiscales", "Déclaration des biens étrangers (T1135)", "Implantation d'entreprises étrangères au Canada", "Transferts de fonds & patrimoine"]
+        ? ["Analyse des conventions fiscales", "Transfert d'actifs internationaux", "Statut de résidence fiscale"]
         : ["International tax treaty applications", "Foreign property reporting (T1135)", "Foreign business setup in Canada", "Fund transfers and wealth management"]
     },
     {
       id: '06',
       icon: Briefcase,
-      title: lang === 'fr' ? "Conseil Stratégique & Diagnostic" : "Strategic Advisory & Diagnostic",
-      tag: lang === 'fr' ? "Stratégie" : "Strategy",
+      title: lang === 'fr' ? "Conseil & Accompagnement Stratégique" : "Strategic Advisory & Support",
+      tag: lang === 'fr' ? "Stratégie & Conseil" : "Strategy & Advisory",
       badgeColor: "bg-teal-500/10 text-teal-600 dark:text-teal-400 border-teal-500/20",
       desc: lang === 'fr'
-        ? "Audits de rentabilité, restructuration d'entreprises en difficulté, préparation aux vérifications fiscales et levées de capitaux."
+        ? "Diagnostic financier, restructuration d'entreprise, audits et levées de fonds."
         : "Profitability audits, restructuring, preparation for tax audits and capital raising.",
       features: lang === 'fr'
-        ? ["Diagnostic financier & rentabilité", "Préparation aux vérifications (ARC/RQ)", "Restructuration financière", "Recommandations de croissance"]
+        ? ["Diagnostic financier 360°", "Défense en cas de contrôle fiscal", "Tableaux de bord de gestion"]
         : ["Financial diagnostics and profitability", "Preparation for CRA/Revenu Québec audits", "Financial restructuring", "Growth recommendations"]
     }
   ];
@@ -406,8 +420,7 @@ export default function HomePage() {
           <div className="hidden md:flex items-center gap-8 text-sm font-medium">
             <a href="#about" className="hover:text-red-600 transition-colors">{t.heroCard3Title}</a>
             <a href="#services" className="hover:text-red-600 transition-colors">{t.heroCard1Title}</a>
-            <a href="#approche" className="hover:text-red-600 transition-colors">{t.heroCard2Title}</a>
-            <a href="#contact" className="hover:text-red-600 transition-colors">{t.heroCard4Title}</a>
+            <a href="#why-us" className="hover:text-red-600 transition-colors">{t.whyUs}</a>
             <a 
               href="#contact" 
               className="bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2"
@@ -431,8 +444,7 @@ export default function HomePage() {
           <div className={`md:hidden border-b px-6 py-4 flex flex-col gap-4 font-medium ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
             <a href="#about" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100 dark:border-slate-800">{t.heroCard3Title}</a>
             <a href="#services" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100 dark:border-slate-800">{t.heroCard1Title}</a>
-            <a href="#approche" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100 dark:border-slate-800">{t.heroCard2Title}</a>
-            <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100 dark:border-slate-800">{t.heroCard4Title}</a>
+            <a href="#why-us" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100 dark:border-slate-800">{t.whyUs}</a>
             <a 
               href="#contact" 
               onClick={() => setMobileMenuOpen(false)}
@@ -511,7 +523,7 @@ export default function HomePage() {
 
             {/* Card 2 */}
             <a 
-              href="#approche"
+              href="#why-us"
               data-reveal
               className={`reveal reveal-rise reveal-delay-2 h-full p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-red-500/50' : 'bg-white border-slate-200 hover:border-red-500/50'}`}
             >
@@ -658,11 +670,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* =========================================================
-          SERVICES — PREMIUM COVERFLOW
-          Le composant reçoit les données existantes de servicesData.
-          Aucune donnée métier n'est dupliquée ici.
-          ========================================================= */}
+      {/* --- SERVICES --- */}
       <ServicesCoverflow
         services={servicesData}
         moreInfo={t.moreInfo}
@@ -671,234 +679,13 @@ export default function HomePage() {
         darkMode={darkMode}
       />
 
-      {/* --- SECTION 2: FORCES & DÉFIS --- */}
-      <section className={`py-20 border-y ${darkMode ? 'bg-slate-900/40 border-slate-800' : 'bg-slate-100/70 border-slate-200'}`}>
-        <div className="max-w-7xl mx-auto px-4 md:px-12">
-          
-          <div data-reveal className="reveal reveal-blur text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block font-serif">{t.s2Eye}</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold font-serif">{t.s2Title}</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
-            {/* Forces */}
-            <div data-reveal className={`reveal reveal-slide-left p-8 rounded-2xl border shadow-sm ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
-                <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                  <CheckCircle2 size={24} />
-                </div>
-                <h3 className="font-bold text-xl font-serif text-emerald-600 dark:text-emerald-400">{t.forcesTitle}</h3>
-              </div>
-
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">01</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-base">{t.f1Title}</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">{t.f1Desc}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">02</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-base">{t.f2Title}</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">{t.f2Desc}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">03</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-base">{t.f3Title}</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">{t.f3Desc}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">04</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-base">{t.f4Title}</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">{t.f4Desc}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Défis */}
-            <div data-reveal className={`reveal reveal-slide-right reveal-delay-1 p-8 rounded-2xl border shadow-sm ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
-                <div className="p-2 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400">
-                  <ShieldCheck size={24} />
-                </div>
-                <h3 className="font-bold text-xl font-serif text-red-600 dark:text-red-400">{t.defisTitle}</h3>
-              </div>
-
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-red-600 dark:text-red-400 bg-red-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">01</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-base">{t.d1Title}</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">{t.d1Desc}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-red-600 dark:text-red-400 bg-red-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">02</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-base">{t.d2Title}</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">{t.d2Desc}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-red-600 dark:text-red-400 bg-red-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">03</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-base">{t.d3Title}</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">{t.d3Desc}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-red-600 dark:text-red-400 bg-red-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">04</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-base">{t.d4Title}</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">{t.d4Desc}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div data-reveal className={`reveal reveal-rise mt-8 p-4 rounded-xl border flex items-center gap-3 text-base italic ${darkMode ? 'bg-slate-900/60 border-slate-800 text-slate-300' : 'bg-white border-slate-200 text-slate-700'}`}>
-            <HeartHandshake className="text-blue-500 shrink-0" size={20} />
-            <span>{t.s2Note}</span>
-          </div>
-
-        </div>
-      </section>
-
-      {/* --- SECTION 3: APPROCHE EN 4 ÉTAPES --- */}
-      <section id="approche" className="py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-4 md:px-12">
-          
-          <div data-reveal className="reveal reveal-clip flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block font-serif">{t.s3Eye}</span>
-              <h2 className="text-3xl md:text-5xl font-extrabold font-serif">{t.s3Title}</h2>
-            </div>
-            <p className="text-slate-600 dark:text-slate-400 max-w-md text-base md:text-lg">
-              {t.s3Intro}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-            
-            {/* Step 1 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-1 h-full p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div className="h-1 w-full bg-emerald-500 absolute top-0 left-0"></div>
-              <div>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{t.step1Num}</span>
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">{t.step1Label}</span>
-                </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.step1Title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.step1Desc}</p>
-              </div>
-              <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <span className="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Bilan</span>
-                <span className="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Risques</span>
-                <span className="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Objectifs</span>
-              </div>
-            </div>
-
-            {/* Step 2 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-2 h-full p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div className="h-1 w-full bg-blue-600 absolute top-0 left-0"></div>
-              <div>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{t.step2Num}</span>
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400">{t.step2Label}</span>
-                </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.step2Title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.step2Desc}</p>
-              </div>
-              <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <span className="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Roadmap</span>
-                <span className="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Optimisation</span>
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-3 h-full p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div className="h-1 w-full bg-amber-500 absolute top-0 left-0"></div>
-              <div>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{t.step3Num}</span>
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400">{t.step3Label}</span>
-                </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.step3Title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.step3Desc}</p>
-              </div>
-              <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <span className="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Reporting</span>
-                <span className="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Déclarations</span>
-              </div>
-            </div>
-
-            {/* Step 4 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-4 h-full p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div className="h-1 w-full bg-red-600 absolute top-0 left-0"></div>
-              <div>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{t.step4Num}</span>
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-red-500/10 text-red-600 dark:text-red-400">{t.step4Label}</span>
-                </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.step4Title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.step4Desc}</p>
-              </div>
-              <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <span className="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Veille</span>
-                <span className="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Révision</span>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* --- SECTION 4: CHIFFRES CLÉS --- */}
-      <section className={`py-16 border-y ${darkMode ? 'bg-slate-900/80 border-slate-800' : 'bg-slate-900 text-white border-slate-800'}`}>
-        <div className="max-w-7xl mx-auto px-4 md:px-12 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-          
-          <div data-reveal className="reveal reveal-fade reveal-delay-1">
-            <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">17+</div>
-            <div className="text-base font-semibold">{t.expYears}</div>
-            <p className="text-xs text-slate-400 mt-1">{t.expSub}</p>
-          </div>
-
-          <div data-reveal className="reveal reveal-rise reveal-delay-2">
-            <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">116+</div>
-            <div className="text-base font-semibold">{t.clientsServed}</div>
-            <p className="text-xs text-slate-400 mt-1">{t.clientsSub}</p>
-          </div>
-
-          <div data-reveal className="reveal reveal-fade reveal-delay-3">
-            <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">98%</div>
-            <div className="text-base font-semibold">{t.satisfactionRate}</div>
-            <p className="text-xs text-slate-400 mt-1">{t.satisfactionSub}</p>
-          </div>
-
-          <div data-reveal className="reveal reveal-rise reveal-delay-4">
-            <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">48h</div>
-            <div className="text-base font-semibold">{t.responseTime}</div>
-            <p className="text-xs text-slate-400 mt-1">{t.responseSub}</p>
-          </div>
-
-        </div>
+      {/* --- SECTION POURQUOI CHOISIR COLOUR DOME --- */}
+      <section id="why-us">
+        <WhyChooseUsTimeline
+          lang={lang}
+          darkMode={darkMode}
+          bookCta={t.bookCta}
+        />
       </section>
 
       {/* --- SECTION CONTACT & FORMULAIRE --- */}
@@ -1086,6 +873,17 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* --- BOUTON RETOUR EN HAUT --- */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          aria-label="Remonter en haut de la page"
+          className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-red-600 text-white shadow-xl hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all transform hover:scale-110"
+        >
+          <ArrowUp size={20} />
+        </button>
+      )}
 
     </div>
   );
