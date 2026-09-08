@@ -36,10 +36,10 @@ const translations = {
     ribbon6Title: "Conseil Stratégique", ribbon6Sub: "Diagnostic · Restructuration · Audit",
     // Value Added Section
     s1Badge: "Structure de nos Services",
-    s1Title1: "Notre", s1Title2: "Valeur Ajoutée",
+    s1Title1: "Notre", s1Title2: "Nos Services",
     s1Intro: "Un accompagnement complet et rigoureux, adapté à chaque étape de votre vie professionnelle, fiscale et patrimoniale.",
     stat1Val: "6", stat1Label: "Domaines d'expertise",
-    stat2Val: "06+", stat2Label: "Ans d'expérience",
+    stat2Val: "17+", stat2Label: "Ans d'expérience",
     stat3Val: "116+", stat3Label: "Clients servis",
     svc1Title: "Comptabilité & Tenue de Livres", svc1Desc: "Bilan, états de résultat, cycle comptable complet et reporting mensuel sur mesure.", svc1Tag: "Comptabilité",
     svc2Title: "Fiscalité des Particuliers & Sociétés", svc2Desc: "Déclarations, optimisation fiscale, crédits d'impôt et planification stratégique.", svc2Tag: "Fiscalité",
@@ -55,7 +55,7 @@ const translations = {
     defisTitle: "Défis que nous résolvons",
     f1Title: "Expertise pluridisciplinaire", f1Desc: "Comptabilité, fiscalité et droit réunis sous un même toit.",
     f2Title: "Spécialisation Diaspora", f2Desc: "Maîtrise des enjeux fiscaux transfrontaliers et d'implantation au Canada.",
-    f3Title: "06+ ans d'expérience", f3Desc: "Une équipe aguerrie aux réalités des PME et particuliers montréalais.",
+    f3Title: "17+ ans d'expérience", f3Desc: "Une équipe aguerrie aux réalités des PME et particuliers montréalais.",
     f4Title: "Réponse garantie en 48h", f4Desc: "Chaque dossier traité avec réactivité et transparence.",
     d1Title: "Complexité fiscale croissante", d1Desc: "Naviguer dans les règles TPS/TVQ, IS, et conventions bilatérales.",
     d2Title: "Contrôles fiscaux imprévus", d2Desc: "Préparation, défense et représentation devant les autorités.",
@@ -142,10 +142,10 @@ const translations = {
     ribbon6Title: "Strategic Advisory", ribbon6Sub: "Diagnosis · Restructuring · Audit",
     // Value Added Section
     s1Badge: "Our Service Structure",
-    s1Title1: "Our", s1Title2: "Added Value",
+    s1Title1: "Our", s1Title2: "Our Services",
     s1Intro: "Comprehensive and rigorous support, tailored to every stage of your professional, tax, and estate journey.",
     stat1Val: "6", stat1Label: "Areas of expertise",
-    stat2Val: "06+", stat2Label: "Years of experience",
+    stat2Val: "17+", stat2Label: "Years of experience",
     stat3Val: "116+", stat3Label: "Clients served",
     svc1Title: "Accounting & Bookkeeping", svc1Desc: "Balance sheet, income statement, full accounting cycle and customized monthly reporting.", svc1Tag: "Accounting",
     svc2Title: "Personal & Corporate Taxation", svc2Desc: "Tax returns, optimization, tax credits and strategic planning.", svc2Tag: "Taxation",
@@ -318,7 +318,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className={`min-h-screen font-sans transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
+    <div className={`${darkMode ? 'dark' : ''} min-h-screen font-sans transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
       
       {/* --- TOP BAR --- */}
       <div className={`border-b text-xs py-2 px-4 md:px-12 transition-colors ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-200 text-slate-600'}`}>
@@ -345,13 +345,13 @@ export default function HomePage() {
               >
                 {lang.toUpperCase()}
               </button>
-              <button 
+{/*               <button 
                 onClick={toggleTheme}
                 className="p-1.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
                 title="Basculer le mode sombre / clair"
               >
                 {darkMode ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} />}
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -445,7 +445,7 @@ export default function HomePage() {
               alt="Colour Dome Montréal"
               width={220}
               height={70}
-              className="object-contain h-16 md:h-20 w-auto"
+              className="theme-logo object-contain h-16 md:h-20 w-auto"
               priority
             />
           </div>
@@ -721,7 +721,7 @@ export default function HomePage() {
             <div data-reveal className={`reveal reveal-fade reveal-delay-6 h-full p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div>
                 <div className="flex justify-between items-center mb-6">
-                  <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">06</span>
+                  <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">17</span>
                   <div className="p-3 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400">
                     <Briefcase size={22} />
                   </div>
@@ -954,7 +954,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 md:px-12 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           
           <div data-reveal className="reveal reveal-fade reveal-delay-1">
-            <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">06+</div>
+            <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">17+</div>
             <div className="text-sm font-semibold">{t.expYears}</div>
             <p className="text-xs text-slate-400 mt-1">{t.expSub}</p>
           </div>

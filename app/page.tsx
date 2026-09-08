@@ -6,10 +6,9 @@ import {
   Building2, Scale, Calculator, Building, Globe, TrendingUp, 
   Phone, Mail, MapPin, Calendar, CheckCircle2, ArrowRight, 
   Sun, Moon, X, Menu, ShieldCheck, Clock, Users, Award, FileText,
-  Briefcase, HeartHandshake, FileCheck, Landmark, Search
+  Briefcase, HeartHandshake, FileCheck, Landmark, Search, Check, Sparkles, ArrowUpRight
 } from 'lucide-react';
 
-// --- DICTIONNAIRE DE TRADUCTIONS COMPLET ---
 const translations = {
   fr: {
     pageTitle: "Colour Dome Montréal — Comptabilité & Conseil Juridique",
@@ -27,84 +26,74 @@ const translations = {
     heroCard3Sub: "Qui nous sommes, notre équipe et nos valeurs",
     heroCard4Title: "Contact & RDV",
     heroCard4Sub: "Prendre rendez-vous, nous écrire ou nous appeler",
-    // Section Services Ribbon
-    ribbon1Title: "Comptabilité & Livres", ribbon1Sub: "Bilan · États de résultat · Cycle complet",
-    ribbon2Title: "Fiscalité Personnelle", ribbon2Sub: "Déclarations · Crédits · Optimisation",
-    ribbon3Title: "Droit des Affaires", ribbon3Sub: "Incorporation · Contrats · Litiges",
-    ribbon4Title: "Fiscalité Immobilière", ribbon4Sub: "Plus-values · Patrimoine · Succession",
-    ribbon5Title: "International & Diaspora", ribbon5Sub: "Transfrontalier · Implantation Canada",
-    ribbon6Title: "Conseil Stratégique", ribbon6Sub: "Diagnostic · Restructuration · Audit",
-    // Value Added Section
-    s1Badge: "Structure de nos Services",
-    s1Title1: "Notre", s1Title2: "Valeur Ajoutée",
-    s1Intro: "Un accompagnement complet et rigoureux, adapté à chaque étape de votre vie professionnelle, fiscale et patrimoniale.",
-    stat1Val: "6", stat1Label: "Domaines d'expertise",
-    stat2Val: "06+", stat2Label: "Ans d'expérience",
-    stat3Val: "116+", stat3Label: "Clients servis",
-    svc1Title: "Comptabilité & Tenue de Livres", svc1Desc: "Bilan, états de résultat, cycle comptable complet et reporting mensuel sur mesure.", svc1Tag: "Comptabilité",
-    svc2Title: "Fiscalité des Particuliers & Sociétés", svc2Desc: "Déclarations, optimisation fiscale, crédits d'impôt et planification stratégique.", svc2Tag: "Fiscalité",
-    svc3Title: "Droit des Affaires & Conseil Juridique", svc3Desc: "Incorporation, contrats, droit commercial et résolution de litiges.", svc3Tag: "Juridique",
-    svc4Title: "Fiscalité Immobilière & Patrimoine", svc4Desc: "Plus-values, transmission successorale et optimisation patrimoniale.", svc4Tag: "Patrimoine",
-    svc5Title: "International & Diaspora", svc5Desc: "Fiscalité transfrontalière, implantation et conventions bilatérales.", svc5Tag: "International",
-    svc6Title: "Conseil & Accompagnement Stratégique", svc6Desc: "Diagnostic financier, restructuration et préparation aux audits.", svc6Tag: "Stratégie",
+    
+    // Engagements
+    engagement1Title: "Réponse garantie en 48h", engagement1Sub: "Réactivité sur chaque dossier",
+    engagement2Title: "Confidentialité totale", engagement2Sub: "Données & échanges sécurisés",
+    engagement3Title: "Expertise bilingue", engagement3Sub: "Service complet FR & EN",
+    engagement4Title: "Transparence tarifaire", engagement4Sub: "Devis clair sans frais cachés",
+
+    // Services
+    s1Badge: "Domaines d'Intervention",
+    s1Title1: "Nos", s1Title2: "Expertises Clés",
+    s1Intro: "Une prise en charge globale conçue pour sécuriser vos opérations et maximiser vos performances financières et juridiques.",
+    
+    // Categories
+    catAll: "Tous les services",
+    catCompta: "Comptabilité",
+    catFisc: "Fiscalité",
+    catJuri: "Droit & Juridique",
+    catStrat: "Stratégie & Conseil",
+
+    // Services List
+    svc1Title: "Comptabilité & Tenue de Livres", 
+    svc1Desc: "Bilan annuel, états de résultat, cycle comptable complet et suivi de trésorerie.",
+    svc1Deliverables: ["Bilan & Comptes de résultats", "Tenue mensuelle/trimestrielle", "Déclarations TPS/TVQ"],
+    
+    svc2Title: "Fiscalité des Particuliers & Sociétés", 
+    svc2Desc: "Déclarations de revenus, optimisation fiscale, crédits d'impôt et restructuration.",
+    svc2Deliverables: ["Déclarations T1/TP1 & T2/CO-17", "Optimisation de la rémunération", "Gestion des acomptes provisionnels"],
+
+    svc3Title: "Droit des Affaires & Conseil Juridique", 
+    svc3Desc: "Incorporation d'entreprises, rédaction de contrats, conventions d'actionnaires et litiges.",
+    svc3Deliverables: ["Incorporation provinciale & fédérale", "Livre de société & mises à jour", "Contrats commerciaux & baux"],
+
+    svc4Title: "Fiscalité Immobilière & Patrimoine", 
+    svc4Desc: "Gestion des gains en capital, transmission du patrimoine et structures d'investissement.",
+    svc4Deliverables: ["Planification successorale", "Optimisation des gains en capital", "Structures de détention immobilière"],
+
+    svc5Title: "International & Diaspora", 
+    svc5Desc: "Fiscalité transfrontalière, règles de résidence et accompagnement à l'implantation au Canada.",
+    svc5Deliverables: ["Analyse des conventions fiscales", "Transfert d'actifs internationaux", "Statut de résidence fiscale"],
+
+    svc6Title: "Conseil & Accompagnement Stratégique", 
+    svc6Desc: "Diagnostic financier, restructuration d'entreprise, audits et levées de fonds.",
+    svc6Deliverables: ["Diagnostic financier 360°", "Défense en cas de contrôle fiscal", "Tableaux de bord de gestion"],
+
     quote: "« Penser et construire ensemble votre avenir financier et juridique, en toute sérénité. »",
-    // Forces & Défis
-    s2Eye: "Analyse Comparée",
-    s2Title: "Pourquoi choisir Colour Dome ?",
-    forcesTitle: "Nos Points Forts",
-    defisTitle: "Défis que nous résolvons",
-    f1Title: "Expertise pluridisciplinaire", f1Desc: "Comptabilité, fiscalité et droit réunis sous un même toit.",
-    f2Title: "Spécialisation Diaspora", f2Desc: "Maîtrise des enjeux fiscaux transfrontaliers et d'implantation au Canada.",
-    f3Title: "06+ ans d'expérience", f3Desc: "Une équipe aguerrie aux réalités des PME et particuliers montréalais.",
-    f4Title: "Réponse garantie en 48h", f4Desc: "Chaque dossier traité avec réactivité et transparence.",
-    d1Title: "Complexité fiscale croissante", d1Desc: "Naviguer dans les règles TPS/TVQ, IS, et conventions bilatérales.",
-    d2Title: "Contrôles fiscaux imprévus", d2Desc: "Préparation, défense et représentation devant les autorités.",
-    d3Title: "Structuration d'entreprise", d3Desc: "Choix de la bonne entité juridique pour optimiser et protéger.",
-    d4Title: "Transmission patrimoniale", d4Desc: "Planification successorale et optimisation des plus-values.",
-    s2Note: "Un premier échange est toujours gratuit et sans engagement. Notre équipe analyse votre situation et vous propose un plan d'action concret sous 48h.",
+
     // Approach Section
     s3Eye: "Méthodologie",
     s3Title: "Notre Approche en 4 Étapes",
-    s3Intro: "Une démarche structurée, transparente et orientée résultats — pour que chaque décision soit éclairée.",
-    step1Num: "Étape 01", step1Label: "Diagnostic", step1Title: "Écoute & Analyse", step1Desc: "Rencontre initiale gratuite. Audit complet de votre situation financière, fiscale et juridique pour identifier les enjeux prioritaires.",
-    step2Num: "Étape 02", step2Label: "Stratégie", step2Title: "Plan d'Action Sur Mesure", step2Desc: "Élaboration d'une feuille de route personnalisée : optimisation fiscale, restructuration juridique ou planification patrimoniale.",
-    step3Num: "Étape 03", step3Label: "Exécution", step3Title: "Mise en Œuvre & Suivi", step3Desc: "Exécution rigoureuse du plan avec reporting périodique. Vous restez informé à chaque étape, en toute transparence.",
-    step4Num: "Étape 04", step4Label: "Optimisation", step4Title: "Amélioration Continue", step4Desc: "Veille réglementaire permanente. Révisions annuelles et ajustements proactifs pour maximiser votre performance dans la durée.",
-    // Key stats
-    expYears: "Années d'expérience", expSub: "Fondé à Montréal",
-    clientsServed: "Clients accompagnés", clientsSub: "Particuliers & Entreprises",
-    satisfactionRate: "Taux de satisfaction", satisfactionSub: "Mesuré annuellement",
-    responseTime: "Délai de réponse", responseSub: "Garanti sur chaque dossier",
-    // 9 Services Grid
-    s5Eye: "Axes d'Intervention Prioritaires",
-    s5Title: "Nos 9 Prestations Clés",
-    p1Title: "Tenue de Livres", p1_1: "Comptabilité générale & analytique", p1_2: "Rapports mensuels personnalisés",
-    p2Title: "Paie & Ressources Humaines", p2_1: "Gestion complète de la paie", p2_2: "Cotisations & déclarations",
-    p3Title: "Fiscalité des Particuliers", p3_1: "Déclaration de revenus (IR)", p3_2: "Crédits d'impôt & déductions",
-    p4Title: "Fiscalité des Sociétés", p4_1: "IS, TPS/TVQ, taxes sur salaires", p4_2: "Optimisation de la charge fiscale",
-    p5Title: "Droit des Affaires", p5_1: "Incorporation & structuration", p5_2: "Contrats & litiges commerciaux",
-    p6Title: "Fiscalité Immobilière", p6_1: "Plus-values & droits d'enregistrement", p6_2: "Imposition du patrimoine",
-    p7Title: "International & Diaspora", p7_1: "Fiscalité transfrontalière", p7_2: "Rapatriement & conventions bilatérales",
-    p8Title: "Contrôle Fiscal & Contentieux", p8_1: "Assistance lors des contrôles", p8_2: "Défense fiscale & recours",
-    p9Title: "Conseil & Stratégie", p9_1: "Diagnostic financier d'entreprise", p9_2: "Préparation aux audits & levées de fonds",
-    // About Section
-    aboutEye: "Dispositif & Coordination",
-    aboutTitle: "Qui Nous Sommes",
-    aboutTagline: "« Un cabinet dédié à votre succès, ancré dans la rigueur et la proximité. »",
-    aboutBody: "Colour Dome Montréal est un cabinet pluridisciplinaire spécialisé dans les services comptables, fiscaux et juridiques. Depuis plus de 15 ans, nous accompagnons entrepreneurs, particuliers et membres de la diaspora dans leurs défis financiers et juridiques au Canada.",
-    actor1Title: "Entreprises & PME", actor1Desc: "Structuration, comptabilité & fiscalité des sociétés",
-    actor2Title: "Particuliers & Familles", actor2Desc: "Déclarations, patrimoine & planification fiscale",
-    actor3Title: "Diaspora & International", actor3Desc: "Fiscalité transfrontalière & implantation au Canada",
-    actor4Title: "Investisseurs", actor4Desc: "Immobilier, plus-values & optimisation patrimoniale",
-    // Roadmap
-    roadmapEye: "Trajectoire client",
-    roadmapTitle: "Notre roadmap de service",
-    phase1Num: "Phase 1 · Semaine 1", phase1Title: "Consolidation du Dossier", phase1Desc: "Collecte des documents, audit initial et établissement du diagnostic complet.",
-    phase2Num: "Phase 2 · Semaine 2-3", phase2Title: "Élaboration de la Stratégie", phase2Desc: "Présentation du plan d'action, validation des objectifs et signature du mandat.",
-    phase3Num: "Phase 3 · Continu", phase3Title: "Exécution & Suivi Actif", phase3Desc: "Mise en œuvre du plan, déclarations, actes juridiques et reporting périodique.",
-    phase4Num: "Phase 4 · Annuel", phase4Title: "Révision & Optimisation", phase4Desc: "Révision annuelle de la stratégie, veille réglementaire et ajustements proactifs.",
-    // Contact Section
-    contactEye: "Engagement Collectif",
+    s3Intro: "Un parcours structuré et transparent pour transformer la complexité comptable et juridique en levier de croissance.",
+    
+    step1Num: "01", step1Label: "Analyse", step1Title: "Diagnostic & Audit Initial", 
+    step1Desc: "Évaluation complète de votre situation actuelle, analyse des risques fiscaux/juridiques et clarification de vos objectifs prioritaires.",
+    step1Deliverables: ["Évaluation des risques", "Bilan comptable révisé", "Rapport de diagnostic gratuit"],
+
+    step2Num: "02", step2Label: "Planification", step2Title: "Feuille de Route Sur-Mesure", 
+    step2Desc: "Élaboration d'un plan d'action personnalisé intégrant les arbitrages fiscaux, le calendrier réglementaire et les structures juridiques adaptées.",
+    step2Deliverables: ["Plan d'optimisation fiscale", "Structure juridique cible", "Devis & calendrier détaillé"],
+
+    step3Num: "03", step3Label: "Exécution", step3Title: "Déploiement & Suivi Actif", 
+    step3Desc: "Mise en œuvre rigoureuse des procédures : tenue des livres, déclarations, rédaction des actes et accompagnement auprès des autorités.",
+    step3Deliverables: ["Dépôt des déclarations", "Production des états financiers", "Compte-rendu de gestion mensuel"],
+
+    step4Num: "04", step4Label: "Pérennisation", step4Title: "Optimisation & Veille Continue", 
+    step4Desc: "Suivi annuel proactif, ajustements stratégiques selon l'évolution des lois et anticipation des opportunités financières.",
+    step4Deliverables: ["Revue annuelle de performance", "Mise à jour réglementaire", "Planification de la paie/dividendes"],
+
+    // General
     contactTitle: "Parlons de votre situation",
     contactText: "Un premier échange est toujours gratuit et sans engagement. Notre équipe vous répond sous 48h.",
     formTitle: "Prendre rendez-vous",
@@ -113,7 +102,6 @@ const translations = {
     successMsg: "Votre message a bien été envoyé. Nous vous répondrons sous 48h.",
     errorMsg: "Votre message n’a pas pu être envoyé. Veuillez réessayer.",
     sendingMsg: "Envoi en cours…",
-    // Footer
     footerDesc: "Cabinet spécialisé dans les services comptables, fiscaux et juridiques. Établi à Montréal, Canada depuis plus de 15 ans.",
     footerRights: "© 2026 Colour Dome Montréal · Tous droits réservés"
   },
@@ -133,84 +121,74 @@ const translations = {
     heroCard3Sub: "Who we are, our team and our values",
     heroCard4Title: "Contact & Appt.",
     heroCard4Sub: "Book an appointment, write or call us",
-    // Section Services Ribbon
-    ribbon1Title: "Accounting & Books", ribbon1Sub: "Balance sheet · Income · Full cycle",
-    ribbon2Title: "Personal Taxation", ribbon2Sub: "Returns · Credits · Optimization",
-    ribbon3Title: "Business Law", ribbon3Sub: "Incorporation · Contracts · Disputes",
-    ribbon4Title: "Real Estate Tax", ribbon4Sub: "Capital gains · Estate · Succession",
-    ribbon5Title: "International & Diaspora", ribbon5Sub: "Cross-border · Canada Settlement",
-    ribbon6Title: "Strategic Advisory", ribbon6Sub: "Diagnosis · Restructuring · Audit",
-    // Value Added Section
-    s1Badge: "Our Service Structure",
-    s1Title1: "Our", s1Title2: "Added Value",
-    s1Intro: "Comprehensive and rigorous support, tailored to every stage of your professional, tax, and estate journey.",
-    stat1Val: "6", stat1Label: "Areas of expertise",
-    stat2Val: "06+", stat2Label: "Years of experience",
-    stat3Val: "116+", stat3Label: "Clients served",
-    svc1Title: "Accounting & Bookkeeping", svc1Desc: "Balance sheet, income statement, full accounting cycle and customized monthly reporting.", svc1Tag: "Accounting",
-    svc2Title: "Personal & Corporate Taxation", svc2Desc: "Tax returns, optimization, tax credits and strategic planning.", svc2Tag: "Taxation",
-    svc3Title: "Business Law & Legal Advisory", svc3Desc: "Incorporation, contracts, commercial law and dispute resolution.", svc3Tag: "Legal",
-    svc4Title: "Real Estate Taxation & Estate", svc4Desc: "Capital gains, estate planning and wealth optimization.", svc4Tag: "Estate",
-    svc5Title: "International & Diaspora", svc5Desc: "Cross-border taxation, business setup and bilateral tax treaties.", svc5Tag: "International",
-    svc6Title: "Strategic Advisory & Consulting", svc6Desc: "Financial diagnosis, restructuring and audit preparation.", svc6Tag: "Strategy",
+
+    // Engagements
+    engagement1Title: "Guaranteed 48h response", engagement1Sub: "Responsiveness on every file",
+    engagement2Title: "Total confidentiality", engagement2Sub: "Secured data & exchanges",
+    engagement3Title: "Bilingual expertise", engagement3Sub: "Full FR & EN service",
+    engagement4Title: "Transparent pricing", engagement4Sub: "Clear quote with no hidden fees",
+
+    // Services
+    s1Badge: "Areas of Expertise",
+    s1Title1: "Our", s1Title2: "Core Services",
+    s1Intro: "Comprehensive management designed to secure your operations and maximize your financial and legal performance.",
+    
+    // Categories
+    catAll: "All Services",
+    catCompta: "Accounting",
+    catFisc: "Taxation",
+    catJuri: "Corporate Law",
+    catStrat: "Strategy & Advisory",
+
+    // Services List
+    svc1Title: "Accounting & Bookkeeping", 
+    svc1Desc: "Annual balance sheet, income statements, full accounting cycle, and cash flow management.",
+    svc1Deliverables: ["Balance sheet & Income statements", "Monthly/quarterly bookkeeping", "GST/QST tax filings"],
+    
+    svc2Title: "Personal & Corporate Taxation", 
+    svc2Desc: "Tax returns, tax optimization, tax credits, and corporate restructuring.",
+    svc2Deliverables: ["T1/TP1 & T2/CO-17 Tax returns", "Compensation optimization", "Instalment tax payment management"],
+
+    svc3Title: "Business Law & Legal Advisory", 
+    svc3Desc: "Business incorporation, contract drafting, shareholders' agreements, and legal dispute management.",
+    svc3Deliverables: ["Provincial & Federal incorporation", "Minute books & corporate updates", "Commercial contracts & leases"],
+
+    svc4Title: "Real Estate Tax & Wealth Management", 
+    svc4Desc: "Capital gains optimization, estate transmission, and investment structures.",
+    svc4Deliverables: ["Estate planning", "Capital gains optimization", "Real estate holding structures"],
+
+    svc5Title: "International & Diaspora Services", 
+    svc5Desc: "Cross-border taxation, tax residency rules, and support for settling business in Canada.",
+    svc5Deliverables: ["Tax treaty analysis", "International asset transfers", "Tax residency status determination"],
+
+    svc6Title: "Strategic Advisory & Consulting", 
+    svc6Desc: "Financial diagnosis, corporate restructuring, tax audit defense, and capital fundraising.",
+    svc6Deliverables: ["360° Financial diagnosis", "Tax audit representation", "Management dashboards"],
+
     quote: "« Building together your financial and legal future, with complete peace of mind. »",
-    // Forces & Défis
-    s2Eye: "Comparative Analysis",
-    s2Title: "Why Choose Colour Dome?",
-    forcesTitle: "Our Strengths",
-    defisTitle: "Challenges We Solve",
-    f1Title: "Multidisciplinary expertise", f1Desc: "Accounting, taxation and law all under one roof.",
-    f2Title: "Diaspora Specialization", f2Desc: "Deep expertise in cross-border tax issues and Canadian business setup.",
-    f3Title: "6+ years of experience", f3Desc: "A seasoned team well-versed in the realities of Montréal SMEs and individuals.",
-    f4Title: "Guaranteed 48h response", f4Desc: "Every file handled with responsiveness and full transparency.",
-    d1Title: "Growing tax complexity", d1Desc: "Navigating GST/QST, corporate tax, and bilateral treaty rules.",
-    d2Title: "Unexpected tax audits", d2Desc: "Preparation, defense and representation before tax authorities.",
-    d3Title: "Business structuring", d3Desc: "Choosing the right legal entity to optimize and protect your interests.",
-    d4Title: "Estate and succession planning", d4Desc: "Succession planning and capital gains optimization.",
-    s2Note: "An initial consultation is always free and non-binding. Our team analyzes your situation and proposes a concrete action plan within 48 hours.",
+
     // Approach Section
     s3Eye: "Methodology",
     s3Title: "Our 4-Step Approach",
-    s3Intro: "A structured, transparent, results-driven process — so every decision is well-informed.",
-    step1Num: "Step 01", step1Label: "Diagnosis", step1Title: "Listen & Analyze", step1Desc: "Free initial meeting. Complete audit of your financial, tax and legal situation to identify priority issues.",
-    step2Num: "Step 02", step2Label: "Strategy", step2Title: "Tailored Action Plan", step2Desc: "Development of a personalized roadmap: tax optimization, legal restructuring or estate planning.",
-    step3Num: "Step 03", step3Label: "Execution", step3Title: "Implementation & Monitoring", step3Desc: "Rigorous execution with periodic reporting. You stay informed at every step, with full transparency.",
-    step4Num: "Step 04", step4Label: "Optimization", step4Title: "Continuous Improvement", step4Desc: "Ongoing regulatory monitoring. Annual reviews and proactive adjustments to maximize long-term performance.",
-    // Key stats
-    expYears: "Years of experience", expSub: "Founded in Montréal",
-    clientsServed: "Clients served", clientsSub: "Individuals & Businesses",
-    satisfactionRate: "Satisfaction rate", satisfactionSub: "Measured annually",
-    responseTime: "Response time", responseSub: "Guaranteed on every file",
-    // 9 Services Grid
-    s5Eye: "Priority Intervention Areas",
-    s5Title: "Our 9 Key Services",
-    p1Title: "Bookkeeping", p1_1: "General & analytical accounting", p1_2: "Customized monthly reports",
-    p2Title: "Payroll & Human Resources", p2_1: "Full payroll management", p2_2: "Contributions & filings",
-    p3Title: "Personal Taxation", p3_1: "Income tax returns", p3_2: "Tax credits & deductions",
-    p4Title: "Corporate Taxation", p4_1: "Corporate tax, GST/QST, payroll taxes", p4_2: "Tax burden optimization",
-    p5Title: "Business Law", p5_1: "Incorporation & structuring", p5_2: "Contracts & commercial disputes",
-    p6Title: "Real Estate Taxation", p6_1: "Capital gains & registration fees", p6_2: "Wealth taxation",
-    p7Title: "International & Diaspora", p7_1: "Cross-border taxation", p7_2: "Repatriation & bilateral treaties",
-    p8Title: "Tax Audit & Litigation", p8_1: "Support during tax audits", p8_2: "Tax defense & appeals",
-    p9Title: "Advisory & Strategy", p9_1: "Corporate financial diagnosis", p9_2: "Audit prep & fundraising",
-    // About Section
-    aboutEye: "Structure & Coordination",
-    aboutTitle: "Who We Are",
-    aboutTagline: "« A firm dedicated to your success, rooted in rigor and proximity. »",
-    aboutBody: "Colour Dome Montréal is a multidisciplinary firm specializing in accounting, tax, and legal services. For over 15 years, we have supported entrepreneurs, individuals, and members of the diaspora with their financial and legal challenges in Canada.",
-    actor1Title: "Businesses & SMEs", actor1Desc: "Structuring, accounting & corporate taxation",
-    actor2Title: "Individuals & Families", actor2Desc: "Tax returns, estate planning & fiscal optimization",
-    actor3Title: "Diaspora & International", actor3Desc: "Cross-border taxation & Canadian business setup",
-    actor4Title: "Investors", actor4Desc: "Real estate, capital gains & wealth optimization",
-    // Roadmap
-    roadmapEye: "Client journey",
-    roadmapTitle: "Our service roadmap",
-    phase1Num: "Phase 1 · Week 1", phase1Title: "File Consolidation", phase1Desc: "Document collection, initial audit and complete diagnostic assessment.",
-    phase2Num: "Phase 2 · Weeks 2-3", phase2Title: "Strategy Development", phase2Desc: "Presentation of the action plan, objective validation and mandate signing.",
-    phase3Num: "Phase 3 · Ongoing", phase3Title: "Execution & Active Monitoring", phase3Desc: "Plan implementation, filings, legal acts and periodic reporting.",
-    phase4Num: "Phase 4 · Annual", phase4Title: "Review & Optimization", phase4Desc: "Annual strategy review, regulatory monitoring and proactive adjustments.",
-    // Contact Section
-    contactEye: "Collective Commitment",
+    s3Intro: "A structured and transparent process designed to convert accounting and legal complexity into growth opportunities.",
+    
+    step1Num: "01", step1Label: "Analysis", step1Title: "Diagnosis & Initial Audit", 
+    step1Desc: "Comprehensive review of your current situation, tax and legal risk assessment, and clarification of priority goals.",
+    step1Deliverables: ["Risk assessment", "Revised accounting audit", "Free diagnostic report"],
+
+    step2Num: "02", step2Label: "Planning", step2Title: "Tailored Roadmap", 
+    step2Desc: "Development of a customized strategy combining tax trade-offs, regulatory deadlines, and optimal legal frameworks.",
+    step2Deliverables: ["Tax optimization roadmap", "Target legal structure", "Detailed quote & timetable"],
+
+    step3Num: "03", step3Label: "Execution", step3Title: "Deployment & Active Support", 
+    step3Desc: "Rigorously executing procedures: bookkeeping, tax filings, legal drafting, and representation before authorities.",
+    step3Deliverables: ["Tax return submissions", "Financial statement production", "Monthly management report"],
+
+    step4Num: "04", step4Label: "Sustainability", step4Title: "Optimization & Continuous Monitoring", 
+    step4Desc: "Proactive annual review, strategic adjustments as tax laws evolve, and long-term financial planning.",
+    step4Deliverables: ["Annual performance review", "Regulatory updates", "Payroll/dividend strategy"],
+
+    // General
     contactTitle: "Let's Talk About Your Situation",
     contactText: "An initial consultation is always free and non-binding. Our team responds within 48 hours.",
     formTitle: "Book an Appointment",
@@ -219,7 +197,6 @@ const translations = {
     successMsg: "Your message has been sent successfully. We will respond within 48h.",
     errorMsg: "Your message could not be sent. Please try again.",
     sendingMsg: "Sending…",
-    // Footer
     footerDesc: "Firm specialized in accounting, tax, and legal services. Established in Montréal, Canada for over 15 years.",
     footerRights: "© 2026 Colour Dome Montréal · All rights reserved"
   }
@@ -231,6 +208,7 @@ export default function HomePage() {
   const [activeModal, setActiveModal] = useState<'services' | 'approche' | 'cabinet' | 'contact' | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   
   // Form State
   const [formData, setFormData] = useState({
@@ -254,34 +232,6 @@ export default function HomePage() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    const revealElements = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
-
-    if (!('IntersectionObserver' in window)) {
-      revealElements.forEach((element) => element.classList.add('is-visible'));
-      return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      rootMargin: '0px 0px -12% 0px',
-      threshold: 0.12,
-    });
-
-    revealElements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, []);
-
-  const toggleTheme = () => {
-    setDarkMode(!darkMode);
-  };
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -317,6 +267,67 @@ export default function HomePage() {
     }
   };
 
+  const servicesList = [
+    {
+      id: "compta",
+      category: "compta",
+      icon: Calculator,
+      title: t.svc1Title,
+      desc: t.svc1Desc,
+      tag: t.catCompta,
+      deliverables: t.svc1Deliverables
+    },
+    {
+      id: "fisc",
+      category: "fisc",
+      icon: Landmark,
+      title: t.svc2Title,
+      desc: t.svc2Desc,
+      tag: t.catFisc,
+      deliverables: t.svc2Deliverables
+    },
+    {
+      id: "juri",
+      category: "juri",
+      icon: Scale,
+      title: t.svc3Title,
+      desc: t.svc3Desc,
+      tag: t.catJuri,
+      deliverables: t.svc3Deliverables
+    },
+    {
+      id: "immo",
+      category: "fisc",
+      icon: Building,
+      title: t.svc4Title,
+      desc: t.svc4Desc,
+      tag: t.catFisc,
+      deliverables: t.svc4Deliverables
+    },
+    {
+      id: "inter",
+      category: "strat",
+      icon: Globe,
+      title: t.svc5Title,
+      desc: t.svc5Desc,
+      tag: t.catStrat,
+      deliverables: t.svc5Deliverables
+    },
+    {
+      id: "strat",
+      category: "strat",
+      icon: Briefcase,
+      title: t.svc6Title,
+      desc: t.svc6Desc,
+      tag: t.catStrat,
+      deliverables: t.svc6Deliverables
+    }
+  ];
+
+  const filteredServices = selectedCategory === 'all' 
+    ? servicesList 
+    : servicesList.filter(s => s.category === selectedCategory);
+
   return (
     <div className={`${darkMode ? 'dark' : ''} min-h-screen font-sans transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
       
@@ -337,7 +348,6 @@ export default function HomePage() {
               <Mail size={13} /> info@colourdome.ca
             </a>
             
-            {/* Lang Switcher & Dark Mode Button */}
             <div className="flex items-center gap-2 ml-2 pl-2 border-l border-slate-200 dark:border-slate-800">
               <button 
                 onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}
@@ -345,13 +355,6 @@ export default function HomePage() {
               >
                 {lang.toUpperCase()}
               </button>
-{/*               <button 
-                onClick={toggleTheme}
-                className="p-1.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
-                title="Basculer le mode sombre / clair"
-              >
-                {darkMode ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} />}
-              </button> */}
             </div>
           </div>
         </div>
@@ -369,21 +372,16 @@ export default function HomePage() {
       <nav className={`sticky top-0 z-40 transition-all duration-300 border-b ${scrolled ? (darkMode ? 'bg-slate-900/90 border-slate-800 backdrop-blur-md shadow-lg' : 'bg-white/90 border-slate-200 backdrop-blur-md shadow-md') : (darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200')}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-12 h-20 flex items-center justify-between">
           
-          {/* Logo */}
-            <a href="#" className="flex items-center gap-3 group">
-{/*               <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-red-600 to-amber-500 flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
-                CD
-              </div> */}
-              <div>
-                <div className="font-bold text-lg leading-none tracking-tight flex items-center gap-1">
-                  <span>Colour</span>
-                  <span className="text-red-600">Dome</span>
-                </div>
-                <p className="text-xs italic font-serif text-slate-500 dark:text-slate-400 mt-1">Montréal</p>
+          <a href="#" className="flex items-center gap-3 group">
+            <div>
+              <div className="font-bold text-lg leading-none tracking-tight flex items-center gap-1">
+                <span>Colour</span>
+                <span className="text-red-600">Dome</span>
               </div>
-            </a>
+              <p className="text-xs italic font-serif text-slate-500 dark:text-slate-400 mt-1">Montréal</p>
+            </div>
+          </a>
 
-          {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-8 text-sm font-medium">
             <a href="#services" className="hover:text-red-600 transition-colors">{t.heroCard1Title}</a>
             <a href="#approche" className="hover:text-red-600 transition-colors">{t.heroCard2Title}</a>
@@ -398,7 +396,6 @@ export default function HomePage() {
             </a>
           </div>
 
-          {/* Mobile Menu Toggle */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200"
@@ -407,7 +404,6 @@ export default function HomePage() {
           </button>
         </div>
 
-        {/* Mobile Menu Dropdown */}
         {mobileMenuOpen && (
           <div className={`md:hidden border-b px-6 py-4 flex flex-col gap-4 font-medium ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
             <a href="#services" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100 dark:border-slate-800">{t.heroCard1Title}</a>
@@ -427,28 +423,20 @@ export default function HomePage() {
       </nav>
 
       {/* --- HERO SECTION --- */}
-      <section className={`relative overflow-hidden py-20 md:py-28 ${darkMode ? 'bg-slate-950' : 'bg-gradient-to-b from-slate-100 via-slate-50 to-white'}`}>
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[260px] font-bold opacity-[0.02] pointer-events-none select-none font-serif">
-          CDM
-        </div>
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-red-600/10 blur-3xl pointer-events-none"></div>
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-blue-600/10 blur-3xl pointer-events-none"></div>
-
+      <section className={`relative overflow-hidden py-20 md:py-24 ${darkMode ? 'bg-slate-950' : 'bg-gradient-to-b from-slate-100 via-slate-50 to-white'}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-12 relative z-10">
           
-          {/* Main Hero Card */}
-          <div data-reveal className={`reveal reveal-rise max-w-4xl mx-auto rounded-2xl p-8 md:p-14 text-center border shadow-2xl relative backdrop-blur-xl ${darkMode ? 'bg-slate-900/80 border-slate-800/80' : 'bg-white/80 border-white/90'}`}>
-
-          <div className="flex justify-center mb-6">
-            <Image
-              src="/image.png"
-              alt="Colour Dome Montréal"
-              width={220}
-              height={70}
-              className="theme-logo object-contain h-16 md:h-20 w-auto"
-              priority
-            />
-          </div>
+          <div className={`max-w-4xl mx-auto rounded-2xl p-8 md:p-12 text-center border shadow-xl relative backdrop-blur-xl ${darkMode ? 'bg-slate-900/80 border-slate-800/80' : 'bg-white/90 border-slate-200/80'}`}>
+            <div className="flex justify-center mb-6">
+              <Image
+                src="/image.png"
+                alt="Colour Dome Montréal"
+                width={220}
+                height={70}
+                className="theme-logo object-contain h-16 md:h-20 w-auto"
+                priority
+              />
+            </div>
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight font-serif mb-6 leading-tight">
               {t.heroTitle} <br className="hidden md:inline" />
               <span className="text-red-600 dark:text-red-500">{t.heroTitle2}</span>
@@ -468,277 +456,253 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* 4 Cards Grid - Key Entrance Links */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 items-stretch">
-            
-            {/* Card 1 */}
             <div 
               onClick={() => setActiveModal('services')}
-              data-reveal
-              className={`reveal reveal-rise reveal-delay-1 h-full p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-emerald-500/50' : 'bg-white border-slate-200 hover:border-emerald-500/50'}`}
+              className={`p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group flex flex-col justify-between ${darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'}`}
             >
-              <div className="w-12 h-12 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Calculator size={24} />
+              <div>
+                <div className="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
+                  <Calculator size={20} />
+                </div>
+                <h3 className="font-bold text-base font-serif mb-2 flex items-center justify-between">
+                  {t.heroCard1Title}
+                  <ArrowRight size={16} className="text-slate-400 group-hover:text-emerald-500 transition-colors" />
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  {t.heroCard1Sub}
+                </p>
               </div>
-              <h3 className="font-bold text-lg font-serif mb-2 flex items-center justify-between">
-                {t.heroCard1Title}
-                <ArrowRight size={16} className="text-slate-400 group-hover:text-emerald-500 transition-colors transform group-hover:translate-x-1" />
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                {t.heroCard1Sub}
-              </p>
-              <div className="h-1 w-full bg-emerald-500 absolute bottom-0 left-0"></div>
             </div>
 
-            {/* Card 2 */}
             <div 
               onClick={() => setActiveModal('approche')}
-              data-reveal
-              className={`reveal reveal-rise reveal-delay-2 h-full p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-red-500/50' : 'bg-white border-slate-200 hover:border-red-500/50'}`}
+              className={`p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group flex flex-col justify-between ${darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'}`}
             >
-              <div className="w-12 h-12 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <TrendingUp size={24} />
+              <div>
+                <div className="w-10 h-10 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center mb-4">
+                  <TrendingUp size={20} />
+                </div>
+                <h3 className="font-bold text-base font-serif mb-2 flex items-center justify-between">
+                  {t.heroCard2Title}
+                  <ArrowRight size={16} className="text-slate-400 group-hover:text-red-500 transition-colors" />
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  {t.heroCard2Sub}
+                </p>
               </div>
-              <h3 className="font-bold text-lg font-serif mb-2 flex items-center justify-between">
-                {t.heroCard2Title}
-                <ArrowRight size={16} className="text-slate-400 group-hover:text-red-500 transition-colors transform group-hover:translate-x-1" />
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                {t.heroCard2Sub}
-              </p>
-              <div className="h-1 w-full bg-red-600 absolute bottom-0 left-0"></div>
             </div>
 
-            {/* Card 3 */}
             <div 
               onClick={() => setActiveModal('cabinet')}
-              data-reveal
-              className={`reveal reveal-rise reveal-delay-3 h-full p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-blue-500/50' : 'bg-white border-slate-200 hover:border-blue-500/50'}`}
+              className={`p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group flex flex-col justify-between ${darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'}`}
             >
-              <div className="w-12 h-12 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Building2 size={24} />
+              <div>
+                <div className="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4">
+                  <Building2 size={20} />
+                </div>
+                <h3 className="font-bold text-base font-serif mb-2 flex items-center justify-between">
+                  {t.heroCard3Title}
+                  <ArrowRight size={16} className="text-slate-400 group-hover:text-blue-500 transition-colors" />
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  {t.heroCard3Sub}
+                </p>
               </div>
-              <h3 className="font-bold text-lg font-serif mb-2 flex items-center justify-between">
-                {t.heroCard3Title}
-                <ArrowRight size={16} className="text-slate-400 group-hover:text-blue-500 transition-colors transform group-hover:translate-x-1" />
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                {t.heroCard3Sub}
-              </p>
-              <div className="h-1 w-full bg-blue-600 absolute bottom-0 left-0"></div>
             </div>
 
-            {/* Card 4 */}
             <div 
               onClick={() => setActiveModal('contact')}
-              data-reveal
-              className={`reveal reveal-rise reveal-delay-4 h-full p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-teal-500/50' : 'bg-white border-slate-200 hover:border-teal-500/50'}`}
+              className={`p-6 rounded-xl border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group flex flex-col justify-between ${darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'}`}
             >
-              <div className="w-12 h-12 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Calendar size={24} />
+              <div>
+                <div className="w-10 h-10 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-4">
+                  <Calendar size={20} />
+                </div>
+                <h3 className="font-bold text-base font-serif mb-2 flex items-center justify-between">
+                  {t.heroCard4Title}
+                  <ArrowRight size={16} className="text-slate-400 group-hover:text-teal-500 transition-colors" />
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  {t.heroCard4Sub}
+                </p>
               </div>
-              <h3 className="font-bold text-lg font-serif mb-2 flex items-center justify-between">
-                {t.heroCard4Title}
-                <ArrowRight size={16} className="text-slate-400 group-hover:text-teal-500 transition-colors transform group-hover:translate-x-1" />
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                {t.heroCard4Sub}
-              </p>
-              <div className="h-1 w-full bg-teal-600 absolute bottom-0 left-0"></div>
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* --- SERVICES RIBBON STRIP --- */}
-      <section className={`border-y py-8 transition-colors ${darkMode ? 'bg-slate-900/90 border-slate-800' : 'bg-slate-900 text-white border-slate-800'}`}>
-        <div className="max-w-7xl mx-auto px-4 md:px-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-stretch">
-          
-          <div data-reveal className="reveal reveal-fade reveal-delay-1 flex flex-col items-center text-center p-2 group">
-            <div className="p-3 rounded-lg bg-emerald-500/20 text-emerald-400 mb-2 group-hover:scale-110 transition-transform">
-              <Calculator size={20} />
+      {/* --- BANDEAU NOUVELLE VERSION: ENGAGEMENTS ET RIGUEUR --- */}
+      <section className={`border-y py-6 transition-colors ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-white border-slate-200'}`}>
+        <div className="max-w-7xl mx-auto px-4 md:px-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 shrink-0">
+              <Clock size={18} />
             </div>
-            <h4 className="font-bold text-xs min-h-[2.25rem] flex items-center justify-center leading-tight px-1">{t.ribbon1Title}</h4>
-            <p className="text-[10px] text-slate-400 mt-1">{t.ribbon1Sub}</p>
+            <div>
+              <h4 className="font-bold text-xs text-slate-900 dark:text-white">{t.engagement1Title}</h4>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">{t.engagement1Sub}</p>
+            </div>
           </div>
 
-          <div data-reveal className="reveal reveal-fade reveal-delay-2 flex flex-col items-center text-center p-2 group">
-            <div className="p-3 rounded-lg bg-amber-500/20 text-amber-400 mb-2 group-hover:scale-110 transition-transform">
-              <Landmark size={20} />
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 shrink-0">
+              <ShieldCheck size={18} />
             </div>
-            <h4 className="font-bold text-xs min-h-[2.25rem] flex items-center justify-center leading-tight px-1">{t.ribbon2Title}</h4>
-            <p className="text-[10px] text-slate-400 mt-1">{t.ribbon2Sub}</p>
+            <div>
+              <h4 className="font-bold text-xs text-slate-900 dark:text-white">{t.engagement2Title}</h4>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">{t.engagement2Sub}</p>
+            </div>
           </div>
 
-          <div data-reveal className="reveal reveal-fade reveal-delay-3 flex flex-col items-center text-center p-2 group">
-            <div className="p-3 rounded-lg bg-red-500/20 text-red-400 mb-2 group-hover:scale-110 transition-transform">
-              <Scale size={20} />
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 shrink-0">
+              <Globe size={18} />
             </div>
-            <h4 className="font-bold text-xs min-h-[2.25rem] flex items-center justify-center leading-tight px-1">{t.ribbon3Title}</h4>
-            <p className="text-[10px] text-slate-400 mt-1">{t.ribbon3Sub}</p>
+            <div>
+              <h4 className="font-bold text-xs text-slate-900 dark:text-white">{t.engagement3Title}</h4>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">{t.engagement3Sub}</p>
+            </div>
           </div>
 
-          <div data-reveal className="reveal reveal-fade reveal-delay-4 flex flex-col items-center text-center p-2 group">
-            <div className="p-3 rounded-lg bg-blue-500/20 text-blue-400 mb-2 group-hover:scale-110 transition-transform">
-              <Building size={20} />
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 shrink-0">
+              <FileCheck size={18} />
             </div>
-            <h4 className="font-bold text-xs min-h-[2.25rem] flex items-center justify-center leading-tight px-1">{t.ribbon4Title}</h4>
-            <p className="text-[10px] text-slate-400 mt-1">{t.ribbon4Sub}</p>
-          </div>
-
-          <div data-reveal className="reveal reveal-fade reveal-delay-5 flex flex-col items-center text-center p-2 group">
-            <div className="p-3 rounded-lg bg-indigo-500/20 text-indigo-400 mb-2 group-hover:scale-110 transition-transform">
-              <Globe size={20} />
+            <div>
+              <h4 className="font-bold text-xs text-slate-900 dark:text-white">{t.engagement4Title}</h4>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">{t.engagement4Sub}</p>
             </div>
-            <h4 className="font-bold text-xs min-h-[2.25rem] flex items-center justify-center leading-tight px-1">{t.ribbon5Title}</h4>
-            <p className="text-[10px] text-slate-400 mt-1">{t.ribbon5Sub}</p>
           </div>
-
-          <div data-reveal className="reveal reveal-fade reveal-delay-6 flex flex-col items-center text-center p-2 group">
-            <div className="p-3 rounded-lg bg-teal-500/20 text-teal-400 mb-2 group-hover:scale-110 transition-transform">
-              <Briefcase size={20} />
-            </div>
-            <h4 className="font-bold text-xs min-h-[2.25rem] flex items-center justify-center leading-tight px-1">{t.ribbon6Title}</h4>
-            <p className="text-[10px] text-slate-400 mt-1">{t.ribbon6Sub}</p>
-          </div>
-
         </div>
       </section>
 
-      {/* --- SECTION 1: VALEUR AJOUTÉE --- */}
-      <section id="services" className="py-20 md:py-28">
+      {/* --- SECTION SERVICES REDESSINÉE --- */}
+      <section id="services" className="py-20">
         <div className="max-w-7xl mx-auto px-4 md:px-12">
           
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
-            <div data-reveal className="reveal reveal-slide-left">
-              <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-400 mb-2 block">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-400 mb-2 block font-serif">
                 {t.s1Badge}
               </span>
               <h2 className="text-3xl md:text-5xl font-extrabold font-serif">
                 {t.s1Title1} <span className="text-red-600 dark:text-red-500">{t.s1Title2}</span>
               </h2>
             </div>
-            <p data-reveal className="reveal reveal-slide-right reveal-delay-1 text-slate-600 dark:text-slate-400 max-w-xl text-sm md:text-base">
+            <p className="text-slate-600 dark:text-slate-400 max-w-xl text-sm md:text-base">
               {t.s1Intro}
             </p>
           </div>
 
-          {/* 6 Services Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
-            
-            {/* S1 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-1 h-full p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div>
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">01</span>
-                  <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                    <Calculator size={22} />
-                  </div>
-                </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.svc1Title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.svc1Desc}</p>
-              </div>
-              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                <span className="text-xs font-semibold px-3 py-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">{t.svc1Tag}</span>
-                <ArrowRight size={16} className="text-slate-400" />
-              </div>
-            </div>
-
-            {/* S2 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-2 h-full p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div>
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">02</span>
-                  <div className="p-3 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
-                    <Landmark size={22} />
-                  </div>
-                </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.svc2Title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.svc2Desc}</p>
-              </div>
-              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                <span className="text-xs font-semibold px-3 py-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400">{t.svc2Tag}</span>
-                <ArrowRight size={16} className="text-slate-400" />
-              </div>
-            </div>
-
-            {/* S3 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-3 h-full p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div>
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">03</span>
-                  <div className="p-3 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400">
-                    <Scale size={22} />
-                  </div>
-                </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.svc3Title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.svc3Desc}</p>
-              </div>
-              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                <span className="text-xs font-semibold px-3 py-1 rounded bg-red-500/10 text-red-600 dark:text-red-400">{t.svc3Tag}</span>
-                <ArrowRight size={16} className="text-slate-400" />
-              </div>
-            </div>
-
-            {/* S4 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-4 h-full p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div>
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">04</span>
-                  <div className="p-3 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
-                    <Building size={22} />
-                  </div>
-                </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.svc4Title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.svc4Desc}</p>
-              </div>
-              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                <span className="text-xs font-semibold px-3 py-1 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400">{t.svc4Tag}</span>
-                <ArrowRight size={16} className="text-slate-400" />
-              </div>
-            </div>
-
-            {/* S5 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-5 h-full p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div>
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">05</span>
-                  <div className="p-3 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
-                    <Globe size={22} />
-                  </div>
-                </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.svc5Title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.svc5Desc}</p>
-              </div>
-              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                <span className="text-xs font-semibold px-3 py-1 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">{t.svc5Tag}</span>
-                <ArrowRight size={16} className="text-slate-400" />
-              </div>
-            </div>
-
-            {/* S6 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-6 h-full p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div>
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-3xl font-serif font-black text-slate-300 dark:text-slate-700">06</span>
-                  <div className="p-3 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400">
-                    <Briefcase size={22} />
-                  </div>
-                </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.svc6Title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.svc6Desc}</p>
-              </div>
-              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                <span className="text-xs font-semibold px-3 py-1 rounded bg-teal-500/10 text-teal-600 dark:text-teal-400">{t.svc6Tag}</span>
-                <ArrowRight size={16} className="text-slate-400" />
-              </div>
-            </div>
-
+          {/* Onglets de filtrage */}
+          <div className="flex flex-wrap gap-2 mb-10 pb-4 border-b border-slate-200 dark:border-slate-800">
+            <button
+              onClick={() => setSelectedCategory('all')}
+              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+                selectedCategory === 'all'
+                  ? 'bg-red-600 text-white shadow-md'
+                  : 'bg-slate-200/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700'
+              }`}
+            >
+              {t.catAll}
+            </button>
+            <button
+              onClick={() => setSelectedCategory('compta')}
+              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+                selectedCategory === 'compta'
+                  ? 'bg-red-600 text-white shadow-md'
+                  : 'bg-slate-200/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700'
+              }`}
+            >
+              {t.catCompta}
+            </button>
+            <button
+              onClick={() => setSelectedCategory('fisc')}
+              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+                selectedCategory === 'fisc'
+                  ? 'bg-red-600 text-white shadow-md'
+                  : 'bg-slate-200/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700'
+              }`}
+            >
+              {t.catFisc}
+            </button>
+            <button
+              onClick={() => setSelectedCategory('juri')}
+              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+                selectedCategory === 'juri'
+                  ? 'bg-red-600 text-white shadow-md'
+                  : 'bg-slate-200/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700'
+              }`}
+            >
+              {t.catJuri}
+            </button>
+            <button
+              onClick={() => setSelectedCategory('strat')}
+              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+                selectedCategory === 'strat'
+                  ? 'bg-red-600 text-white shadow-md'
+                  : 'bg-slate-200/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700'
+              }`}
+            >
+              {t.catStrat}
+            </button>
           </div>
 
-          {/* Banner Quote */}
-          <div data-reveal className={`reveal reveal-scale mt-16 p-8 md:p-10 rounded-2xl border flex flex-col md:flex-row justify-between items-center gap-6 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-gradient-to-r from-slate-100 to-white border-slate-200'}`}>
+          {/* Grille des services structurée */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredServices.map((svc) => {
+              const IconComponent = svc.icon;
+              return (
+                <div
+                  key={svc.id}
+                  className={`rounded-2xl border p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
+                    darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'
+                  }`}
+                >
+                  <div>
+                    <div className="flex justify-between items-start mb-6">
+                      <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-red-600 dark:text-red-400">
+                        <IconComponent size={22} />
+                      </div>
+                      <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        {svc.tag}
+                      </span>
+                    </div>
+
+                    <h3 className="font-bold text-xl font-serif mb-3 text-slate-900 dark:text-white">
+                      {svc.title}
+                    </h3>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                      {svc.desc}
+                    </p>
+
+                    <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mb-6">
+                      <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-3">Livrables inclus</p>
+                      <ul className="space-y-2">
+                        {svc.deliverables.map((item, idx) => (
+                          <li key={idx} className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
+                            <Check size={14} className="text-red-600 shrink-0" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <a
+                    href="#contact"
+                    className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-red-600 dark:text-red-400 hover:text-red-700 transition-colors group"
+                  >
+                    <span>Consulter un expert</span>
+                    <ArrowUpRight size={16} className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className={`mt-16 p-8 rounded-2xl border flex flex-col md:flex-row justify-between items-center gap-6 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-gradient-to-r from-slate-100 to-white border-slate-200'}`}>
             <p className="font-serif italic text-lg md:text-xl text-slate-700 dark:text-slate-300 max-w-2xl text-center md:text-left">
               {t.quote}
             </p>
@@ -750,120 +714,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* --- SECTION 2: FORCES & DÉFIS --- */}
-      <section className={`py-20 border-y ${darkMode ? 'bg-slate-900/40 border-slate-800' : 'bg-slate-100/70 border-slate-200'}`}>
+      {/* --- SECTION NOTRE APPROCHE REVISITÉE --- */}
+      <section id="approche" className={`py-20 ${darkMode ? 'bg-slate-900/40 border-y border-slate-800' : 'bg-slate-100/60 border-y border-slate-200'}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-12">
           
-          <div data-reveal className="reveal reveal-blur text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block font-serif">{t.s2Eye}</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold font-serif">{t.s2Title}</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
-            {/* Forces */}
-            <div data-reveal className={`reveal reveal-slide-left p-8 rounded-2xl border shadow-sm ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
-                <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                  <CheckCircle2 size={24} />
-                </div>
-                <h3 className="font-bold text-xl font-serif text-emerald-600 dark:text-emerald-400">{t.forcesTitle}</h3>
-              </div>
-
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">01</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-sm">{t.f1Title}</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">{t.f1Desc}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">02</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-sm">{t.f2Title}</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">{t.f2Desc}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">03</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-sm">{t.f3Title}</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">{t.f3Desc}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">04</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-sm">{t.f4Title}</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">{t.f4Desc}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Défis */}
-            <div data-reveal className={`reveal reveal-slide-right reveal-delay-1 p-8 rounded-2xl border shadow-sm ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
-                <div className="p-2 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400">
-                  <ShieldCheck size={24} />
-                </div>
-                <h3 className="font-bold text-xl font-serif text-red-600 dark:text-red-400">{t.defisTitle}</h3>
-              </div>
-
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-red-600 dark:text-red-400 bg-red-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">01</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-sm">{t.d1Title}</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">{t.d1Desc}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-red-600 dark:text-red-400 bg-red-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">02</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-sm">{t.d2Title}</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">{t.d2Desc}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-red-600 dark:text-red-400 bg-red-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">03</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-sm">{t.d3Title}</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">{t.d3Desc}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <span className="font-bold text-sm text-red-600 dark:text-red-400 bg-red-500/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">04</span>
-                  <div>
-                    <h4 className="font-bold mb-1 text-sm">{t.d4Title}</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">{t.d4Desc}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div data-reveal className={`reveal reveal-rise mt-8 p-4 rounded-xl border flex items-center gap-3 text-sm italic ${darkMode ? 'bg-slate-900/60 border-slate-800 text-slate-300' : 'bg-white border-slate-200 text-slate-700'}`}>
-            <HeartHandshake className="text-blue-500 shrink-0" size={20} />
-            <span>{t.s2Note}</span>
-          </div>
-
-        </div>
-      </section>
-
-      {/* --- SECTION 3: APPROCHE EN 4 ÉTAPES --- */}
-      <section id="approche" className="py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-4 md:px-12">
-          
-          <div data-reveal className="reveal reveal-clip flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block font-serif">{t.s3Eye}</span>
               <h2 className="text-3xl md:text-5xl font-extrabold font-serif">{t.s3Title}</h2>
@@ -873,74 +728,102 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          {/* Fil conducteur interconnecté */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 relative">
             
             {/* Step 1 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-1 h-full p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div className="h-1 w-full bg-emerald-500 absolute top-0 left-0"></div>
+            <div className={`p-6 rounded-2xl border relative flex flex-col justify-between shadow-sm ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{t.step1Num}</span>
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">{t.step1Label}</span>
+                <div className="flex justify-between items-center mb-6">
+                  <span className="text-4xl font-extrabold font-serif text-slate-300 dark:text-slate-700">{t.step1Num}</span>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">{t.step1Label}</span>
                 </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.step1Title}</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-6">{t.step1Desc}</p>
+                <h3 className="font-bold text-lg font-serif mb-3 text-slate-900 dark:text-white">{t.step1Title}</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.step1Desc}</p>
               </div>
-              <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Bilan</span>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Risques</span>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Objectifs</span>
+
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Livrables</p>
+                <ul className="space-y-1">
+                  {t.step1Deliverables.map((item, i) => (
+                    <li key={i} className="text-[11px] text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-emerald-500"></span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
             {/* Step 2 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-2 h-full p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div className="h-1 w-full bg-blue-600 absolute top-0 left-0"></div>
+            <div className={`p-6 rounded-2xl border relative flex flex-col justify-between shadow-sm ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{t.step2Num}</span>
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400">{t.step2Label}</span>
+                <div className="flex justify-between items-center mb-6">
+                  <span className="text-4xl font-extrabold font-serif text-slate-300 dark:text-slate-700">{t.step2Num}</span>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 uppercase tracking-wider">{t.step2Label}</span>
                 </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.step2Title}</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-6">{t.step2Desc}</p>
+                <h3 className="font-bold text-lg font-serif mb-3 text-slate-900 dark:text-white">{t.step2Title}</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.step2Desc}</p>
               </div>
-              <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Roadmap</span>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Optimisation</span>
+
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Livrables</p>
+                <ul className="space-y-1">
+                  {t.step2Deliverables.map((item, i) => (
+                    <li key={i} className="text-[11px] text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-blue-500"></span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
             {/* Step 3 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-3 h-full p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div className="h-1 w-full bg-amber-500 absolute top-0 left-0"></div>
+            <div className={`p-6 rounded-2xl border relative flex flex-col justify-between shadow-sm ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{t.step3Num}</span>
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400">{t.step3Label}</span>
+                <div className="flex justify-between items-center mb-6">
+                  <span className="text-4xl font-extrabold font-serif text-slate-300 dark:text-slate-700">{t.step3Num}</span>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 uppercase tracking-wider">{t.step3Label}</span>
                 </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.step3Title}</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-6">{t.step3Desc}</p>
+                <h3 className="font-bold text-lg font-serif mb-3 text-slate-900 dark:text-white">{t.step3Title}</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.step3Desc}</p>
               </div>
-              <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Reporting</span>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Déclarations</span>
+
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Livrables</p>
+                <ul className="space-y-1">
+                  {t.step3Deliverables.map((item, i) => (
+                    <li key={i} className="text-[11px] text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-amber-500"></span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
             {/* Step 4 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-4 h-full p-6 rounded-2xl border relative overflow-hidden flex flex-col justify-between ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <div className="h-1 w-full bg-red-600 absolute top-0 left-0"></div>
+            <div className={`p-6 rounded-2xl border relative flex flex-col justify-between shadow-sm ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
               <div>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{t.step4Num}</span>
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-red-500/10 text-red-600 dark:text-red-400">{t.step4Label}</span>
+                <div className="flex justify-between items-center mb-6">
+                  <span className="text-4xl font-extrabold font-serif text-slate-300 dark:text-slate-700">{t.step4Num}</span>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 uppercase tracking-wider">{t.step4Label}</span>
                 </div>
-                <h3 className="font-bold text-xl font-serif mb-3">{t.step4Title}</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-6">{t.step4Desc}</p>
+                <h3 className="font-bold text-lg font-serif mb-3 text-slate-900 dark:text-white">{t.step4Title}</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-6">{t.step4Desc}</p>
               </div>
-              <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Veille</span>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Révision</span>
+
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Livrables</p>
+                <ul className="space-y-1">
+                  {t.step4Deliverables.map((item, i) => (
+                    <li key={i} className="text-[11px] text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-red-600"></span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
@@ -949,280 +832,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* --- SECTION 4: CHIFFRES CLÉS --- */}
-      <section className={`py-16 border-y ${darkMode ? 'bg-slate-900/80 border-slate-800' : 'bg-slate-900 text-white border-slate-800'}`}>
-        <div className="max-w-7xl mx-auto px-4 md:px-12 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-          
-          <div data-reveal className="reveal reveal-fade reveal-delay-1">
-            <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">06+</div>
-            <div className="text-sm font-semibold">{t.expYears}</div>
-            <p className="text-xs text-slate-400 mt-1">{t.expSub}</p>
-          </div>
-
-          <div data-reveal className="reveal reveal-rise reveal-delay-2">
-            <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">116+</div>
-            <div className="text-sm font-semibold">{t.clientsServed}</div>
-            <p className="text-xs text-slate-400 mt-1">{t.clientsSub}</p>
-          </div>
-
-          <div data-reveal className="reveal reveal-fade reveal-delay-3">
-            <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">98%</div>
-            <div className="text-sm font-semibold">{t.satisfactionRate}</div>
-            <p className="text-xs text-slate-400 mt-1">{t.satisfactionSub}</p>
-          </div>
-
-          <div data-reveal className="reveal reveal-rise reveal-delay-4">
-            <div className="text-4xl md:text-5xl font-extrabold font-serif text-red-500 mb-2">48h</div>
-            <div className="text-sm font-semibold">{t.responseTime}</div>
-            <p className="text-xs text-slate-400 mt-1">{t.responseSub}</p>
-          </div>
-
-        </div>
-      </section>
-
-      {/* --- SECTION 5: 9 PRESTATIONS CLÉS --- */}
-      <section className="py-20 md:py-28">
+      {/* --- SECTION ABOUT & CONTACT --- */}
+      <section id="about" className="py-20 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 md:px-12">
-          
-          <div data-reveal className="reveal reveal-slide-left text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block font-serif">{t.s5Eye}</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold font-serif">{t.s5Title}</h2>
+          <div className="max-w-3xl mx-auto text-center">
+            <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block font-serif">Le Cabinet</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold font-serif mb-6">Colour Dome Montréal</h2>
+            <p className="text-sm md:text-base text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+              Cabinet pluridisciplinaire spécialisé dans l'accompagnement des PME, des particuliers et des membres de la diaspora. Nous réunissons l'expertise comptable, l'ingénierie fiscale et le droit des affaires sous un même toit pour garantir sérénité et performance.
+            </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-            
-            {/* P1 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-1 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 01</span>
-              <h3 className="font-bold text-lg font-serif mb-4">{t.p1Title}</h3>
-              <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p1_1}</li>
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p1_2}</li>
-              </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 uppercase mt-auto w-fit">Comptabilité</span>
-            </div>
-
-            {/* P2 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-2 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 02</span>
-              <h3 className="font-bold text-lg font-serif mb-4">{t.p2Title}</h3>
-              <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p2_1}</li>
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p2_2}</li>
-              </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 uppercase mt-auto w-fit">Comptabilité</span>
-            </div>
-
-            {/* P3 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-3 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 03</span>
-              <h3 className="font-bold text-lg font-serif mb-4">{t.p3Title}</h3>
-              <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p3_1}</li>
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p3_2}</li>
-              </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 uppercase mt-auto w-fit">Fiscalité</span>
-            </div>
-
-            {/* P4 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-4 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 04</span>
-              <h3 className="font-bold text-lg font-serif mb-4">{t.p4Title}</h3>
-              <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p4_1}</li>
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p4_2}</li>
-              </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 uppercase mt-auto w-fit">Fiscalité</span>
-            </div>
-
-            {/* P5 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-1 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 05</span>
-              <h3 className="font-bold text-lg font-serif mb-4">{t.p5Title}</h3>
-              <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p5_1}</li>
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p5_2}</li>
-              </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-red-500/10 text-red-600 dark:text-red-400 uppercase mt-auto w-fit">Juridique</span>
-            </div>
-
-            {/* P6 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-2 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 06</span>
-              <h3 className="font-bold text-lg font-serif mb-4">{t.p6Title}</h3>
-              <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p6_1}</li>
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p6_2}</li>
-              </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-red-500/10 text-red-600 dark:text-red-400 uppercase mt-auto w-fit">Juridique</span>
-            </div>
-
-            {/* P7 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-3 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 07</span>
-              <h3 className="font-bold text-lg font-serif mb-4">{t.p7Title}</h3>
-              <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p7_1}</li>
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p7_2}</li>
-              </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 uppercase mt-auto w-fit">International</span>
-            </div>
-
-            {/* P8 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-4 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 08</span>
-              <h3 className="font-bold text-lg font-serif mb-4">{t.p8Title}</h3>
-              <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p8_1}</li>
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p8_2}</li>
-              </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 uppercase mt-auto w-fit">Contentieux</span>
-            </div>
-
-            {/* P9 */}
-            <div data-reveal className={`reveal reveal-fade reveal-delay-1 p-6 rounded-xl border relative h-full flex flex-col ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase block mb-3">OS 09</span>
-              <h3 className="font-bold text-lg font-serif mb-4">{t.p9Title}</h3>
-              <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-400 mb-6">
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p9_1}</li>
-                <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>{t.p9_2}</li>
-              </ul>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded bg-teal-500/10 text-teal-600 dark:text-teal-400 uppercase mt-auto w-fit">Stratégie</span>
-            </div>
-
-          </div>
-
         </div>
       </section>
 
-      {/* --- SECTION 6: QUI NOUS SOMMES & ROADMAP --- */}
-      <section id="about" className={`py-20 border-t ${darkMode ? 'bg-slate-900/30 border-slate-800' : 'bg-slate-100/60 border-slate-200'}`}>
+      {/* --- FORMULAIRE DE CONTACT --- */}
+      <section id="contact" className={`py-20 transition-colors ${darkMode ? 'bg-slate-950' : 'bg-slate-900 text-white'}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-12">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            
-            {/* Left: About Text & Actors */}
-            <div data-reveal className="reveal reveal-slide-left">
-              <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block font-serif">{t.aboutEye}</span>
-              <h2 className="text-3xl md:text-4xl font-extrabold font-serif mb-6">{t.aboutTitle}</h2>
-              
-              <p className="text-lg italic font-serif text-slate-700 dark:text-slate-300 border-l-4 border-red-600 pl-4 mb-6">
-                {t.aboutTagline}
-              </p>
-
-              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-                {t.aboutBody}
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
-                
-                <div data-reveal className={`reveal reveal-fade reveal-delay-1 h-full p-4 rounded-xl border flex items-start gap-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <Building2 className="text-emerald-500 shrink-0 mt-0.5" size={20} />
-                  <div>
-                    <h4 className="font-bold text-xs mb-1">{t.actor1Title}</h4>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400">{t.actor1Desc}</p>
-                  </div>
-                </div>
-
-                <div data-reveal className={`reveal reveal-fade reveal-delay-2 h-full p-4 rounded-xl border flex items-start gap-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <Users className="text-amber-500 shrink-0 mt-0.5" size={20} />
-                  <div>
-                    <h4 className="font-bold text-xs mb-1">{t.actor2Title}</h4>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400">{t.actor2Desc}</p>
-                  </div>
-                </div>
-
-                <div data-reveal className={`reveal reveal-fade reveal-delay-3 h-full p-4 rounded-xl border flex items-start gap-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <Globe className="text-red-500 shrink-0 mt-0.5" size={20} />
-                  <div>
-                    <h4 className="font-bold text-xs mb-1">{t.actor3Title}</h4>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400">{t.actor3Desc}</p>
-                  </div>
-                </div>
-
-                <div data-reveal className={`reveal reveal-fade reveal-delay-4 h-full p-4 rounded-xl border flex items-start gap-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-                  <Briefcase className="text-blue-500 shrink-0 mt-0.5" size={20} />
-                  <div>
-                    <h4 className="font-bold text-xs mb-1">{t.actor4Title}</h4>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400">{t.actor4Desc}</p>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            {/* Right: Roadmap Timeline */}
-            <div data-reveal className="reveal reveal-slide-right">
-              <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block font-serif">{t.roadmapEye}</span>
-              <h3 className="text-2xl font-bold font-serif mb-8">{t.roadmapTitle}</h3>
-
-              <div className="relative pl-6 space-y-8 border-l-2 border-slate-200 dark:border-slate-800">
-                
-                {/* Phase 1 */}
-                <div data-reveal className="reveal reveal-rise reveal-delay-1 relative">
-                  <span className="absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-emerald-500 text-white font-bold text-xs flex items-center justify-center">1</span>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">{t.phase1Num}</span>
-                  <h4 className="font-bold text-base font-serif mb-2">{t.phase1Title}</h4>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3">{t.phase1Desc}</p>
-                  <div className="flex gap-2">
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Documents</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Audit</span>
-                  </div>
-                </div>
-
-                {/* Phase 2 */}
-                <div data-reveal className="reveal reveal-rise reveal-delay-2 relative">
-                  <span className="absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-amber-500 text-white font-bold text-xs flex items-center justify-center">2</span>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">{t.phase2Num}</span>
-                  <h4 className="font-bold text-base font-serif mb-2">{t.phase2Title}</h4>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3">{t.phase2Desc}</p>
-                  <div className="flex gap-2">
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Plan d'action</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Mandat</span>
-                  </div>
-                </div>
-
-                {/* Phase 3 */}
-                <div data-reveal className="reveal reveal-rise reveal-delay-3 relative">
-                  <span className="absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-red-600 text-white font-bold text-xs flex items-center justify-center">3</span>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">{t.phase3Num}</span>
-                  <h4 className="font-bold text-base font-serif mb-2">{t.phase3Title}</h4>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3">{t.phase3Desc}</p>
-                  <div className="flex gap-2">
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Déclarations</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Reporting</span>
-                  </div>
-                </div>
-
-                {/* Phase 4 */}
-                <div data-reveal className="reveal reveal-rise reveal-delay-4 relative">
-                  <span className="absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center">4</span>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">{t.phase4Num}</span>
-                  <h4 className="font-bold text-base font-serif mb-2">{t.phase4Title}</h4>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3">{t.phase4Desc}</p>
-                  <div className="flex gap-2">
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Veille</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Optimisation</span>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* --- SECTION 7: CONTACT & APPOINTMENT FORM --- */}
-      <section id="contact" className={`py-20 md:py-28 transition-colors ${darkMode ? 'bg-slate-950' : 'bg-slate-900 text-white'}`}>
-        <div className="max-w-7xl mx-auto px-4 md:px-12">
-          
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
-            {/* Info */}
-            <div data-reveal className="reveal reveal-slide-left">
-              <span className="text-xs font-bold uppercase tracking-widest text-red-500 mb-2 block font-serif">{t.contactEye}</span>
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-red-500 mb-2 block font-serif">Engagement Collectif</span>
               <h2 className="text-3xl md:text-5xl font-extrabold font-serif mb-6 leading-tight">
                 {t.contactTitle}
               </h2>
@@ -1263,8 +892,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Form */}
-            <div data-reveal className={`reveal reveal-slide-right reveal-delay-1 p-8 rounded-2xl border ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-800/80 border-slate-700'}`}>
+            <div className={`p-8 rounded-2xl border ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-800/80 border-slate-700'}`}>
               <h3 className="font-bold text-2xl font-serif mb-6 text-white">{t.formTitle}</h3>
               
               {formSubmitted ? (
@@ -1274,7 +902,6 @@ export default function HomePage() {
                 </div>
               ) : (
                 <form onSubmit={handleFormSubmit} className="space-y-4">
-                  
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
                     <div>
                       <label className="text-xs font-semibold text-slate-300 mb-1 block">{t.firstName}</label>
@@ -1373,20 +1000,17 @@ export default function HomePage() {
                       {formError}
                     </p>
                   )}
-
                 </form>
               )}
             </div>
 
           </div>
-
         </div>
       </section>
 
       {/* --- FOOTER --- */}
       <footer className={`border-t pt-12 pb-8 text-xs transition-colors ${darkMode ? 'bg-slate-950 border-slate-900 text-slate-500' : 'bg-slate-950 text-slate-400 border-slate-900'}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-          
           <div>
             <div className="mb-3 bg-white rounded-lg inline-block px-2 py-1.5">
               <Image src="/logo.png" alt="Colour Dome Montréal" width={160} height={50} className="object-contain" />
@@ -1400,7 +1024,6 @@ export default function HomePage() {
               <li><a href="#services" className="hover:text-red-500 transition-colors">Comptabilité</a></li>
               <li><a href="#services" className="hover:text-red-500 transition-colors">Fiscalité</a></li>
               <li><a href="#services" className="hover:text-red-500 transition-colors">Droit des affaires</a></li>
-              <li><a href="#services" className="hover:text-red-500 transition-colors">Immobilier</a></li>
             </ul>
           </div>
 
@@ -1408,7 +1031,6 @@ export default function HomePage() {
             <h4 className="font-bold uppercase tracking-widest text-slate-200 mb-3">Cabinet</h4>
             <ul className="space-y-2">
               <li><a href="#about" className="hover:text-red-500 transition-colors">À propos</a></li>
-              <li><a href="#about" className="hover:text-red-500 transition-colors">Notre équipe</a></li>
               <li><a href="#approche" className="hover:text-red-500 transition-colors">Notre méthode</a></li>
             </ul>
           </div>
@@ -1421,24 +1043,17 @@ export default function HomePage() {
               <li>2015 Drummond, Suite 1005</li>
             </ul>
           </div>
-
         </div>
 
         <div className="max-w-7xl mx-auto px-4 md:px-12 pt-6 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4">
           <p>{t.footerRights}</p>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-            <a href="#" className="hover:text-white transition-colors">Facebook</a>
-            <a href="#" className="hover:text-white transition-colors">Twitter</a>
-          </div>
         </div>
       </footer>
 
-      {/* --- MODAL DIALOGS FOR HERO CARDS --- */}
+      {/* --- MODAL DIALOGS --- */}
       {activeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fade-in modal-backdrop">
-          <div className={`modal-panel max-w-lg w-full rounded-2xl p-8 relative shadow-2xl border ${darkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
-            
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
+          <div className={`max-w-lg w-full rounded-2xl p-8 relative shadow-2xl border ${darkMode ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
             <button 
               onClick={() => setActiveModal(null)}
               className="absolute top-4 right-4 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500"
@@ -1451,12 +1066,9 @@ export default function HomePage() {
                 <span className="text-xs font-bold uppercase tracking-widest text-emerald-500 block mb-2 font-serif">Nos Services</span>
                 <h3 className="text-2xl font-bold font-serif mb-4">6 Domaines d'Expertise</h3>
                 <ul className="space-y-3 text-xs leading-relaxed text-slate-600 dark:text-slate-300 mb-6">
-                  <li className="flex gap-2"><strong>• Comptabilité & Tenue de Livres:</strong> Bilan, cycle comptable, reporting.</li>
-                  <li className="flex gap-2"><strong>• Fiscalité:</strong> Déclarations IR/IS, crédits d'impôt, optimisation.</li>
-                  <li className="flex gap-2"><strong>• Droit des Affaires:</strong> Incorporation, contrats, litiges.</li>
-                  <li className="flex gap-2"><strong>• Immobilier & Patrimoine:</strong> Plus-values, transmission.</li>
-                  <li className="flex gap-2"><strong>• International & Diaspora:</strong> Fiscalité transfrontalière.</li>
-                  <li className="flex gap-2"><strong>• Conseil Stratégique:</strong> Diagnostic financier, audits.</li>
+                  <li><strong>Comptabilité & Tenue de Livres:</strong> Bilan, cycle comptable, reporting.</li>
+                  <li><strong>Fiscalité:</strong> Déclarations IR/IS, crédits d'impôt, optimisation.</li>
+                  <li><strong>Droit des Affaires:</strong> Incorporation, contrats, litiges.</li>
                 </ul>
                 <a 
                   href="#services" 
@@ -1473,10 +1085,10 @@ export default function HomePage() {
                 <span className="text-xs font-bold uppercase tracking-widest text-red-500 block mb-2 font-serif">Notre Approche</span>
                 <h3 className="text-2xl font-bold font-serif mb-4">Méthodologie en 4 Étapes</h3>
                 <ul className="space-y-3 text-xs leading-relaxed text-slate-600 dark:text-slate-300 mb-6">
-                  <li className="flex gap-2"><strong>1. Écoute & Analyse:</strong> Audit complet et rencontre initiale gratuite.</li>
-                  <li className="flex gap-2"><strong>2. Plan d'Action:</strong> Feuille de route personnalisée sur mesure.</li>
-                  <li className="flex gap-2"><strong>3. Mise en Œuvre:</strong> Exécution rigoureuse et reporting périodique.</li>
-                  <li className="flex gap-2"><strong>4. Amélioration Continue:</strong> Veille permanente et révisions annuelles.</li>
+                  <li><strong>1. Analyse:</strong> Audit complet et évaluation des risques.</li>
+                  <li><strong>2. Planification:</strong> Plan d'action personnalisé et sur mesure.</li>
+                  <li><strong>3. Exécution:</strong> Dépôt des déclarations et actes juridiques.</li>
+                  <li><strong>4. Pérennisation:</strong> Veille proactive et révision annuelle.</li>
                 </ul>
                 <a 
                   href="#approche" 
@@ -1492,11 +1104,9 @@ export default function HomePage() {
               <div>
                 <span className="text-xs font-bold uppercase tracking-widest text-blue-500 block mb-2 font-serif">Le Cabinet</span>
                 <h3 className="text-2xl font-bold font-serif mb-4">Colour Dome Montréal</h3>
-                <ul className="space-y-3 text-xs leading-relaxed text-slate-600 dark:text-slate-300 mb-6">
-                  <li className="flex gap-2"><strong>• 15+ ans d'expérience:</strong> Cabinet basé à Montréal.</li>
-                  <li className="flex gap-2"><strong>• 116+ clients accompagnés:</strong> PME, particuliers & diaspora.</li>
-                  <li className="flex gap-2"><strong>• Réponse sous 48h:</strong> Transparence et réactivité garanties.</li>
-                </ul>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                  Plus de 15 ans d'expérience au service des PME et des particuliers montréalais. Un accompagnement bilingue et sur-mesure.
+                </p>
                 <a 
                   href="#about" 
                   onClick={() => setActiveModal(null)}
@@ -1512,7 +1122,7 @@ export default function HomePage() {
                 <span className="text-xs font-bold uppercase tracking-widest text-teal-500 block mb-2 font-serif">Contact</span>
                 <h3 className="text-2xl font-bold font-serif mb-4">Un premier échange gratuit</h3>
                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                  Contactez-nous directement par téléphone au <strong>514-731-0285</strong> ou remplissez notre formulaire en ligne.
+                  Contactez-nous au <strong>514-731-0285</strong> ou réservez une plage horaire directement en ligne.
                 </p>
                 <a 
                   href="#contact" 
@@ -1523,7 +1133,6 @@ export default function HomePage() {
                 </a>
               </div>
             )}
-
           </div>
         </div>
       )}
