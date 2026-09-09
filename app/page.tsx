@@ -700,7 +700,7 @@ export default function HomePage() {
                 
                 <div className="absolute bottom-6 left-6 right-6 p-6 rounded-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200/50 dark:border-slate-800/50 shadow-lg flex items-center justify-between">
                   <div>
-                    <p className="font-serif font-bold text-xl text-slate-900 dark:text-white">Colour Dome Montréal</p>
+                    <p className="font-serif font-bold text-xl text-slate-900 dark:text-white">Colour Dome {t.city}</p>
                     <p className="text-sm text-slate-600 dark:text-slate-400">
                       {lang === 'fr' ? "Services comptables, fiscaux & juridiques" : "Accounting, Tax & Legal Services"}
                     </p>
