@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
 
 function escapeHtml(value: unknown) {
   return String(value ?? '')
@@ -26,6 +27,24 @@ function generateEmailTemplate(data: Record<string, unknown>, lang: string) {
   `;
 }
 
+function getSmtpTransporter() {
+  const host = process.env.SMTP_HOST?.trim();
+  const port = Number(process.env.SMTP_PORT || 587);
+  const user = process.env.SMTP_USER?.trim();
+  const password = process.env.SMTP_PASSWORD;
+
+  if (!host || !user || !password || !Number.isInteger(port)) {
+    return null;
+  }
+
+  return nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: { user, pass: password },
+  });
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -48,46 +67,38 @@ export async function POST(request: Request) {
       );
     }
 
-    const apiKey = process.env.RESEND_API_KEY?.trim();
-    if (!apiKey) {
-      console.error('RESEND_API_KEY est absente. Ajoutez-la aux variables d’environnement de production.');
+    const transporter = getSmtpTransporter();
+    const recipients = (process.env.MAIL_TO || '')
+      .split(',')
+      .map((address) => address.trim())
+      .filter(Boolean);
+    const mailFrom = process.env.MAIL_FROM?.trim() || process.env.SMTP_USER?.trim();
+
+    if (!transporter || recipients.length === 0 || !mailFrom) {
+      console.error('Configuration SMTP incomplète. Vérifiez SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, MAIL_FROM et MAIL_TO.');
       return NextResponse.json(
         { error: 'Configuration email manquante.' },
         { status: 503 }
       );
     }
 
-    const mailTo = process.env.MAIL_TO?.trim() || 'rolanddevjunior@gmail.com';
-    const mailFrom = process.env.MAIL_FROM?.trim() || 'onboarding@resend.dev';
-
-    const resendResponse = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: mailFrom,
-        to: mailTo.split(',').map((address) => address.trim()).filter(Boolean),
-        subject: lang === 'en'
-          ? `New Appointment Request — ${name}`
-          : `Nouvelle demande de rendez-vous — ${name}`,
-        reply_to: email,
-        html: generateEmailTemplate({ ...body, name, phone, service }, lang),
-      }),
+    const info = await transporter.sendMail({
+      from: mailFrom,
+      // Une adresse principale est nécessaire ; les boîtes de l’équipe sont en copie cachée.
+      to: mailFrom,
+      bcc: recipients,
+      replyTo: email,
+      subject: lang === 'en'
+        ? `New Appointment Request — ${name}`
+        : `Nouvelle demande de rendez-vous — ${name}`,
+      html: generateEmailTemplate({ ...body, name, phone, service }, lang),
     });
 
-    const data = await resendResponse.json();
-    if (!resendResponse.ok) {
-      console.error('Erreur Resend:', data);
-      return NextResponse.json({ error: data }, { status: resendResponse.status });
-    }
-
-    return NextResponse.json({ success: true, data });
+    return NextResponse.json({ success: true, messageId: info.messageId });
   } catch (err: unknown) {
     console.error('Erreur serveur API Contact:', err);
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : 'Erreur interne du serveur' },
+      { error: 'Impossible d’envoyer le message pour le moment.' },
       { status: 500 }
     );
   }
