@@ -661,9 +661,13 @@ export default function HomePage() {
                 {t.aboutTagline}
               </p>
 
-              <p className="text-xs sm:text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6 sm:mb-8">
+{/*               <p className="text-xs sm:text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6 sm:mb-8">
                 {t.aboutBody}
-              </p>
+              </p> */}
+
+              <p className="text-xs sm:text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6 sm:mb-8 text-justify">
+  {t.aboutBody}
+</p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 items-stretch w-full">
                 <div className={`p-3.5 sm:p-5 rounded-xl border flex items-start gap-3 transition-all ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
