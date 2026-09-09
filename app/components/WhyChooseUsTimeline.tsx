@@ -70,44 +70,43 @@ export default function WhyChooseUsTimeline({
       ];
 
   return (
-    <section className={`py-16 md:py-24 border-y transition-colors duration-300 ${darkMode ? 'border-slate-800 bg-slate-950 text-white' : 'border-slate-200 bg-white text-slate-950'}`}>
-      <div className="mx-auto max-w-7xl px-6 md:px-12">
+    <section className={`py-12 sm:py-16 md:py-24 border-y overflow-hidden transition-colors duration-300 ${darkMode ? 'border-slate-800 bg-slate-950 text-white' : 'border-slate-200 bg-white text-slate-950'}`}>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-12">
         
         {/* Entête minimaliste */}
-        <div data-reveal className="mb-14 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="mb-10 sm:mb-14 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6">
           <div className="max-w-xl">
-            <span className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2 block font-mono">
+            <span className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1 sm:mb-2 block font-mono">
               04 · {isFrench ? 'Notre différence' : 'Our difference'}
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold font-serif tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold font-serif tracking-tight leading-tight">
               {isFrench ? 'Pourquoi nous choisir ?' : 'Why choose us?'}
             </h2>
           </div>
-          <p className={`max-w-md text-sm md:text-base leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+          <p className={`max-w-md text-xs sm:text-sm md:text-base leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
             {isFrench
               ? 'Un accompagnement simple, réactif et sur mesure, axé sur la clarté et la sérénité.'
               : 'Simple, responsive, tailored support focused on clarity and peace of mind.'}
           </p>
         </div>
 
-        {/* Grille typographique dépouillée (Pas de cards, pas de couleurs) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12">
-          {items.map((item, index) => (
+        {/* Grille typographique dépouillée */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12">
+          {items.map((item) => (
             <div 
               key={item.number} 
-              data-reveal 
-              className={`reveal reveal-fade reveal-delay-${index + 1} flex flex-col justify-between border-t pt-6 ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}
+              className={`flex flex-col justify-between border-t pt-5 sm:pt-6 ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}
             >
               <div>
-                <span className={`font-mono text-xs font-semibold block mb-6 ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}>
+                <span className={`font-mono text-xs font-semibold block mb-3 sm:mb-6 ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}>
                   {item.number} / {item.label}
                 </span>
                 
-                <h3 className="text-xl font-bold font-serif mb-3 leading-snug">
+                <h3 className="text-lg sm:text-xl font-bold font-serif mb-2 sm:mb-3 leading-snug">
                   {item.title}
                 </h3>
                 
-                <p className={`text-sm leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                <p className={`text-xs sm:text-sm leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                   {item.text}
                 </p>
               </div>
@@ -116,7 +115,7 @@ export default function WhyChooseUsTimeline({
         </div>
 
         {/* Bouton d'action épuré */}
-        <div data-reveal className="mt-16 text-center">
+        <div className="mt-12 sm:mt-16 text-center">
           <a
             href="#contact"
             className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-600 hover:text-red-700 transition-colors py-2 border-b-2 border-red-600"
