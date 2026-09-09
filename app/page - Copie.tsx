@@ -91,12 +91,10 @@ const translations = {
     serviceSelect: "Service souhaité *", message: "Message *", submitBtn: "Envoyer ma demande",
     selectOptionDefault: "-- Choisissez un service --",
     optAccounting: "Comptabilité & Tenue de livres",
-    optTax: "Fiscalité des Particuliers & Sociétés",
-    optLegal: "Droit des Affaires & Conseil Juridique",
-    optRealEstate: "Fiscalité Immobilière & Patrimoine",
-    optInternational: "International & Diaspora",
-    optConsulting: "Conseil & Accompagnement Stratégique",
-    optOther: "Autres services",
+    optTax: "Fiscalité des Sociétés & Particuliers",
+    optLegal: "Droit des Affaires & Intégration",
+    optRealEstate: "Fiscalité Immobilière & Transfrontalière",
+    optOther: "Autre demande",
     successMsg: "Votre message a bien été envoyé. Nous vous répondrons sous 48h.",
     errorMsg: "Votre message n’a pas pu être envoyé. Veuillez réessayer.",
     serviceUnavailableMsg: "Le service de messagerie est momentanément indisponible.",
@@ -185,12 +183,10 @@ const translations = {
     serviceSelect: "Select a service *", message: "Message *", submitBtn: "Send my request",
     selectOptionDefault: "-- Select a service --",
     optAccounting: "Accounting & Bookkeeping",
-    optTax: "Personal & Corporate Taxation",
-    optLegal: "Business Law & Legal Advisory",
-    optRealEstate: "Real Estate Taxation & Estate",
-    optInternational: "International & Diaspora",
-    optConsulting: "Strategic Advisory & Support",
-    optOther: "Other services",
+    optTax: "Corporate & Personal Taxation",
+    optLegal: "Business Law & Advisory",
+    optRealEstate: "Real Estate & Cross-Border Tax",
+    optOther: "Other Inquiry",
     successMsg: "Your message has been sent successfully. We will respond within 48h.",
     errorMsg: "Your message could not be sent. Please try again.",
     serviceUnavailableMsg: "The messaging service is temporarily unavailable.",
@@ -283,7 +279,7 @@ export default function HomePage() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, lang }),
+        body: JSON.stringify({ ...formData, lang }), // <--- Inclusion de la langue actuelle
       });
 
       const result = await response.json();
@@ -293,6 +289,7 @@ export default function HomePage() {
           throw new Error(t.serviceUnavailableMsg);
         }
 
+        // Traitement du message d'erreur si result.error est un objet
         let extractedError = result.error;
         if (typeof result.error === 'object' && result.error !== null) {
           extractedError = result.error.message || JSON.stringify(result.error);
@@ -400,6 +397,7 @@ export default function HomePage() {
       <div className={`border-b text-xs py-2 px-3 sm:px-6 md:px-12 transition-colors ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-200 text-slate-600'}`}>
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
           
+          {/* Tagline / Adresse */}
           <div className="flex items-center gap-2 sm:gap-4 text-left min-w-0">
             <span className="italic font-serif font-medium text-red-600 dark:text-red-400 text-[11px] sm:text-xs truncate">
               {t.topTag}
@@ -408,6 +406,7 @@ export default function HomePage() {
             <span className="hidden lg:inline text-xs">{t.address}</span>
           </div>
 
+          {/* Contact & Langue */}
           <div className="flex items-center gap-2.5 sm:gap-4 shrink-0 text-[11px] sm:text-xs">
             <a href="tel:5147318811" className="flex items-center gap-1 hover:text-red-600 transition-colors">
               <Smartphone size={13} className="shrink-0" /> 
@@ -419,6 +418,7 @@ export default function HomePage() {
               <span className="hidden md:inline">info@colourdome.ca</span>
             </a>
             
+            {/* Séparateur & Switcher Langue */}
             <div className="flex items-center pl-2 border-l border-slate-200 dark:border-slate-800">
               <button 
                 onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}
@@ -445,6 +445,7 @@ export default function HomePage() {
       <nav className={`sticky top-0 z-40 transition-all duration-300 border-b ${scrolled ? (darkMode ? 'bg-slate-900/90 border-slate-800 backdrop-blur-md shadow-lg' : 'bg-white/90 border-slate-200 backdrop-blur-md shadow-md') : (darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200')}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-12 h-20 flex items-center justify-between">
           
+          {/* Logo */}
           <a href="#" className="flex items-center gap-3 group">
             <div>
               <div className="font-bold text-lg leading-none tracking-tight flex items-center gap-1">
@@ -455,6 +456,7 @@ export default function HomePage() {
             </div>
           </a>
 
+          {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-8 text-sm font-medium">
             <a href="#about" className="hover:text-red-600 transition-colors">{t.heroCard3Title}</a>
             <a href="#services" className="hover:text-red-600 transition-colors">{t.heroCard1Title}</a>
@@ -468,6 +470,7 @@ export default function HomePage() {
             </a>
           </div>
 
+          {/* Mobile Menu Toggle */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200"
@@ -476,6 +479,7 @@ export default function HomePage() {
           </button>
         </div>
 
+        {/* Mobile Menu Dropdown avec défilement interne */}
         {mobileMenuOpen && (
           <div className={`md:hidden border-b px-6 py-6 flex flex-col gap-4 font-medium max-h-[calc(100vh-80px)] overflow-y-auto ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
             <a href="#about" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100 dark:border-slate-800">{t.heroCard3Title}</a>
@@ -496,6 +500,7 @@ export default function HomePage() {
       {/* --- HERO SECTION --- */}
       <section className="relative overflow-hidden py-10 sm:py-16 md:py-28 bg-gradient-to-b from-slate-100 via-slate-50 to-white">
         
+        {/* Background Image */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
             src="/colour-dome.png"
@@ -507,6 +512,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-white/40"></div>
         </div>
 
+        {/* Filigrane CDM adapté au mobile */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[100px] sm:text-[180px] md:text-[260px] font-bold opacity-[0.03] pointer-events-none select-none font-serif text-slate-900 leading-none">
           CDM
         </div>
@@ -514,6 +520,8 @@ export default function HomePage() {
         <div className="absolute -bottom-24 -left-24 w-64 h-64 sm:w-96 sm:h-96 rounded-full bg-blue-600/10 blur-3xl pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
+          
+          {/* Main Hero Card */}
           <div className="max-w-4xl mx-auto rounded-2xl p-5 sm:p-8 md:p-14 text-center border shadow-xl md:shadow-2xl relative backdrop-blur-md bg-white/85 border-white/90">
 
             <div className="flex justify-center mb-4 sm:mb-6">
@@ -547,8 +555,10 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* 4 Cards Grid - Key Entrance Links */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-8 sm:mt-12 items-stretch">
             
+            {/* Card 1 */}
             <a 
               href="#services"
               className="h-full p-5 sm:p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-emerald-500/50"
@@ -566,6 +576,7 @@ export default function HomePage() {
               <div className="h-1 w-full bg-emerald-500 absolute bottom-0 left-0"></div>
             </a>
 
+            {/* Card 2 */}
             <a 
               href="#why-us"
               className="h-full p-5 sm:p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-red-500/50"
@@ -583,6 +594,7 @@ export default function HomePage() {
               <div className="h-1 w-full bg-red-600 absolute bottom-0 left-0"></div>
             </a>
 
+            {/* Card 3 */}
             <a 
               href="#about"
               className="h-full p-5 sm:p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-blue-500/50"
@@ -600,6 +612,7 @@ export default function HomePage() {
               <div className="h-1 w-full bg-blue-600 absolute bottom-0 left-0"></div>
             </a>
 
+            {/* Card 4 */}
             <a 
               href="#contact"
               className="h-full p-5 sm:p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-teal-500/50"
@@ -626,6 +639,7 @@ export default function HomePage() {
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             
+            {/* Colonne Image - Placée en premier sur mobile */}
             <div className="relative w-full order-1 lg:order-2">
               <div className="relative h-[240px] xs:h-[280px] sm:h-[380px] lg:h-[560px] w-full rounded-2xl overflow-hidden shadow-xl border border-slate-200 dark:border-slate-800 group">
                 <Image
@@ -649,6 +663,7 @@ export default function HomePage() {
               </div>
             </div>
 
+            {/* Colonne Texte & Acteurs */}
             <div className="w-full order-2 lg:order-1">
               <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-red-600 dark:text-red-400 mb-2 block font-serif">
                 {t.aboutEye}
@@ -665,6 +680,7 @@ export default function HomePage() {
                 {t.aboutBody}
               </p>
 
+              {/* Grille des 4 pôles */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 items-stretch w-full">
                 <div className={`p-3.5 sm:p-5 rounded-xl border flex items-start gap-3 transition-all ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
                   <Building2 className="text-emerald-600 shrink-0 mt-0.5" size={20} />
@@ -869,10 +885,8 @@ export default function HomePage() {
                       <option value="Comptabilité">{t.optAccounting}</option>
                       <option value="Fiscalité">{t.optTax}</option>
                       <option value="Juridique">{t.optLegal}</option>
-                      <option value="Immobilier">{t.optRealEstate}</option>
-                      <option value="International">{t.optInternational}</option>
-                      <option value="Conseil">{t.optConsulting}</option>
-                      <option value="Autres">{t.optOther}</option>
+                      <option value="International">{t.optRealEstate}</option>
+                      <option value="Autre">{t.optOther}</option>
                     </select>
                   </div>
 
@@ -907,6 +921,7 @@ export default function HomePage() {
       <footer className={`py-12 border-t text-sm ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-400' : 'bg-slate-900 text-slate-400 border-slate-800'}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
           
+          {/* Bloc Logo + Nom + Description */}
           <div className="flex flex-col md:flex-row items-center gap-6">
             <Image
               src="/logo.png"
@@ -929,6 +944,7 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* Copyright */}
           <div className="text-xs text-center md:text-right shrink-0">
             <p>{t.footerRights}</p>
           </div>
