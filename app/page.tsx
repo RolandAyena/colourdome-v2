@@ -394,32 +394,42 @@ export default function HomePage() {
     <div className={`${darkMode ? 'dark' : ''} min-h-screen font-sans transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
       
       {/* --- TOP BAR RESPONSIVE --- */}
-      <div className={`border-b text-xs py-2 px-4 sm:px-6 md:px-12 transition-colors ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-200 text-slate-600'}`}>
-        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
-          <div className="flex items-center gap-2 sm:gap-4 text-left">
-            <span className="italic font-serif font-medium text-red-600 dark:text-red-400 text-[11px] sm:text-xs">{t.topTag}</span>
+      <div className={`border-b text-xs py-2 px-3 sm:px-6 md:px-12 transition-colors ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-200 text-slate-600'}`}>
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
+          
+          {/* Tagline / Adresse */}
+          <div className="flex items-center gap-2 sm:gap-4 text-left min-w-0">
+            <span className="italic font-serif font-medium text-red-600 dark:text-red-400 text-[11px] sm:text-xs truncate">
+              {t.topTag}
+            </span>
             <span className="hidden lg:inline text-slate-300 dark:text-slate-700">|</span>
-            <span className="hidden lg:inline">{t.address}</span>
+            <span className="hidden lg:inline text-xs">{t.address}</span>
           </div>
 
-          <div className="flex items-center gap-3 sm:gap-4 ml-auto text-[11px] sm:text-xs">
+          {/* Contact & Langue */}
+          <div className="flex items-center gap-2.5 sm:gap-4 shrink-0 text-[11px] sm:text-xs">
             <a href="tel:5147318811" className="flex items-center gap-1 hover:text-red-600 transition-colors">
-              <Smartphone size={13} /> <span className="hidden xs:inline">514-731-8811</span>
-            </a>
-            <a href="mailto:info@colourdome.ca" className="flex items-center gap-1 hover:text-red-600 transition-colors">
-              <Mail size={13} /> <span className="hidden sm:inline">info@colourdome.ca</span>
+              <Smartphone size={13} className="shrink-0" /> 
+              <span className="hidden sm:inline">514-731-8811</span>
             </a>
             
-            {/* Lang Switcher */}
-            <div className="flex items-center gap-2 pl-2 border-l border-slate-200 dark:border-slate-800">
+            <a href="mailto:info@colourdome.ca" className="flex items-center gap-1 hover:text-red-600 transition-colors">
+              <Mail size={13} className="shrink-0" /> 
+              <span className="hidden md:inline">info@colourdome.ca</span>
+            </a>
+            
+            {/* Séparateur & Switcher Langue */}
+            <div className="flex items-center pl-2 border-l border-slate-200 dark:border-slate-800">
               <button 
                 onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}
-                className="px-2 py-0.5 rounded font-bold text-xs bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400 hover:bg-red-200 transition-all"
+                className="px-2 py-0.5 rounded font-bold text-[11px] sm:text-xs bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400 hover:bg-red-200 transition-all"
+                aria-label="Changer de langue"
               >
                 {lang.toUpperCase()}
               </button>
             </div>
           </div>
+
         </div>
       </div>
 
