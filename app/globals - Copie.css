@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+/* Le thème est piloté par le bouton de l'application, pas par le système. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --motion-ease: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Les logos fournis sont optimisés pour un fond clair. En sombre, on garde
+   leur silhouette lisible sans modifier le fichier source de l'asset. */
+.dark .theme-logo {
+  filter: brightness(0) invert(1) drop-shadow(0 0 12px rgb(255 255 255 / 0.12));
+}
+
+/* =========================================================
+   ANIMATIONS D'ENTRÉE AU SCROLL
+   - Pilotées par IntersectionObserver dans page.tsx
+   - Un seul déplacement à la fois : fluidité et lisibilité
+   - Les éléments restent visibles si l'utilisateur réduit les mouvements
+   ========================================================= */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    transition:
+      opacity 720ms var(--motion-ease),
+      transform 720ms var(--motion-ease);
+    will-change: opacity, transform;
+  }
+
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  /* Variantes discrètes pour éviter l'effet répétitif d'une grille uniforme. */
+  [data-reveal].reveal-fade {
+    transform: translate3d(0, 12px, 0);
+  }
+
+  [data-reveal].reveal-rise {
+    transform: translate3d(0, 30px, 0);
+  }
+
+  [data-reveal].reveal-slide-left {
+    transform: translate3d(-42px, 16px, 0);
+  }
+
+  [data-reveal].reveal-slide-right {
+    transform: translate3d(42px, 16px, 0);
+  }
+
+  [data-reveal].reveal-scale {
+    transform: translate3d(0, 18px, 0) scale(0.965);
+  }
+
+  [data-reveal].reveal-blur {
+    filter: blur(8px);
+    transform: translate3d(0, 18px, 0);
+    transition:
+      opacity 760ms var(--motion-ease),
+      transform 760ms var(--motion-ease),
+      filter 760ms var(--motion-ease);
+  }
+
+  [data-reveal].reveal-blur.is-visible {
+    filter: blur(0);
+  }
+
+  [data-reveal].reveal-clip {
+    clip-path: inset(0 0 100% 0);
+    transform: translate3d(0, 12px, 0);
+    transition:
+      opacity 760ms var(--motion-ease),
+      transform 760ms var(--motion-ease),
+      clip-path 900ms var(--motion-ease);
+  }
+
+  [data-reveal].reveal-clip.is-visible {
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* Stagger limité à 60–240 ms : la cascade reste perceptible sans ralentir la page. */
+  [data-reveal].reveal-delay-1 { transition-delay: 60ms; }
+  [data-reveal].reveal-delay-2 { transition-delay: 120ms; }
+  [data-reveal].reveal-delay-3 { transition-delay: 180ms; }
+  [data-reveal].reveal-delay-4 { transition-delay: 240ms; }
+  [data-reveal].reveal-delay-5 { transition-delay: 300ms; }
+  [data-reveal].reveal-delay-6 { transition-delay: 360ms; }
+
+  @keyframes modal-backdrop-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes modal-panel-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  .modal-backdrop {
+    animation: modal-backdrop-in 260ms ease-out both;
+  }
+
+  .modal-panel {
+    animation: modal-panel-in 360ms var(--motion-ease) 40ms both;
+  }
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    clip-path: none;
+  }
+}

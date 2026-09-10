@@ -17,11 +17,7 @@ export const metadata: Metadata = {
   description: "Cabinet de services-conseils",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"

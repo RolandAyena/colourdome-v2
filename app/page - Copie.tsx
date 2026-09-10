@@ -13,7 +13,7 @@ import {
 import ServicesCoverflow from './components/ServicesCoverflow';
 import WhyChooseUsTimeline from './components/WhyChooseUsTimeline';
 
-// --- DICTIONNAIRE DE TRADUCTIONS COMPLET ---
+// --- DICTIONNAIRE DE TRADUCTIONS COMPLET & CORRIGÉ ---
 const translations = {
   fr: {
     pageTitle: "Colour Dome Montréal — Comptabilité & Conseil Juridique",
@@ -259,8 +259,8 @@ export default function HomePage() {
         }
       });
     }, {
-      rootMargin: '0px 0px -10% 0px',
-      threshold: 0.1,
+      rootMargin: '0px 0px -12% 0px',
+      threshold: 0.12,
     });
 
     revealElements.forEach((element) => observer.observe(element));
@@ -311,6 +311,7 @@ export default function HomePage() {
     }
   };
 
+  // Dynamic Structured Services Data
   const servicesData = [
     {
       id: '01',
@@ -395,7 +396,7 @@ export default function HomePage() {
   return (
     <div className={`${darkMode ? 'dark' : ''} min-h-screen font-sans transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
       
-      {/* TOP BAR */}
+      {/* --- TOP BAR RESPONSIVE --- */}
       <div className={`border-b text-xs py-2 px-3 sm:px-6 md:px-12 transition-colors ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-200 text-slate-600'}`}>
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
           
@@ -432,7 +433,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* COLOR BAND ACCENT */}
+      {/* --- COLOR BAND ACCENT --- */}
       <div className="h-1 w-full grid grid-cols-4">
         <div className="bg-emerald-500"></div>
         <div className="bg-amber-400"></div>
@@ -440,7 +441,7 @@ export default function HomePage() {
         <div className="bg-blue-600"></div>
       </div>
 
-      {/* NAVIGATION */}
+      {/* --- NAVIGATION --- */}
       <nav className={`sticky top-0 z-40 transition-all duration-300 border-b ${scrolled ? (darkMode ? 'bg-slate-900/90 border-slate-800 backdrop-blur-md shadow-lg' : 'bg-white/90 border-slate-200 backdrop-blur-md shadow-md') : (darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200')}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-12 h-20 flex items-center justify-between">
           
@@ -492,8 +493,9 @@ export default function HomePage() {
         )}
       </nav>
 
-      {/* HERO SECTION */}
+      {/* --- HERO SECTION --- */}
       <section className="relative overflow-hidden py-10 sm:py-16 md:py-28 bg-gradient-to-b from-slate-100 via-slate-50 to-white">
+        
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
             src="/colour-dome.png"
@@ -512,7 +514,8 @@ export default function HomePage() {
         <div className="absolute -bottom-24 -left-24 w-64 h-64 sm:w-96 sm:h-96 rounded-full bg-blue-600/10 blur-3xl pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
-          <div data-reveal className="reveal reveal-rise max-w-4xl mx-auto rounded-2xl p-5 sm:p-8 md:p-14 text-center border shadow-xl md:shadow-2xl relative backdrop-blur-md bg-white/85 border-white/90">
+          <div className="max-w-4xl mx-auto rounded-2xl p-5 sm:p-8 md:p-14 text-center border shadow-xl md:shadow-2xl relative backdrop-blur-md bg-white/85 border-white/90">
+
             <div className="flex justify-center mb-4 sm:mb-6">
               <Image
                 src="/image.png"
@@ -545,10 +548,10 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-8 sm:mt-12 items-stretch">
+            
             <a 
               href="#services"
-              data-reveal
-              className="reveal reveal-rise reveal-delay-1 h-full p-5 sm:p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-emerald-500/50"
+              className="h-full p-5 sm:p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-emerald-500/50"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-emerald-500/10 text-emerald-600 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
                 <Calculator size={22} />
@@ -565,8 +568,7 @@ export default function HomePage() {
 
             <a 
               href="#why-us"
-              data-reveal
-              className="reveal reveal-rise reveal-delay-2 h-full p-5 sm:p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-red-500/50"
+              className="h-full p-5 sm:p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-red-500/50"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-red-500/10 text-red-600 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
                 <TrendingUp size={22} />
@@ -583,8 +585,7 @@ export default function HomePage() {
 
             <a 
               href="#about"
-              data-reveal
-              className="reveal reveal-scale reveal-delay-3 h-full p-5 sm:p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-blue-500/50"
+              className="h-full p-5 sm:p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-blue-500/50"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-blue-500/10 text-blue-600 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
                 <Building2 size={22} />
@@ -601,8 +602,7 @@ export default function HomePage() {
 
             <a 
               href="#contact"
-              data-reveal
-              className="reveal reveal-rise reveal-delay-4 h-full p-5 sm:p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-teal-500/50"
+              className="h-full p-5 sm:p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden flex flex-col bg-white/90 border-slate-200 hover:border-teal-500/50"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-teal-500/10 text-teal-600 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
                 <Calendar size={22} />
@@ -616,18 +616,18 @@ export default function HomePage() {
               </p>
               <div className="h-1 w-full bg-teal-600 absolute bottom-0 left-0"></div>
             </a>
+
           </div>
         </div>
       </section>
 
-      {/* SECTION QUI NOUS SOMMES */}
-      <section id="about" className={`py-12 sm:py-20 lg:py-28 border-y overflow-hidden ${darkMode ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-slate-200'}`}>
+      {/* --- SECTION QUI NOUS SOMMES --- */}
+      <section id="about" className={`py-10 sm:py-16 lg:py-24 border-y overflow-hidden ${darkMode ? 'bg-slate-900/30 border-slate-800' : 'bg-white border-slate-200'}`}>
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center mb-10 lg:mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             
-            {/* BLOC IMAGE */}
-            <div data-reveal className="reveal reveal-rise w-full order-1 lg:order-2">
-              <div className="relative h-[260px] xs:h-[300px] sm:h-[400px] lg:h-[560px] w-full rounded-2xl overflow-hidden shadow-xl border border-slate-200 dark:border-slate-800 group">
+            <div className="relative w-full order-1 lg:order-2">
+              <div className="relative h-[240px] xs:h-[280px] sm:h-[380px] lg:h-[560px] w-full rounded-2xl overflow-hidden shadow-xl border border-slate-200 dark:border-slate-800 group">
                 <Image
                   src="/qui-sommes-nous.jpg"
                   alt="Colour Dome Montréal"
@@ -637,20 +637,19 @@ export default function HomePage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
                 
-                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 p-4 sm:p-6 rounded-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200/50 dark:border-slate-800/50 shadow-lg flex items-center justify-between gap-3">
+                <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 p-3 sm:p-6 rounded-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200/50 dark:border-slate-800/50 shadow-lg flex items-center justify-between gap-2">
                   <div className="min-w-0 flex-1">
-                    <p className="font-serif font-bold text-base sm:text-xl text-slate-900 dark:text-white truncate">Colour Dome {t.city}</p>
-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 line-clamp-1">
+                    <p className="font-serif font-bold text-sm sm:text-xl text-slate-900 dark:text-white truncate">Colour Dome {t.city}</p>
+                    <p className="text-[11px] sm:text-sm text-slate-600 dark:text-slate-400 line-clamp-1">
                       {lang === 'fr' ? "Services comptables, fiscaux & juridiques" : "Accounting, Tax & Legal Services"}
                     </p>
                   </div>
-                  <span className="text-base sm:text-2xl font-black text-red-600 dark:text-red-500 font-serif shrink-0">17+ {lang === 'fr' ? 'ans' : 'yrs'}</span>
+                  <span className="text-sm sm:text-2xl font-black text-red-600 dark:text-red-500 font-serif shrink-0">17+ {lang === 'fr' ? 'ans' : 'yrs'}</span>
                 </div>
               </div>
             </div>
 
-            {/* BLOC TEXTE */}
-            <div data-reveal className="reveal reveal-rise w-full order-2 lg:order-1">
+            <div className="w-full order-2 lg:order-1">
               <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-red-600 dark:text-red-400 mb-2 block font-serif">
                 {t.aboutEye}
               </span>
@@ -662,50 +661,54 @@ export default function HomePage() {
                 {t.aboutTagline}
               </p>
 
-              <p className="text-xs sm:text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6 sm:mb-8 text-justify">
+{/*               <p className="text-xs sm:text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6 sm:mb-8">
                 {t.aboutBody}
-              </p>
+              </p> */}
+
+              <p className="text-xs sm:text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6 sm:mb-8 text-justify">
+  {t.aboutBody}
+</p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 items-stretch w-full">
-                <div data-reveal className={`reveal reveal-rise reveal-delay-1 p-4 sm:p-5 rounded-xl border flex items-start gap-3.5 transition-all ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
-                  <Building2 className="text-emerald-600 shrink-0 mt-1" size={22} />
+                <div className={`p-3.5 sm:p-5 rounded-xl border flex items-start gap-3 transition-all ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
+                  <Building2 className="text-emerald-600 shrink-0 mt-0.5" size={20} />
                   <div className="min-w-0">
-                    <h4 className="font-bold text-sm sm:text-base mb-1 text-slate-900 dark:text-white leading-snug">{t.actor1Title}</h4>
+                    <h4 className="font-bold text-sm sm:text-base mb-0.5 text-slate-900 dark:text-white leading-snug">{t.actor1Title}</h4>
                     <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-normal">{t.actor1Desc}</p>
                   </div>
                 </div>
 
-                <div data-reveal className={`reveal reveal-rise reveal-delay-2 p-4 sm:p-5 rounded-xl border flex items-start gap-3.5 transition-all ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
-                  <Users className="text-amber-600 shrink-0 mt-1" size={22} />
+                <div className={`p-3.5 sm:p-5 rounded-xl border flex items-start gap-3 transition-all ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
+                  <Users className="text-amber-600 shrink-0 mt-0.5" size={20} />
                   <div className="min-w-0">
-                    <h4 className="font-bold text-sm sm:text-base mb-1 text-slate-900 dark:text-white leading-snug">{t.actor2Title}</h4>
+                    <h4 className="font-bold text-sm sm:text-base mb-0.5 text-slate-900 dark:text-white leading-snug">{t.actor2Title}</h4>
                     <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-normal">{t.actor2Desc}</p>
                   </div>
                 </div>
 
-                <div data-reveal className={`reveal reveal-rise reveal-delay-3 p-4 sm:p-5 rounded-xl border flex items-start gap-3.5 transition-all ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
-                  <Globe className="text-red-600 shrink-0 mt-1" size={22} />
+                <div className={`p-3.5 sm:p-5 rounded-xl border flex items-start gap-3 transition-all ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
+                  <Globe className="text-red-600 shrink-0 mt-0.5" size={20} />
                   <div className="min-w-0">
-                    <h4 className="font-bold text-sm sm:text-base mb-1 text-slate-900 dark:text-white leading-snug">{t.actor3Title}</h4>
+                    <h4 className="font-bold text-sm sm:text-base mb-0.5 text-slate-900 dark:text-white leading-snug">{t.actor3Title}</h4>
                     <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-normal">{t.actor3Desc}</p>
                   </div>
                 </div>
 
-                <div data-reveal className={`reveal reveal-rise reveal-delay-4 p-4 sm:p-5 rounded-xl border flex items-start gap-3.5 transition-all ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
-                  <Briefcase className="text-blue-600 shrink-0 mt-1" size={22} />
+                <div className={`p-3.5 sm:p-5 rounded-xl border flex items-start gap-3 transition-all ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
+                  <Briefcase className="text-blue-600 shrink-0 mt-0.5" size={20} />
                   <div className="min-w-0">
-                    <h4 className="font-bold text-sm sm:text-base mb-1 text-slate-900 dark:text-white leading-snug">{t.actor4Title}</h4>
+                    <h4 className="font-bold text-sm sm:text-base mb-0.5 text-slate-900 dark:text-white leading-snug">{t.actor4Title}</h4>
                     <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-normal">{t.actor4Desc}</p>
                   </div>
                 </div>
               </div>
-
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* SERVICES */}
+      {/* --- SERVICES --- */}
       <ServicesCoverflow
         services={servicesData}
         moreInfo={t.moreInfo}
@@ -714,7 +717,7 @@ export default function HomePage() {
         darkMode={darkMode}
       />
 
-      {/* SECTION WHY CHOOSE US */}
+      {/* --- SECTION WHY CHOOSE US --- */}
       <section id="why-us">
         <WhyChooseUsTimeline
           lang={lang}
@@ -723,16 +726,16 @@ export default function HomePage() {
         />
       </section>
 
-      {/* SECTION CONTACT */}
-      <section id="contact" className={`py-12 sm:py-20 lg:py-28 overflow-hidden w-full ${darkMode ? 'bg-slate-950' : 'bg-slate-50'}`}>
+      {/* --- SECTION CONTACT & FORMULAIRE --- */}
+      <section id="contact" className={`py-12 sm:py-20 md:py-28 overflow-hidden ${darkMode ? 'bg-slate-950' : 'bg-slate-50'}`}>
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-start w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             
             {/* Info Contact */}
-            <div data-reveal className="reveal reveal-rise w-full space-y-6 sm:space-y-8">
+            <div className="w-full space-y-6 sm:space-y-8">
               <div>
-                <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-red-600 dark:text-red-400 mb-2 block font-serif">
+                <span className="text-xs font-bold uppercase tracking-widest text-red-600 dark:text-red-400 mb-2 block font-serif">
                   {t.contactEye}
                 </span>
                 <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold font-serif mb-3 sm:mb-4 text-slate-900 dark:text-white leading-tight break-words">
@@ -743,43 +746,34 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="space-y-4 sm:space-y-6 w-full">
-                {/* Adresse */}
-                <div className="flex items-start gap-3.5 sm:gap-4 w-full">
+              <div className="space-y-4 sm:space-y-6">
+                <div className="flex items-start gap-3 sm:gap-4">
                   <div className="p-2.5 sm:p-3 rounded-xl bg-red-600/10 text-red-600 dark:text-red-400 shrink-0">
-                    <MapPin size={22} />
+                    <MapPin size={20} />
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <h4 className="font-bold text-sm sm:text-base mb-0.5 text-slate-900 dark:text-white">
-                      {lang === 'fr' ? "Adresse du cabinet" : "Office Address"}
-                    </h4>
-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-normal break-words">
-                      {t.addressCity}
-                    </p>
+                  <div className="min-w-0">
+                    <h4 className="font-bold text-sm sm:text-base mb-0.5 text-slate-900 dark:text-white">{lang === 'fr' ? "Adresse du cabinet" : "Office Address"}</h4>
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-normal break-words">{t.addressCity}</p>
                   </div>
                 </div>
 
-                {/* Téléphone */}
-                <div className="flex items-start gap-3.5 sm:gap-4 w-full">
+                <div className="flex items-start gap-3 sm:gap-4">
                   <div className="p-2.5 sm:p-3 rounded-xl bg-red-600/10 text-red-600 dark:text-red-400 shrink-0">
-                    <Smartphone size={22} />
+                    <Smartphone size={20} />
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <h4 className="font-bold text-sm sm:text-base mb-0.5 text-slate-900 dark:text-white">
-                      {lang === 'fr' ? "Téléphone direct" : "Direct Phone"}
-                    </h4>
+                  <div className="min-w-0">
+                    <h4 className="font-bold text-sm sm:text-base mb-0.5 text-slate-900 dark:text-white">{lang === 'fr' ? "Téléphone direct" : "Direct Phone"}</h4>
                     <a href="tel:5147318811" className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 hover:text-red-600 transition-colors block">
                       514-731-8811
                     </a>
                   </div>
                 </div>
 
-                {/* Fax */}
-                <div className="flex items-start gap-3.5 sm:gap-4 w-full">
+                <div className="flex items-start gap-3 sm:gap-4">
                   <div className="p-2.5 sm:p-3 rounded-xl bg-red-600/10 text-red-600 dark:text-red-400 shrink-0">
-                    <Phone size={22} />
+                    <Phone size={20} />
                   </div>
-                  <div className="min-w-0 flex-1">
+                  <div className="min-w-0">
                     <h4 className="font-bold text-sm sm:text-base mb-0.5 text-slate-900 dark:text-white">Fax</h4>
                     <a href="tel:5147310285" className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 hover:text-red-600 transition-colors block">
                       514-731-0285
@@ -787,16 +781,13 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* Courriel */}
-                <div className="flex items-start gap-3.5 sm:gap-4 w-full">
+                <div className="flex items-start gap-3 sm:gap-4">
                   <div className="p-2.5 sm:p-3 rounded-xl bg-red-600/10 text-red-600 dark:text-red-400 shrink-0">
-                    <Mail size={22} />
+                    <Mail size={20} />
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <h4 className="font-bold text-sm sm:text-base mb-0.5 text-slate-900 dark:text-white">
-                      {lang === 'fr' ? "Courriel" : "Email"}
-                    </h4>
-                    <a href="mailto:info@colourdome.ca" className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 hover:text-red-600 transition-colors block break-all">
+                  <div className="min-w-0">
+                    <h4 className="font-bold text-sm sm:text-base mb-0.5 text-slate-900 dark:text-white">{lang === 'fr' ? "Courriel" : "Email"}</h4>
+                    <a href="mailto:info@colourdome.ca" className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 hover:text-red-600 transition-colors block truncate">
                       info@colourdome.ca
                     </a>
                   </div>
@@ -805,80 +796,78 @@ export default function HomePage() {
             </div>
 
             {/* Formulaire */}
-            <div data-reveal className={`reveal reveal-rise reveal-delay-1 w-full p-5 sm:p-8 md:p-10 rounded-2xl border shadow-xl ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-              <h3 className="text-xl sm:text-2xl font-bold font-serif mb-5 sm:mb-6 text-slate-900 dark:text-white">
-                {t.formTitle}
-              </h3>
+            <div className={`w-full p-4 sm:p-8 md:p-10 rounded-2xl border shadow-xl ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+              <h3 className="text-xl sm:text-2xl font-bold font-serif mb-4 sm:mb-6 text-slate-900 dark:text-white">{t.formTitle}</h3>
 
               {formSubmitted ? (
                 <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm">
                   {t.successMsg}
                 </div>
               ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-4 w-full">
+                <form onSubmit={handleFormSubmit} className="space-y-3.5 sm:space-y-4">
                   {formError && (
                     <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs">
                       {formError}
                     </div>
                   )}
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                     <div className="w-full">
-                      <label className="block text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">{t.firstName}</label>
+                      <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">{t.firstName}</label>
                       <input 
                         type="text" 
                         name="firstName"
                         required
                         value={formData.firstName}
                         onChange={handleFormChange}
-                        className={`w-full px-4 py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-red-600 ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}`}
+                        className={`w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-red-600 ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}`}
                       />
                     </div>
                     <div className="w-full">
-                      <label className="block text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">{t.lastName}</label>
+                      <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">{t.lastName}</label>
                       <input 
                         type="text" 
                         name="lastName"
                         required
                         value={formData.lastName}
                         onChange={handleFormChange}
-                        className={`w-full px-4 py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-red-600 ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}`}
+                        className={`w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-red-600 ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}`}
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                     <div className="w-full">
-                      <label className="block text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">{t.email}</label>
+                      <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">{t.email}</label>
                       <input 
                         type="email" 
                         name="email"
                         required
                         value={formData.email}
                         onChange={handleFormChange}
-                        className={`w-full px-4 py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-red-600 ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}`}
+                        className={`w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-red-600 ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}`}
                       />
                     </div>
                     <div className="w-full">
-                      <label className="block text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">{t.phone}</label>
+                      <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">{t.phone}</label>
                       <input 
                         type="tel" 
                         name="phone"
                         value={formData.phone}
                         onChange={handleFormChange}
-                        className={`w-full px-4 py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-red-600 ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}`}
+                        className={`w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-red-600 ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}`}
                       />
                     </div>
                   </div>
 
                   <div className="w-full">
-                    <label className="block text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">{t.serviceSelect}</label>
+                    <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">{t.serviceSelect}</label>
                     <select
                       name="service"
                       required
                       value={formData.service}
                       onChange={handleFormChange}
-                      className={`w-full px-4 py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-red-600 ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}`}
+                      className={`w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-red-600 ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}`}
                     >
                       <option value="">{t.selectOptionDefault}</option>
                       <option value="Comptabilité">{t.optAccounting}</option>
@@ -892,21 +881,21 @@ export default function HomePage() {
                   </div>
 
                   <div className="w-full">
-                    <label className="block text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">{t.message}</label>
+                    <label className="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">{t.message}</label>
                     <textarea 
                       name="message"
                       rows={4}
                       required
                       value={formData.message}
                       onChange={handleFormChange}
-                      className={`w-full px-4 py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-red-600 ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}`}
+                      className={`w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-red-600 ${darkMode ? 'bg-slate-800 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}`}
                     ></textarea>
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSending}
-                    className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3.5 rounded-lg transition-all shadow-lg hover:shadow-red-600/20 disabled:opacity-50 text-sm sm:text-base mt-2"
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition-all shadow-lg hover:shadow-red-600/20 disabled:opacity-50 text-sm sm:text-base"
                   >
                     {isSending ? t.sendingMsg : t.submitBtn}
                   </button>
@@ -918,7 +907,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* --- FOOTER --- */}
       <footer className={`py-12 border-t text-sm ${darkMode ? 'bg-slate-950 border-slate-800 text-slate-400' : 'bg-slate-900 text-slate-400 border-slate-800'}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
           
@@ -951,7 +940,7 @@ export default function HomePage() {
         </div>
       </footer>
 
-      {/* SCROLL TO TOP */}
+      {/* --- SCROLL TO TOP BUTTON --- */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}

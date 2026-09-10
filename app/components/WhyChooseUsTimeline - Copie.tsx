@@ -70,11 +70,11 @@ export default function WhyChooseUsTimeline({
       ];
 
   return (
-    <section className={`py-14 sm:py-20 md:py-28 border-y overflow-hidden transition-colors duration-300 ${darkMode ? 'border-slate-800 bg-slate-950 text-white' : 'border-slate-200 bg-white text-slate-950'}`}>
+    <section className={`py-12 sm:py-16 md:py-24 border-y overflow-hidden transition-colors duration-300 ${darkMode ? 'border-slate-800 bg-slate-950 text-white' : 'border-slate-200 bg-white text-slate-950'}`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-12">
         
-        {/* Entête */}
-        <div data-reveal className="reveal reveal-rise mb-10 sm:mb-14 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6">
+        {/* Entête minimaliste */}
+        <div className="mb-10 sm:mb-14 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6">
           <div className="max-w-xl">
             <span className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1 sm:mb-2 block font-mono">
               04 · {isFrench ? 'Notre différence' : 'Our difference'}
@@ -90,13 +90,12 @@ export default function WhyChooseUsTimeline({
           </p>
         </div>
 
-        {/* Grille responsive */}
+        {/* Grille typographique dépouillée */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12">
-          {items.map((item, index) => (
+          {items.map((item) => (
             <div 
               key={item.number} 
-              data-reveal
-              className={`reveal reveal-rise reveal-delay-${index + 1} flex flex-col justify-between border-t pt-5 sm:pt-6 ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}
+              className={`flex flex-col justify-between border-t pt-5 sm:pt-6 ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}
             >
               <div>
                 <span className={`font-mono text-xs font-semibold block mb-3 sm:mb-6 ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}>
@@ -115,7 +114,7 @@ export default function WhyChooseUsTimeline({
           ))}
         </div>
 
-        {/* Action */}
+        {/* Bouton d'action épuré */}
         <div className="mt-12 sm:mt-16 text-center">
           <a
             href="#contact"
